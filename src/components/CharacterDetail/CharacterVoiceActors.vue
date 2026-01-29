@@ -1,7 +1,7 @@
 <template>
   <h2 class="pt-1 text-quaternary tracking-wide">Voice Actors</h2>
   <template v-if="props.character?.va?.length">
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row gap-8">
       <div class="flex flex-col gap-2">
         <div v-for="item in sortedGroupedVA" :key="item.code">
           <span :class="`fi fi-${item.code}`"></span>
