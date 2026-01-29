@@ -36,16 +36,16 @@
                 </h3>
               </div>
               <div class="flex flex-row gap-2">
-                <p class="badge badge-soft badge-accent px-2">
+                <p class="badge badge-soft badge-accent p-2">
                   {{ artifact.artifact_id.two_piece.name }}
                 </p>
-                <button
+                <div
                   v-if="group.length === 1"
-                  class="badge badge-soft badge-info px-2 cursor-pointer"
+                  class="badge badge-soft badge-info p-2 cursor-pointer"
                   @click="openBox(artifact.artifact_id.four_piece)"
                 >
                   View
-                </button>
+                </div>
                 <div
                   v-if="isOpen"
                   class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
@@ -59,7 +59,7 @@
                     </p>
 
                     <button
-                      class=" btn btn-sm btn-primary px-4 py-2"
+                      class="btn btn-sm btn-primary px-4 py-2"
                       @click="closeBox"
                     >
                       Close
