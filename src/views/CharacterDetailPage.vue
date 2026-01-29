@@ -16,19 +16,6 @@
             </div>
           </div>
         </article>
-        <!-- <article class="bg-primary min-h-[350px] mx-24">
-          <CharacterBasicInfo class="w-1/2 h-[350px] ml-24" :character="character" />
-          <div class="w-1/2 h-[350px]">
-            <div class="bg-primary h-full mr-24 rounded-2xl flex flex-col justify-around px-8 pb-2">
-              <CharacterVoiceActors :character="character" />
-              <div class="flex flex-row">
-                <CharacterRegions :character="character" />
-                <CharacterAffiliation :character="character" />
-              </div>
-            </div>
-          </div>
-        </article> -->
-
         <CharacterInfo :character="character" />
         <div class="w-full h-auto mt-20 mb-5 flex flex-row gap-8">
           <CharacterWeapons :character="character" />
@@ -148,7 +135,8 @@ async function fetchCharacterById(characterId) {
         level_up_mats:character_level_up(*, materials_level_up_id(name, img_url)),
         talent_mats:character_talent(*, materials_talent_id(name, img_url)),
         enhancement_mats:character_enhancement(*, materials_enhancement_id(name, img_url)),
-        local_specialty:character_local_specialty(*, local_specialty_id(name, img_url))
+        local_specialty:character_local_specialty(*, local_specialty_id(name, img_url)),
+        role:role(id, name)
       `,
       )
       .eq("id", characterId)

@@ -36,6 +36,9 @@
       <p v-if="character.main_stat" class="badge badge-neutral tracking-wide">
         {{ character.main_stat.name }}
       </p>
+      <p v-if="character.main_stat" class="badge badge-neutral tracking-wide">
+        {{ character.role.name }}
+      </p>
       <p
         v-if="character.released_region"
         class="badge badge-neutral tracking-wide"
