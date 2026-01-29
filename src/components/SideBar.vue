@@ -3,7 +3,7 @@
     class="bg-primary text-text flex flex-col justify-between h-full shadow-2xl"
   >
     <div>
-      <div class="flex flex-col justify-center items-center pt-6 pb-4">
+      <div class="flex flex-col justify-center items-center p-4">
         <div
           class="w-1/2 transform transition-all duration-500 hover:scale-110 hover:rotate-3"
         >
@@ -13,11 +13,8 @@
             class="w-full drop-shadow-2xl"
           />
         </div>
-        <h1
-          class="divider pt-4 px-3 text-2xl"
-        >
-          Stratagema
-        </h1>
+        <h1 class="divider pt-4 pb-2 px-3 text-2xl">Stratagema</h1>
+        <h4 class="text-gray-600">BETA v0.2</h4>
       </div>
       <nav class="flex flex-col space-y-2 px-4">
         <router-link
@@ -109,7 +106,11 @@
             href="#"
             class="w-10 h-10 rounded-full bg-primary flex items-center justify-center transition-all duration-300 hover:bg-tertiary hover:scale-110 hover:rotate-12"
           >
-          <img src="/src/assets/images/icons/patreon.png" alt="patreon" class="w-4">
+            <img
+              src="/src/assets/images/icons/patreon.png"
+              alt="patreon"
+              class="w-4"
+            />
           </a>
           <a
             href="#"
