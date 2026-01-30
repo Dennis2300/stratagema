@@ -2,7 +2,7 @@
   <transition name="slide-up">
     <div
       v-if="showPopup"
-      class="bg-primary fixed bottom-0 left-0 right-0 w-full shadow-2xl z-50"
+      class="bg-gray-700 fixed bottom-0 left-0 right-0 w-full shadow-2xl z-50"
     >
       <div
         class="container mx-auto px-6 py-6 flex items-center justify-between gap-6"
@@ -17,9 +17,12 @@
               We use cookies to enhance your browsing experience, serve
               personalized content, and analyze our traffic. By clicking "Accept
               All", you consent to our use of cookies.
-              <a href="#privacy" class="underline hover:text-white/70"
-                >Learn more</a
+              <router-link
+                to="privacy-policy"
+                class="underline hover:text-white/70"
               >
+                Learn More
+              </router-link>
             </p>
           </div>
         </div>
