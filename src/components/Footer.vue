@@ -12,7 +12,7 @@
           </h6>
           <div class="flex flex-col gap-3">
             <router-link
-              to="/about"
+              to="/privacy-policy"
               class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block"
             >
               Privacy Policy
