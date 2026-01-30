@@ -11,12 +11,12 @@
             Links
           </h6>
           <div class="flex flex-col gap-3">
-            <a
-              href="/about"
+            <router-link
+              to="/about"
               class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block"
             >
-              About
-            </a>
+              Privacy Policy
+            </router-link>
             <a
               href="https://www.patreon.com/"
               target="_blank"
@@ -31,12 +31,12 @@
             >
               Github
             </a>
-            <RouterLink
+            <router-link
               to="/login"
               class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block"
             >
               Login
-            </RouterLink>
+            </router-link>
           </div>
         </nav>
 

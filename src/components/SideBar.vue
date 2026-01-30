@@ -173,8 +173,7 @@ const navLinks = [
   { name: "Characters", path: "/characters" },
   { name: "Weapons", path: "/weapons" },
   { name: "Artifacts", path: "/artifacts" },
-  { name: "Banners", path: "/current-banner" },
-  { name: "About", path: "/about" },
+  { name: "Banners", path: "/current-banner" }
 ];
 
 async function logout() {
