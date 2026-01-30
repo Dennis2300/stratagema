@@ -4,7 +4,8 @@
   >
     <div>
       <div class="flex flex-col justify-center items-center p-4">
-        <div
+        <router-link
+          to="/"
           class="w-1/2 transform transition-all duration-500 hover:scale-110 hover:rotate-3"
         >
           <img
@@ -12,7 +13,7 @@
             alt="stratagema"
             class="w-full drop-shadow-2xl"
           />
-        </div>
+        </router-link>
         <h1 class="divider pt-4 pb-2 px-3 text-2xl">Stratagema</h1>
         <h4 class="text-gray-600">BETA v0.2</h4>
       </div>
@@ -173,7 +174,7 @@ const navLinks = [
   { name: "Characters", path: "/characters" },
   { name: "Weapons", path: "/weapons" },
   { name: "Artifacts", path: "/artifacts" },
-  { name: "Banners", path: "/current-banner" }
+  { name: "Banners", path: "/current-banner" },
 ];
 
 async function logout() {
