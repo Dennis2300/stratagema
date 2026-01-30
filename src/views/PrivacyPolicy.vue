@@ -2,7 +2,7 @@
   <div class="mx-24 mt-4">
     <h1>Privacy Policy</h1>
     <div class="divider w-24 mb-2"></div>
-    <div class="space-y-4 mb-24">
+    <div class="space-y-10 mb-10">
       <div class="bg-primary p-6 rounded-2xl space-y-2">
         <h2>Information We Collect</h2>
         <p>
