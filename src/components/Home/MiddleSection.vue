@@ -42,22 +42,22 @@ const navLinks = [
   {
     name: "Characters",
     path: "/characters",
-    image: "/src/assets/images/twins.webp",
+    image: "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/twins.webp",
   },
   {
     name: "Weapons",
     path: "/weapons",
-    image: "/src/assets/images/skirk.webp",
+    image: "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/skirk.webp",
   },
   {
     name: "Artifacts",
     path: "/artifacts",
-    image: "/src/assets/images/chiori.webp",
+    image: "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/chiori.webp",
   },
   {
     name: "Banners",
     path: "/current-banner",
-    image: "/src/assets/images/twins2.png",
+    image: "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/twins2.png",
   },
 ];
 </script>

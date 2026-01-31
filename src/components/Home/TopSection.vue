@@ -2,7 +2,7 @@
   <div class="w-3/4 bg-secondary p-8 rounded-2xl">
     <div class="w-full h-[500px] overflow-hidden rounded-xl">
       <img
-        src="/src/assets/images/zhongli.webp"
+        src="https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/zhongli.webp"
         alt="Zhongli"
         class="w-full h-full object-cover object-top"
       />
