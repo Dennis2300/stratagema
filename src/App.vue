@@ -13,8 +13,11 @@
 </template>
 
 <script setup>
+import { inject } from "@vercel/analytics";
 import SideBar from "./components/SideBar.vue";
 import Footer from "./components/Footer.vue";
 import SupportPopUp from "./components/SupportPopUp.vue";
 import Cookies from "./components/Cookies.vue";
+// Initialize Vercel Analytics
+inject();
 </script>
