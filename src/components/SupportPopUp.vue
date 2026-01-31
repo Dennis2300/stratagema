@@ -77,7 +77,7 @@
                 />
               </svg>
             </a>
-            <a
+            <!-- <a
               href="#"
               class="flex items-center gap-3 p-3 bg-primary rounded-lg hover:bg-tertiary/20 transition-all duration-200 group no-underline"
             >
@@ -117,7 +117,7 @@
                   d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
                 />
               </svg>
-            </a>
+            </a> -->
           </div>
         </div>
       </div>

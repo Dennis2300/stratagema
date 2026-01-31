@@ -57,7 +57,7 @@
         />
       </div>
     </div>
-    <div class="p-4 border-t border-secondary/50">
+    <!-- <div class="p-4 border-t border-secondary/50">
       <div
         class="bg-secondary rounded-lg p-4 transition-all duration-300 hover:shadow-lg hover:shadow-tertiary/10"
       >
@@ -133,7 +133,7 @@
           </a>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

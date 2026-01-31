@@ -41,7 +41,7 @@
         </nav>
 
         <nav class="flex-1 text-right">
-          <h6
+          <!-- <h6
             class="text-white font-bold text-lg mb-4 uppercase tracking-wider"
           >
             Socials
@@ -104,7 +104,7 @@
                 />
               </svg>
             </a>
-          </div>
+          </div> -->
         </nav>
       </div>
       <div class="space-y-4 text-white/80 text-sm leading-relaxed">
