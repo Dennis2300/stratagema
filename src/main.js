@@ -3,7 +3,7 @@ import { initAuth } from "./auth";
 import App from "./App.vue";
 import router from "./router";
 import "./css/global.css";
-import "./css/tailwind.css"
+import "./css/Tailwind.css";
 
 (async () => {
   await initAuth();
