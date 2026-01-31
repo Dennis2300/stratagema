@@ -56,23 +56,16 @@ const router = createRouter({
   },
 });
 
-// Get User Function
-async function getUser(next) {
-  localUser = await supabase.auth.getSession();
-  if (localUser.data.session === null) {
-    next("/unauthorized");
-  } else {
-    next();
-  }
-}
-
 // Auth Logic
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
-    getUser(next);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      next("/unauthorized");
+    } else {
+      next();
+    }
   } else {
     next();
   }
 });
-
-export default router;
