@@ -59,7 +59,9 @@ const router = createRouter({
 // Auth Logic
 router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
     if (!session) {
       next("/unauthorized");
     } else {
@@ -69,3 +71,5 @@ router.beforeEach(async (to, from, next) => {
     next();
   }
 });
+
+export default router;
