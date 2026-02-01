@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen mt-4 flex flex-col items-center">
-    <div class="h-[200px] w-3/4 relative rounded-2xl">
+  <div class="min-h-screen mt-4 flex flex-col items-center px-4 sm:px-0">
+    <div class="h-[150px] sm:h-[200px] w-full lg:w-3/4 relative rounded-2xl">
       <h1
-        class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
+        class="absolute inset-0 z-20 flex items-center justify-center text-3xl sm:text-5xl lg:text-7xl font-acme tracking-wide outline-4 px-4"
       >
         Character Archive
       </h1>
@@ -14,35 +14,39 @@
         loading="lazy"
       />
     </div>
-    <div class="divider my-2 px-24"></div>
-    <p class="text-center px-32 text-lg/6 tracking-wide">
+    <div class="divider my-2 w-full lg:w-3/4"></div>
+    <p
+      class="text-center px-4 sm:px-16 lg:px-32 text-sm sm:text-base lg:text-lg leading-relaxed tracking-wide"
+    >
       Here you can find a comprehensive list of all playable characters
       available in Genshin Impact, by clicking on their names to see their
       details, attributes and builds. Use the filter options to easily find
       characters based on your preferences.
     </p>
-    <div class="w-4/5 flex flex-row justify-around items-center mt-4">
-      <div>
+    <div
+      class="w-full lg:w-4/5 flex flex-col sm:flex-row sm:flex-wrap justify-center sm:justify-around items-center mt-4 gap-3 sm:gap-4 px-4"
+    >
+      <div class="w-32">
         <div
-          class="selected h-[49px] flex justify-center items-center text-xl px-4 text-yellow-400 bg-primary hover:bg-gray-700 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
+          class="selected h-[49px] flex justify-center items-center text-lg sm:text-xl px-4 text-yellow-400 bg-primary hover:bg-gray-700 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
           :class="{ active: selectedRarity === 5 }"
           @click="selectRarity(5)"
         >
           ★★★★★
         </div>
       </div>
-      <div>
+      <div class="w-32">
         <div
-          class="selected h-[49px] flex justify-center items-center text-xl px-4 text-yellow-400 bg-primary hover:bg-gray-700 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
+          class="selected h-[49px] flex justify-center items-center text-lg sm:text-xl px-4 text-yellow-400 bg-primary hover:bg-gray-700 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
           :class="{ active: selectedRarity === 4 }"
           @click="selectRarity(4)"
         >
           ★★★★
         </div>
       </div>
-      <div>
+      <div class="w-full sm:w-auto">
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1 w-full"
         >
           <div class="dropdown-selected" @click="toggleDropdown('vision')">
             <img
@@ -80,9 +84,9 @@
           </ul>
         </div>
       </div>
-      <div>
+      <div class="w-full sm:w-auto">
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1 w-full"
         >
           <div class="dropdown-selected" @click="toggleDropdown('weapon')">
             <img
@@ -102,7 +106,6 @@
             <span class="arrow">▼</span>
           </div>
 
-          <!-- Dropdown options -->
           <ul
             v-if="isOpen('weapon')"
             class="dropdown-list bg-primary border border-solid border-black"
@@ -126,11 +129,10 @@
           </ul>
         </div>
       </div>
-      <div>
+      <div class="w-full sm:w-auto">
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1"
+          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1 w-full"
         >
-          <!-- Selected item -->
           <div class="dropdown-selected" @click="toggleDropdown('region')">
             <img
               v-if="selectedRegionObj"
@@ -145,7 +147,6 @@
             <span class="arrow">▼</span>
           </div>
 
-          <!-- Dropdown options -->
           <ul
             v-if="isOpen('region')"
             class="dropdown-list bg-primary border border-solid border-black"
@@ -169,19 +170,27 @@
           </ul>
         </div>
       </div>
-      <div>
-        <div class="flex flex-row justify-center items-center gap-8">
-          <button class="btn btn-soft px-6 tracking-wide" @click="applyFilters">
+      <div class="w-full sm:w-auto">
+        <div class="flex flex-row justify-center items-center gap-4 sm:gap-8">
+          <button
+            class="btn btn-soft px-4 sm:px-6 tracking-wide text-sm sm:text-base"
+            @click="applyFilters"
+          >
             Apply
           </button>
-          <button class="btn btn-soft px-6 tracking-wide" @click="resetFilters">
+          <button
+            class="btn btn-soft px-4 sm:px-6 tracking-wide text-sm sm:text-base"
+            @click="resetFilters"
+          >
             Reset
           </button>
         </div>
       </div>
     </div>
 
-    <div class="h-fit w-3/4 flex flex-col gap-16 mt-10 mb-32">
+    <div
+      class="h-fit w-full lg:w-3/4 flex flex-col gap-6 sm:gap-12 lg:gap-16 mt-6 sm:mt-10 mb-16 sm:mb-24 lg:mb-32 px-4 sm:px-0"
+    >
       <RouterLink
         :to="`/characters/${character.id}?name=${encodeURIComponent(
           character.name,
@@ -197,14 +206,14 @@
       >
         <div v-if="character.is_new" class="absolute -top-3 -right-3 z-20">
           <div
-            class="flex items-center justify-center h-9 w-9 rounded-full bg-red-500 text-white text-xs font-semibold shadow-md uppercase"
+            class="flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-red-500 text-white text-xs font-semibold shadow-md uppercase"
           >
             New
           </div>
         </div>
         <div v-if="character.is_upcoming" class="absolute -top-3 -right-3 z-20">
           <div
-            class="flex items-center justify-center px-3 h-7 rounded-full bg-blue-500 text-white text-xs font-semibold uppercase shadow-md whitespace-nowrap"
+            class="flex items-center justify-center px-2 sm:px-3 h-6 sm:h-7 rounded-full bg-blue-500 text-white text-xs font-semibold uppercase shadow-md whitespace-nowrap"
           >
             Upcoming
           </div>
@@ -212,9 +221,11 @@
         <div
           class="relative bg-primary flex flex-row justify-between overflow-hidden rounded-t-2xl"
         >
-          <div class="flex flex-row items-center justify-center p-6 gap-4">
+          <div
+            class="flex flex-row items-center justify-center p-4 sm:p-6 gap-3 sm:gap-4"
+          >
             <img
-              class="h-32 w-32 rounded-full"
+              class="h-20 w-20 sm:h-28 sm:w-28 lg:h-32 lg:w-32 rounded-full"
               :class="{
                 'rarity-5': character.rarity === 5,
                 'rarity-4': character.rarity === 4,
@@ -223,14 +234,14 @@
               loading="lazy"
             />
             <h1
-              class="relative text-4xl font-acme tracking-wide after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0 after:bg-current after:transition-all after:duration-300 group-hover:after:w-full"
+              class="relative text-xl sm:text-3xl lg:text-4xl font-acme tracking-wide after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0 after:bg-current after:transition-all after:duration-300 group-hover:after:w-full"
             >
               {{ character.name }}
             </h1>
           </div>
           <img
             v-if="character.splash_art_url"
-            class="absolute min-w-64 max-w-68 h-64 right-0 -top-8 opacity-50"
+            class="hidden sm:block absolute min-w-48 sm:min-w-64 max-w-56 sm:max-w-68 h-48 sm:h-64 right-0 -top-6 sm:-top-8 opacity-50"
             :src="character.splash_art_url"
             loading="lazy"
             alt=""
@@ -238,48 +249,86 @@
           <div v-if="!character.splash_art"></div>
         </div>
         <div
-          class="bg-secondary flex flex-row justify-between rounded-b-2xl py-6 border-0 border-t-2 border-solid border-black"
+          class="bg-secondary flex flex-col sm:flex-row justify-between rounded-b-2xl py-4 sm:py-6 border-0 border-t-2 border-solid border-black gap-3 sm:gap-0"
         >
-          <div class="flex flex-row gap-4 items-center">
+          <!-- Mobile: Only vision image and role -->
+          <div
+            class="flex sm:hidden flex-row gap-3 items-center justify-left px-4"
+          >
             <img
-              class="w-12 ml-2"
+              class="w-10"
               :src="character.vision.image_url"
               loading="lazy"
               alt=""
             />
             <p
               v-if="character.vision.name"
-              class="px-4 py-2 badge badge-soft badge-primary text-text"
+              class="px-3 py-1 badge badge-soft badge-primary text-text text-xs"
             >
               {{ character.vision.name }}
             </p>
             <p
               v-if="character.role"
-              class="px-4 py-2 badge badge-soft badge-primary text-text"
+              class="px-3 py-1 badge badge-soft badge-primary text-text text-xs"
             >
               {{ character.role.name }}
             </p>
             <p
               v-if="character.weapon_type"
-              class="px-4 py-2 badge badge-soft badge-primary text-text"
+              class="px-3 py-1 badge badge-soft badge-primary text-text text-xs"
+            >
+              {{ character.weapon_type.name }}
+            </p>
+          </div>
+
+          <!-- Desktop: All tags -->
+          <div
+            class="hidden sm:flex flex-row gap-2 lg:gap-4 items-center flex-wrap px-4 sm:px-0"
+          >
+            <img
+              class="w-10 sm:w-12 ml-0 sm:ml-2"
+              :src="character.vision.image_url"
+              loading="lazy"
+              alt=""
+            />
+            <p
+              v-if="character.vision.name"
+              class="px-3 sm:px-4 py-1 sm:py-2 badge badge-soft badge-primary text-text text-xs sm:text-sm"
+            >
+              {{ character.vision.name }}
+            </p>
+            <p
+              v-if="character.role"
+              class="px-3 sm:px-4 py-1 sm:py-2 badge badge-soft badge-primary text-text text-xs sm:text-sm"
+            >
+              {{ character.role.name }}
+            </p>
+            <p
+              v-if="character.weapon_type"
+              class="px-3 sm:px-4 py-1 sm:py-2 badge badge-soft badge-primary text-text text-xs sm:text-sm"
             >
               {{ character.weapon_type.name }}
             </p>
             <p
               v-if="character.main_stat"
-              class="px-4 py-2 badge badge-soft badge-primary text-text"
+              class="px-3 sm:px-4 py-1 sm:py-2 badge badge-soft badge-primary text-text text-xs sm:text-sm"
             >
               {{ character.main_stat.name }}
             </p>
             <p
               v-if="character.team_role"
-              class="px-4 py-2 badge badge-soft badge-primary text-text"
+              class="px-3 sm:px-4 py-1 sm:py-2 badge badge-soft badge-primary text-text text-xs sm:text-sm"
             >
               {{ character.team_role.name }}
             </p>
           </div>
-          <div class="flex items-center pr-4">
-            <p class="px-4 py-2 badge badge-soft badge-primary text-text">
+
+          <div
+            class="hidden sm:flex items-center justify-center sm:justify-end px-4"
+          >
+            <p
+              class="px-3 sm:px-4 py-1 sm:py-2 badge badge-soft badge-primary text-text text-xs sm:text-sm"
+            >
               <strong> Released: </strong>
               {{
                 character.release_date
@@ -305,7 +354,7 @@
       </div>
     </div>
     <div
-      class="fixed bottom-6 right-6 btn btn-soft btn-info px-4"
+      class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 btn btn-soft btn-info px-3 sm:px-4"
       @click="scrollToTop"
     >
       <svg
