@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="min-h-screen flex flex-col items-center py-4 px-4 sm:px-6 lg:px-8 gap-6 sm:gap-8"
-  >
+  <div class="flex flex-col items-center gap-8">
     <TopSection />
     <MiddleSection />
     <UpdatesSection />

@@ -43,13 +43,13 @@
         </nav>
 
         <nav class="flex-1 w-full sm:w-auto sm:text-right">
-          <!-- <h6
+          <h6
             class="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4 uppercase tracking-wider"
           >
             Socials
           </h6>
           <div class="flex gap-3 sm:gap-4 sm:justify-end">
-            
+            <a
               href="https://www.x.com"
               target="_blank"
               class="bg-white/10 hover:bg-white/20 p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
@@ -68,7 +68,7 @@
                 />
               </svg>
             </a>
-            
+            <a
               href="https://www.instagram.com"
               target="_blank"
               class="bg-white/10 hover:bg-white/20 p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
@@ -87,7 +87,7 @@
                 />
               </svg>
             </a>
-            
+            <a
               href="http://www.discord.com"
               target="_blank"
               class="bg-white/10 hover:bg-white/20 p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
@@ -106,7 +106,7 @@
                 />
               </svg>
             </a>
-          </div> -->
+          </div>
         </nav>
       </div>
       <div
