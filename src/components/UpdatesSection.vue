@@ -1,20 +1,22 @@
 <template>
-  <div class="w-3/4 bg-secondary p-8 rounded-2xl mb-24 shadow-xl">
-    <h1 class="mt-2">Updates</h1>
-    <div class="divider mb-6"></div>
-    <div v-if="updates.length" class="space-y-6">
+  <div
+    class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl mb-12 sm:mb-16 lg:mb-24 shadow-xl"
+  >
+    <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl">Updates</h1>
+    <div class="divider mb-4 sm:mb-6"></div>
+    <div v-if="updates.length" class="space-y-4 sm:space-y-6">
       <article
         v-for="update in updates"
         :key="update.id"
-        class="bg-primary m-4 p-6 rounded-xl transition-all duration-300 ease-out hover:shadow-lg hover:shadow-tertiary/10 hover:-translate-y-1 border border-transparent hover:border-tertiary/20 cursor-default"
+        class="bg-primary mx-0 sm:mx-4 p-4 sm:p-6 rounded-xl transition-all duration-300 ease-out hover:shadow-lg hover:shadow-tertiary/10 hover:-translate-y-1 border border-transparent hover:border-tertiary/20 cursor-default"
       >
-        <header class="mb-4">
+        <header class="mb-3 sm:mb-4">
           <h3
-            class="text-white text-[1.4rem] font-semibold mb-1 transition-colors duration-200 hover:text-tertiary"
+            class="text-white text-lg sm:text-xl lg:text-[1.4rem] font-semibold mb-1 transition-colors duration-200 hover:text-tertiary"
           >
             {{ update.title }}
           </h3>
-          <div class="flex gap-3 text-sm text-gray-400">
+          <div class="flex gap-3 text-xs sm:text-sm text-gray-400">
             <span
               class="text-tertiary underline flex items-center justify-center transition-all duration-200 hover:text-tertiary/80 hover:no-underline"
             >
@@ -23,7 +25,7 @@
           </div>
         </header>
         <div
-          class="text-gray-300 leading-relaxed text-base space-y-2 update-content"
+          class="text-gray-300 leading-relaxed text-sm sm:text-base space-y-2 update-content"
           v-html="update.content"
         ></div>
       </article>

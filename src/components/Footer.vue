@@ -1,64 +1,66 @@
 <template>
-  <footer class="bg-primary mx-24 mb-6 rounded-2xl overflow-hidden shadow-2xl">
-    <div class="p-8">
+  <footer
+    class="bg-primary mx-4 sm:mx-8 lg:mx-24 mb-4 sm:mb-6 rounded-2xl overflow-hidden shadow-2xl"
+  >
+    <div class="p-4 sm:p-6 lg:p-8">
       <div
-        class="flex flex-row justify-between items-start mb-8 pb-8 border-b border-white/20"
+        class="flex flex-col sm:flex-row justify-between items-start mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-white/20 gap-6 sm:gap-0"
       >
-        <nav class="flex-1">
+        <nav class="flex-1 w-full sm:w-auto">
           <h6
-            class="text-white font-bold text-lg mb-4 uppercase tracking-wider"
+            class="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4 uppercase tracking-wider"
           >
             Links
           </h6>
-          <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-2 sm:gap-3">
             <router-link
               to="/privacy-policy"
-              class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block"
+              class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block text-sm sm:text-base"
             >
               Privacy Policy
             </router-link>
             <a
               href="https://www.patreon.com/"
               target="_blank"
-              class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block"
+              class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block text-sm sm:text-base"
             >
               Patreon
             </a>
             <a
               href="https://github.com/Dennis2300"
               target="_blank"
-              class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block"
+              class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block text-sm sm:text-base"
             >
               Github
             </a>
             <router-link
               to="/login"
-              class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block"
+              class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block text-sm sm:text-base"
             >
               Login
             </router-link>
           </div>
         </nav>
 
-        <nav class="flex-1 text-right">
+        <nav class="flex-1 w-full sm:w-auto sm:text-right">
           <!-- <h6
-            class="text-white font-bold text-lg mb-4 uppercase tracking-wider"
+            class="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4 uppercase tracking-wider"
           >
             Socials
           </h6>
-          <div class="flex gap-4 justify-end">
-            <a
+          <div class="flex gap-3 sm:gap-4 sm:justify-end">
+            
               href="https://www.x.com"
               target="_blank"
-              class="bg-white/10 hover:bg-white/20 p-3 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+              class="bg-white/10 hover:bg-white/20 p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
               aria-label="Twitter/X"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="20"
+                height="20"
                 fill="white"
-                class="bi bi-twitter-x"
+                class="sm:w-6 sm:h-6 bi bi-twitter-x"
                 viewBox="0 0 16 16"
               >
                 <path
@@ -66,18 +68,18 @@
                 />
               </svg>
             </a>
-            <a
+            
               href="https://www.instagram.com"
               target="_blank"
-              class="bg-white/10 hover:bg-white/20 p-3 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+              class="bg-white/10 hover:bg-white/20 p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
               aria-label="Instagram"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="20"
+                height="20"
                 fill="white"
-                class="bi bi-instagram"
+                class="sm:w-6 sm:h-6 bi bi-instagram"
                 viewBox="0 0 16 16"
               >
                 <path
@@ -85,18 +87,18 @@
                 />
               </svg>
             </a>
-            <a
+            
               href="http://www.discord.com"
               target="_blank"
-              class="bg-white/10 hover:bg-white/20 p-3 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+              class="bg-white/10 hover:bg-white/20 p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 hover:-translate-y-1"
               aria-label="Discord"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="20"
+                height="20"
                 fill="white"
-                class="bi bi-discord"
+                class="sm:w-6 sm:h-6 bi bi-discord"
                 viewBox="0 0 16 16"
               >
                 <path
@@ -107,7 +109,9 @@
           </div> -->
         </nav>
       </div>
-      <div class="space-y-4 text-white/80 text-sm leading-relaxed">
+      <div
+        class="space-y-3 sm:space-y-4 text-white/80 text-xs sm:text-sm leading-relaxed"
+      >
         <p class="hover:text-white/90 transition-colors duration-300">
           This website is a fan-made project and is not affiliated with,
           endorsed by, or sponsored by
