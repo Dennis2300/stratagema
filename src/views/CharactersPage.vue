@@ -14,13 +14,12 @@
         loading="lazy"
       />
     </div>
-    <div class="divider my-4 px-24"></div>
     <div
       class="w-full lg:w-4/5 flex flex-col sm:flex-row sm:flex-wrap justify-center sm:justify-around items-center mt-4 gap-3 sm:gap-8 px-4"
     >
       <div class="w-32">
         <div
-          class="selected h-[49px] flex justify-center items-center text-lg sm:text-xl px-4 text-yellow-400 bg-primary hover:bg-gray-700 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
+          class="selected h-[49px] flex justify-center items-center text-lg sm:text-xl px-4 text-yellow-400 bg-filter hover:bg-gray-500 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
           :class="{ active: selectedRarity === 5 }"
           @click="selectRarity(5)"
         >
@@ -29,7 +28,7 @@
       </div>
       <div class="w-32">
         <div
-          class="selected h-[49px] flex justify-center items-center text-lg sm:text-xl px-4 text-yellow-400 bg-primary hover:bg-gray-700 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
+          class="selected h-[49px] flex justify-center items-center text-lg sm:text-xl px-4 text-yellow-400 bg-filter hover:bg-gray-500 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
           :class="{ active: selectedRarity === 4 }"
           @click="selectRarity(4)"
         >
@@ -38,7 +37,7 @@
       </div>
       <div class="w-full sm:w-auto">
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1 w-full"
+          class="custom-dropdown mx-auto bg-filter rounded-lg border border-solid border-black py-1 w-full"
         >
           <div class="dropdown-selected" @click="toggleDropdown('vision')">
             <img
@@ -55,7 +54,7 @@
           </div>
           <ul
             v-if="isOpen('vision')"
-            class="dropdown-list bg-primary border border-solid border-black"
+            class="dropdown-list bg-filter border border-solid border-black"
           >
             <li @click="selectVision(null)">
               <span>All</span>
@@ -78,7 +77,7 @@
       </div>
       <div class="w-full sm:w-auto">
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1 w-full"
+          class="custom-dropdown mx-auto bg-filter rounded-lg border border-solid border-black py-1 w-full"
         >
           <div class="dropdown-selected" @click="toggleDropdown('weapon')">
             <img
@@ -100,7 +99,7 @@
 
           <ul
             v-if="isOpen('weapon')"
-            class="dropdown-list bg-primary border border-solid border-black"
+            class="dropdown-list bg-filter border border-solid border-black"
           >
             <li @click="selectWeaponType(null)">
               <span>All</span>
@@ -123,7 +122,7 @@
       </div>
       <div class="w-full sm:w-auto">
         <div
-          class="custom-dropdown mx-auto bg-primary rounded-lg border border-solid border-black py-1 w-full"
+          class="custom-dropdown mx-auto bg-filter rounded-lg border border-solid border-black py-1 w-full"
         >
           <div class="dropdown-selected" @click="toggleDropdown('region')">
             <img
@@ -141,7 +140,7 @@
 
           <ul
             v-if="isOpen('region')"
-            class="dropdown-list bg-primary border border-solid border-black"
+            class="dropdown-list bg-filter border border-solid border-black"
           >
             <li @click="selectRegion(null)">
               <span>All</span>
@@ -165,13 +164,13 @@
       <div class="w-full sm:w-auto">
         <div class="flex flex-row justify-center items-center gap-4 sm:gap-8">
           <button
-            class="btn btn-soft px-4 sm:px-6 tracking-wide text-sm sm:text-base"
+            class="btn btn-soft btn-success px-4 sm:px-6 tracking-wide text-sm sm:text-base"
             @click="applyFilters"
           >
             Apply
           </button>
           <button
-            class="btn btn-soft px-4 sm:px-6 tracking-wide text-sm sm:text-base"
+            class="btn btn-soft btn-warning px-4 sm:px-6 tracking-wide text-sm sm:text-base"
             @click="resetFilters"
           >
             Reset
@@ -179,7 +178,7 @@
         </div>
       </div>
     </div>
-
+    <div class="divider mt-4"></div>
     <div
       class="h-fit w-full lg:w-3/4 flex flex-col gap-6 sm:gap-12 lg:gap-16 mt-6 sm:mt-10 mb-16 sm:mb-24 lg:mb-32 px-4 sm:px-0"
     >
@@ -196,7 +195,7 @@
         :key="character.id"
         target="_blank"
       >
-        <div v-if="character.is_new" class="absolute -top-3 -right-3 z-20">
+        <div v-if="character.is_new" class="absolute -top-3 -left-3 z-20">
           <div
             class="flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-red-500 text-white text-xs font-semibold shadow-md uppercase"
           >
