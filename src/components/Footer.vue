@@ -1,8 +1,6 @@
 <template>
-  <footer
-    class="bg-primary mx-4 sm:mx-8 lg:mx-24 mb-4 sm:mb-6 rounded-2xl overflow-hidden shadow-2xl"
-  >
-    <div class="p-4 sm:p-6 lg:p-8">
+  <footer class="bg-primary rounded-t-2xl overflow-hidden shadow-2xl">
+    <div class="p-4 mx-8 mb-8">
       <div
         class="flex flex-col sm:flex-row justify-between items-start mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-white/20 gap-6 sm:gap-0"
       >
