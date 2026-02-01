@@ -1,9 +1,8 @@
 <template>
   <div class="min-h-screen">
-    <!-- Mobile Menu Button -->
     <div
       @click="isMobileMenuOpen = !isMobileMenuOpen"
-      class="md:hidden fixed top-4 left-4 z-50 p-3 bg-black rounded-lg shadow-lg hover:bg-gray-800 transition-colors active:scale-95"
+      class="md:hidden fixed top-0 left-0 z-50 p-2 hover:bg-gray-800 hover:rounded-br-xl transition-colors active:scale-95"
       aria-label="Toggle menu"
     >
       <svg
@@ -28,8 +27,6 @@
         />
       </svg>
     </div>
-
-    <!-- Sidebar -->
     <SideBar
       :class="[
         'fixed left-0 top-0 w-64 h-screen z-40 transition-transform duration-300 ease-in-out',
@@ -37,23 +34,19 @@
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full',
       ]"
     />
-
-    <!-- Backdrop Overlay -->
     <div
       v-if="isMobileMenuOpen"
       @click="isMobileMenuOpen = false"
       class="md:hidden fixed inset-0 bg-black bg-opacity-50 z-30 transition-opacity duration-300"
     />
-
-    <!-- Main Content -->
     <div class="md:ml-64 flex flex-col min-h-screen">
-      <main class="flex-1 px-4 py-4 pt-20 md:pt-6 md:px-6 lg:px-8">
+      <main class="flex-1 px-4 py-4 md:pt-6 md:px-6 lg:px-8">
         <router-view />
       </main>
       <Footer />
     </div>
 
-    <SupportPopUp />
+    <SupportPopUp class="hidden md:block" />
     <Cookies />
   </div>
 </template>
@@ -73,16 +66,19 @@ const route = useRoute();
 inject();
 
 // Close mobile menu when route changes
-watch(() => route.path, () => {
-  isMobileMenuOpen.value = false;
-});
+watch(
+  () => route.path,
+  () => {
+    isMobileMenuOpen.value = false;
+  },
+);
 
 // Prevent body scroll when menu is open on mobile
 watch(isMobileMenuOpen, (isOpen) => {
   if (isOpen) {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   } else {
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   }
 });
 </script>
