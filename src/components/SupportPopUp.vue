@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed top-16 right-1 m-4 z-50">
+  <div class="fixed top-0 right-0 m-4 z-50">
     <div @click="showPopup = !showPopup" class="relative cursor-pointer group">
       <img
         width="85"
@@ -18,7 +18,7 @@
     >
       <div
         v-if="showPopup"
-        class="absolute top-20 right-16 w-80 bg-secondary rounded-2xl shadow-2xl border border-tertiary/20 overflow-hidden"
+        class="absolute top-24 right-3 w-80 bg-secondary rounded-2xl shadow-2xl border border-tertiary/20 overflow-hidden"
       >
         <div class="bg-gradient-to-r from-tertiary to-purple-600 p-4 relative">
           <button
