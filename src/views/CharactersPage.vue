@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-screen mt-4 flex flex-col items-center px-4 sm:px-0">
-    <div class="h-[150px] sm:h-[200px] w-full lg:w-3/4 relative rounded-2xl">
+    <div class="h-[150px] w-full lg:w-3/4 relative rounded-2xl">
       <h1
-        class="absolute inset-0 z-20 flex items-center justify-center text-3xl sm:text-5xl lg:text-7xl font-acme tracking-wide outline-4 px-4"
+        class="absolute inset-0 z-20 flex items-center justify-center md:text-5xl font-acme tracking-wide outline-4"
       >
         Character Archive
       </h1>
@@ -14,17 +14,9 @@
         loading="lazy"
       />
     </div>
-    <div class="divider my-2 w-full lg:w-3/4"></div>
-    <p
-      class="text-center px-4 sm:px-16 lg:px-32 text-sm sm:text-base lg:text-lg leading-relaxed tracking-wide"
-    >
-      Here you can find a comprehensive list of all playable characters
-      available in Genshin Impact, by clicking on their names to see their
-      details, attributes and builds. Use the filter options to easily find
-      characters based on your preferences.
-    </p>
+    <div class="divider my-4 px-24"></div>
     <div
-      class="w-full lg:w-4/5 flex flex-col sm:flex-row sm:flex-wrap justify-center sm:justify-around items-center mt-4 gap-3 sm:gap-4 px-4"
+      class="w-full lg:w-4/5 flex flex-col sm:flex-row sm:flex-wrap justify-center sm:justify-around items-center mt-4 gap-3 sm:gap-8 px-4"
     >
       <div class="w-32">
         <div
