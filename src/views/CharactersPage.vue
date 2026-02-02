@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col items-center gap-8">
-    <div class="h-[150px] w-full md:w-3/4 relative rounded-2xl">
+    <div class="h-[150px] hidden md:block w-full md:w-3/4 relative rounded-2xl">
       <h1
         class="absolute inset-0 z-20 flex items-center justify-center md:text-5xl font-acme tracking-wide outline-4"
       >
@@ -15,22 +15,28 @@
       />
     </div>
 
-    <div class="w-full">
-      <div
-        class="selected"
-        :class="{ active: selectedRarity === 5 }"
-        @click="selectRarity(5)"
-      >
-        ★★★★★
+    <div
+      class="w-full space-y-4 md:flex md:justify-around md:items-center md:space-y-0 md:gap-4"
+    >
+      <div class="flex flex-row justify-around md:flex-none md:gap-2">
+        <div
+          class="selected bg-filter p-2 w-[100px] md:w-fit md:h-fit md:text-lg text-center rounded-lg border border-black border-solid text-yellow-500 cursor-pointer"
+          :class="{ active: selectedRarity === 5 }"
+          @click="selectRarity(5)"
+        >
+          ★★★★★
+        </div>
+        <div
+          class="selected bg-filter p-2 w-[100px] md:w-fit md:h-fit md:text-lg text-center rounded-lg border border-black border-solid text-yellow-500 cursor-pointer"
+          :class="{ active: selectedRarity === 4 }"
+          @click="selectRarity(4)"
+        >
+          ★★★★
+        </div>
       </div>
       <div
-        class="selected"
-        :class="{ active: selectedRarity === 4 }"
-        @click="selectRarity(4)"
+        class="custom-dropdown bg-filter rounded-lg z-40 border border-solid border-black md:w-52"
       >
-        ★★★★
-      </div>
-      <div class="custom-dropdown bg-filter">
         <div class="dropdown-selected" @click="toggleDropdown('vision')">
           <img
             v-if="selectedVisionObj"
@@ -66,7 +72,9 @@
           </li>
         </ul>
       </div>
-      <div class="custom-dropdown bg-filter">
+      <div
+        class="custom-dropdown bg-filter rounded-lg z-40 border border-solid border-black md:w-52"
+      >
         <div class="dropdown-selected" @click="toggleDropdown('weapon')">
           <img
             v-if="selectedWeaponTypeObj"
@@ -105,7 +113,9 @@
           </li>
         </ul>
       </div>
-      <div class="custom-dropdown bg-filter">
+      <div
+        class="custom-dropdown bg-filter rounded-lg z-40 border border-solid border-black md:w-52"
+      >
         <div class="dropdown-selected" @click="toggleDropdown('region')">
           <img
             v-if="selectedRegionObj"
@@ -142,17 +152,11 @@
           </li>
         </ul>
       </div>
-      <div>
-        <button
-          class="btn btn-soft btn-success px-4 sm:px-6 tracking-wide text-sm sm:text-base"
-          @click="applyFilters"
-        >
+      <div class="flex justify-around">
+        <button class="btn btn-soft btn-success" @click="applyFilters">
           Apply
         </button>
-        <button
-          class="btn btn-soft btn-warning px-4 sm:px-6 tracking-wide text-sm sm:text-base"
-          @click="resetFilters"
-        >
+        <button class="btn btn-soft btn-warning" @click="resetFilters">
           Reset
         </button>
       </div>
@@ -173,14 +177,14 @@
         :key="character.id"
         target="_blank"
       >
-        <div v-if="character.is_new" class="absolute -top-3 -left-3 z-20">
+        <div v-if="character.is_new" class="absolute -top-3 -left-3 z-10">
           <div
             class="flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-red-500 text-white text-xs font-semibold shadow-md uppercase"
           >
             New
           </div>
         </div>
-        <div v-if="character.is_upcoming" class="absolute -top-3 -right-3 z-20">
+        <div v-if="character.is_upcoming" class="absolute -top-3 -right-3 z-10">
           <div
             class="flex items-center justify-center px-2 sm:px-3 h-6 sm:h-7 rounded-full bg-blue-500 text-white text-xs font-semibold uppercase shadow-md whitespace-nowrap"
           >
@@ -690,7 +694,6 @@ onUnmounted(() => {
 }
 .custom-dropdown {
   position: relative;
-  width: 220px;
   letter-spacing: 1.5px;
 }
 
