@@ -15,10 +15,8 @@
       />
     </div>
 
-    <div
-      class="w-full space-y-4 md:flex md:justify-around md:items-center md:space-y-0 md:gap-4"
-    >
-      <div class="flex flex-row justify-around md:flex-none md:gap-2">
+    <div class="flex flex-col md:flex-row md:items-center gap-4">
+      <div class="flex flex-row justify-around md:flex-none gap-4">
         <div
           class="selected bg-filter p-2 w-[100px] md:w-fit md:h-fit md:text-lg text-center rounded-lg border border-black border-solid text-yellow-500 cursor-pointer"
           :class="{ active: selectedRarity === 5 }"
@@ -152,7 +150,7 @@
           </li>
         </ul>
       </div>
-      <div class="flex justify-around">
+      <div class="flex justify-around md:gap-4">
         <button class="btn btn-soft btn-success" @click="applyFilters">
           Apply
         </button>
