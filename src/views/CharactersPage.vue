@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen mt-4 flex flex-col items-center px-4 sm:px-0">
-    <div class="h-[150px] w-full lg:w-3/4 relative rounded-2xl">
+  <div class="min-h-screen flex flex-col items-center gap-8">
+    <div class="h-[150px] w-full md:w-3/4 relative rounded-2xl">
       <h1
         class="absolute inset-0 z-20 flex items-center justify-center md:text-5xl font-acme tracking-wide outline-4"
       >
@@ -14,174 +14,152 @@
         loading="lazy"
       />
     </div>
-    <div
-      class="w-full lg:w-4/5 flex flex-col sm:flex-row sm:flex-wrap justify-center sm:justify-around items-center mt-4 gap-3 sm:gap-8 px-4"
-    >
-      <div class="w-32">
-        <div
-          class="selected h-[49px] flex justify-center items-center text-lg sm:text-xl px-4 text-yellow-400 bg-filter hover:bg-gray-500 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
-          :class="{ active: selectedRarity === 5 }"
-          @click="selectRarity(5)"
-        >
-          ★★★★★
-        </div>
-      </div>
-      <div class="w-32">
-        <div
-          class="selected h-[49px] flex justify-center items-center text-lg sm:text-xl px-4 text-yellow-400 bg-filter hover:bg-gray-500 rounded-xl border border-solid border-black cursor-pointer tracking-wider"
-          :class="{ active: selectedRarity === 4 }"
-          @click="selectRarity(4)"
-        >
-          ★★★★
-        </div>
-      </div>
-      <div class="w-full sm:w-auto">
-        <div
-          class="custom-dropdown mx-auto bg-filter rounded-lg border border-solid border-black py-1 w-full"
-        >
-          <div class="dropdown-selected" @click="toggleDropdown('vision')">
-            <img
-              v-if="selectedVisionObj"
-              :src="selectedVisionObj.image_url"
-              alt=""
-              loading="lazy"
-              class="dropdown-icon"
-            />
-            <span>
-              {{ selectedVisionObj ? selectedVisionObj.name : "Vision" }}
-            </span>
-            <span class="arrow">▼</span>
-          </div>
-          <ul
-            v-if="isOpen('vision')"
-            class="dropdown-list bg-filter border border-solid border-black"
-          >
-            <li @click="selectVision(null)">
-              <span>All</span>
-            </li>
-            <li
-              v-for="vision in visions"
-              :key="vision.id"
-              @click="selectVision(vision)"
-            >
-              <img
-                loading="lazy"
-                :src="vision.image_url"
-                alt=""
-                class="dropdown-icon"
-              />
-              <span>{{ vision.name }}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="w-full sm:w-auto">
-        <div
-          class="custom-dropdown mx-auto bg-filter rounded-lg border border-solid border-black py-1 w-full"
-        >
-          <div class="dropdown-selected" @click="toggleDropdown('weapon')">
-            <img
-              v-if="selectedWeaponTypeObj"
-              :src="selectedWeaponTypeObj.image_url"
-              loading="lazy"
-              alt=""
-              class="dropdown-icon"
-            />
-            <span>
-              {{
-                selectedWeaponTypeObj
-                  ? selectedWeaponTypeObj.name
-                  : "Weapon Type"
-              }}
-            </span>
-            <span class="arrow">▼</span>
-          </div>
 
-          <ul
-            v-if="isOpen('weapon')"
-            class="dropdown-list bg-filter border border-solid border-black"
-          >
-            <li @click="selectWeaponType(null)">
-              <span>All</span>
-            </li>
-            <li
-              v-for="weaponType in weaponTypes"
-              :key="weaponType.id"
-              @click="selectWeaponType(weaponType)"
-            >
-              <img
-                loading="lazy"
-                :src="weaponType.image_url"
-                alt=""
-                class="dropdown-icon"
-              />
-              <span>{{ weaponType.name }}</span>
-            </li>
-          </ul>
-        </div>
+    <div class="w-full">
+      <div
+        class="selected"
+        :class="{ active: selectedRarity === 5 }"
+        @click="selectRarity(5)"
+      >
+        ★★★★★
       </div>
-      <div class="w-full sm:w-auto">
-        <div
-          class="custom-dropdown mx-auto bg-filter rounded-lg border border-solid border-black py-1 w-full"
+      <div
+        class="selected"
+        :class="{ active: selectedRarity === 4 }"
+        @click="selectRarity(4)"
+      >
+        ★★★★
+      </div>
+      <div class="custom-dropdown bg-filter">
+        <div class="dropdown-selected" @click="toggleDropdown('vision')">
+          <img
+            v-if="selectedVisionObj"
+            :src="selectedVisionObj.image_url"
+            alt=""
+            loading="lazy"
+            class="dropdown-icon"
+          />
+          <span>
+            {{ selectedVisionObj ? selectedVisionObj.name : "Vision" }}
+          </span>
+          <span class="arrow">▼</span>
+        </div>
+        <ul
+          v-if="isOpen('vision')"
+          class="dropdown-list bg-filter border border-solid border-black"
         >
-          <div class="dropdown-selected" @click="toggleDropdown('region')">
+          <li @click="selectVision(null)">
+            <span>All</span>
+          </li>
+          <li
+            v-for="vision in visions"
+            :key="vision.id"
+            @click="selectVision(vision)"
+          >
             <img
-              v-if="selectedRegionObj"
-              :src="selectedRegionObj.image_url"
-              alt=""
               loading="lazy"
+              :src="vision.image_url"
+              alt=""
               class="dropdown-icon"
             />
-            <span>
-              {{ selectedRegionObj ? selectedRegionObj.name : "Region" }}
-            </span>
-            <span class="arrow">▼</span>
-          </div>
-
-          <ul
-            v-if="isOpen('region')"
-            class="dropdown-list bg-filter border border-solid border-black"
-          >
-            <li @click="selectRegion(null)">
-              <span>All</span>
-            </li>
-            <li
-              v-for="region in regions"
-              :key="region.id"
-              @click="selectRegion(region)"
-            >
-              <img
-                loading="lazy"
-                :src="region.image_url"
-                alt=""
-                class="dropdown-icon"
-              />
-              <span>{{ region.name }}</span>
-            </li>
-          </ul>
-        </div>
+            <span>{{ vision.name }}</span>
+          </li>
+        </ul>
       </div>
-      <div class="w-full sm:w-auto">
-        <div class="flex flex-row justify-center items-center gap-4 sm:gap-8">
-          <button
-            class="btn btn-soft btn-success px-4 sm:px-6 tracking-wide text-sm sm:text-base"
-            @click="applyFilters"
-          >
-            Apply
-          </button>
-          <button
-            class="btn btn-soft btn-warning px-4 sm:px-6 tracking-wide text-sm sm:text-base"
-            @click="resetFilters"
-          >
-            Reset
-          </button>
+      <div class="custom-dropdown bg-filter">
+        <div class="dropdown-selected" @click="toggleDropdown('weapon')">
+          <img
+            v-if="selectedWeaponTypeObj"
+            :src="selectedWeaponTypeObj.image_url"
+            loading="lazy"
+            alt=""
+            class="dropdown-icon"
+          />
+          <span>
+            {{
+              selectedWeaponTypeObj ? selectedWeaponTypeObj.name : "Weapon Type"
+            }}
+          </span>
+          <span class="arrow">▼</span>
         </div>
+
+        <ul
+          v-if="isOpen('weapon')"
+          class="dropdown-list bg-filter border border-solid border-black"
+        >
+          <li @click="selectWeaponType(null)">
+            <span>All</span>
+          </li>
+          <li
+            v-for="weaponType in weaponTypes"
+            :key="weaponType.id"
+            @click="selectWeaponType(weaponType)"
+          >
+            <img
+              loading="lazy"
+              :src="weaponType.image_url"
+              alt=""
+              class="dropdown-icon"
+            />
+            <span>{{ weaponType.name }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="custom-dropdown bg-filter">
+        <div class="dropdown-selected" @click="toggleDropdown('region')">
+          <img
+            v-if="selectedRegionObj"
+            :src="selectedRegionObj.image_url"
+            alt=""
+            loading="lazy"
+            class="dropdown-icon"
+          />
+          <span>
+            {{ selectedRegionObj ? selectedRegionObj.name : "Region" }}
+          </span>
+          <span class="arrow">▼</span>
+        </div>
+
+        <ul
+          v-if="isOpen('region')"
+          class="dropdown-list bg-filter border border-solid border-black"
+        >
+          <li @click="selectRegion(null)">
+            <span>All</span>
+          </li>
+          <li
+            v-for="region in regions"
+            :key="region.id"
+            @click="selectRegion(region)"
+          >
+            <img
+              loading="lazy"
+              :src="region.image_url"
+              alt=""
+              class="dropdown-icon"
+            />
+            <span>{{ region.name }}</span>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <button
+          class="btn btn-soft btn-success px-4 sm:px-6 tracking-wide text-sm sm:text-base"
+          @click="applyFilters"
+        >
+          Apply
+        </button>
+        <button
+          class="btn btn-soft btn-warning px-4 sm:px-6 tracking-wide text-sm sm:text-base"
+          @click="resetFilters"
+        >
+          Reset
+        </button>
       </div>
     </div>
-    <div class="divider mt-4"></div>
-    <div
-      class="h-fit w-full lg:w-3/4 flex flex-col gap-6 sm:gap-12 lg:gap-16 mt-6 sm:mt-10 mb-16 sm:mb-24 lg:mb-32 px-4 sm:px-0"
-    >
+
+    <div class="divider w-full mx-auto"></div>
+    <div class="h-fit w-full lg:w-4/5 flex flex-col gap-10 md:gap-16">
       <RouterLink
         :to="`/characters/${character.id}?name=${encodeURIComponent(
           character.name,
@@ -232,7 +210,7 @@
           </div>
           <img
             v-if="character.splash_art_url"
-            class="hidden sm:block absolute min-w-48 sm:min-w-64 max-w-56 sm:max-w-68 h-48 sm:h-64 right-0 -top-6 sm:-top-8 opacity-50"
+            class="absolute w-36 h-36 md:w-80 md:h-80 md:-top-10 right-0 top-0 opacity-50"
             :src="character.splash_art_url"
             loading="lazy"
             alt=""
