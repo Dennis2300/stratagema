@@ -38,9 +38,6 @@
           <span v-if="character.role" class="badge badge-lg badge-primary gap-2">
             {{ character.role.name }}
           </span>
-          <span v-if="character.released_region" class="badge badge-lg badge-primary gap-2">
-            {{ character.released_region.name }}
-          </span>
         </div>
       </div>
     </div>
