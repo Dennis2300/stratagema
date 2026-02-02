@@ -1,17 +1,18 @@
+<template>
+  <h2 class="divider text-quaternary pb-4">Build(s)</h2>
+  <div class="lore-text" v-html="renderedMarkdown" />
+</template>
+
 <script setup>
-import { marked } from 'marked';
-import { computed } from 'vue';
+import { marked } from "marked";
+import { computed } from "vue";
 
 const props = defineProps({
-  content: String
+  content: String,
 });
 
 const renderedMarkdown = computed(() => marked(props.content));
 </script>
-
-<template>
-  <div class="lore-text" v-html="renderedMarkdown" />
-</template>
 
 <style>
 .lore-text {

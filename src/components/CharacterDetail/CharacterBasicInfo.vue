@@ -1,52 +1,50 @@
 <template>
-  <section class="flex flex-col justify-center items-center">
-    <figure class="relative">
-      <img
-        class="bg-primary rounded-full absolute -top-8 -left-6 w-16 h-16 p-2"
-        :src="character.vision.image_url"
-        alt=""
-      />
+  <div class="bg-base-200/50  rounded-lg p-6 md:p-8">
+    <!-- Avatar Section -->
+    <div class="flex flex-col md:flex-row items-center gap-4 mb-6">
+      <figure class="relative">
+        <img
+          class="bg-primary rounded-full absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-14 md:h-14 p-2 shadow-lg z-10"
+          :src="character.vision.image_url"
+          alt=""
+        />
+        <img
+          class="rounded-full w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 object-cover border-4 border-base-300"
+          :class="{
+            'rarity-5': character.rarity === 5,
+            'rarity-4': character.rarity === 4,
+          }"
+          :src="character.avatar_url"
+          :alt="character.name"
+        />
+      </figure>
 
-      <img
-        class="rounded-full w-48 flex items-center justify-center"
-        :class="{
-          'rarity-5': character.rarity === 5,
-          'rarity-4': character.rarity === 4,
-        }"
-        :src="character.avatar_url"
-        :alt="character.name"
-      />
-    </figure>
-
-    <header class="text-center">
-      <h1 class="font-acme text-4xl mt-4 tracking-wide">
-        {{ character.name }}
-      </h1>
-    </header>
-    <div class="divider mb-2 px-24"></div>
-
-    <!-- Character Tags -->
-    <div class="flex flex-row justify-center items-center gap-2 list-none">
-      <p v-if="character.vision" class="badge badge-neutral tracking-wide">
-        {{ character.vision.name }}
-      </p>
-      <p v-if="character.weapon_type" class="badge badge-neutral tracking-wide">
-        {{ character.weapon_type.name }}
-      </p>
-      <p v-if="character.main_stat" class="badge badge-neutral tracking-wide">
-        {{ character.main_stat.name }}
-      </p>
-      <p v-if="character.main_stat" class="badge badge-neutral tracking-wide">
-        {{ character.role.name }}
-      </p>
-      <p
-        v-if="character.released_region"
-        class="badge badge-neutral tracking-wide"
-      >
-        {{ character.released_region.name }}
-      </p>
+      <!-- Info Section -->
+      <div class="flex flex-col gap-4 text-center md:text-left w-full">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-text">
+          {{ character.name }}
+        </h1>
+        
+        <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+          <span v-if="character.vision" class="badge badge-lg badge-primary gap-2">
+            {{ character.vision.name }}
+          </span>
+          <span v-if="character.weapon_type" class="badge badge-lg badge-primary gap-2">
+            {{ character.weapon_type.name }}
+          </span>
+          <span v-if="character.main_stat" class="badge badge-lg badge-primary gap-2">
+            {{ character.main_stat.name }}
+          </span>
+          <span v-if="character.role" class="badge badge-lg badge-primary gap-2">
+            {{ character.role.name }}
+          </span>
+          <span v-if="character.released_region" class="badge badge-lg badge-primary gap-2">
+            {{ character.released_region.name }}
+          </span>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup>
