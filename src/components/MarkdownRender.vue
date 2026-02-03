@@ -1,5 +1,4 @@
 <template>
-  <h2 class="divider text-quaternary pb-4">Build(s)</h2>
   <div class="lore-text" v-html="renderedMarkdown" />
 </template>
 

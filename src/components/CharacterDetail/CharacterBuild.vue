@@ -116,6 +116,11 @@
         class="bg-base-300/50 rounded-lg p-4 md:p-6 border border-base-300"
       >
         <div class="prose prose-sm md:prose-base max-w-none prose-invert">
+          <h2
+            class="text-2xl md:text-3xl font-bold text-quaternary mb-6 divider"
+          >
+            Build(s)
+          </h2>
           <MarkdownRender :content="build.notes" />
         </div>
       </div>
