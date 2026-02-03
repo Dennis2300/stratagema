@@ -1,48 +1,64 @@
 <template>
-  <LoadingSpinner v-if="loading" />
-  <div v-else class="mx-24 mt-4">
-    <div class="h-[150px] w-3/4 relative rounded-2xl mx-auto">
-      <h1
-        class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
-      >
-        Weapon Archive
-      </h1>
-      <div class="absolute inset-0 bg-black/50 z-10 rounded-2xl"></div>
-      <img
-        class="w-full h-full object-cover rounded-2xl"
-        src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/03/77454259/c9ca59e15d1f61f53d0b3135794d001e_1968227873859734274.png?x-oss-process=image%2Fformat%2Cwebp"
-        alt=""
-        loading="lazy"
-      />
-    </div>
-    <div class="divider my-4 px-24"></div>
-    <div class="grid grid-cols-4 gap-8">
+  <main class="min-h-screen space-y-12 px-4 py-8">
+    <LoadingSpinner v-if="loading" />
+    <h1 class="divider">Weapons</h1>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
       <RouterLink
         v-for="weapon in weapons"
+        class="weapon-card flex flex-row items-center gap-4 no-underline text-text bg-primary/50 md:bg-primary p-4 md:p-8 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
         :key="weapon.id"
         :to="`/weapons/${weapon.id}?name=${encodeURIComponent(weapon.name)}`"
         target="_blank"
-        class="bg-primary flex flex-col justify-center items-center pt-12 pb-8 gap-8 no-underline rounded-2xl transform hover:-translate-y-2 hover:shadow-xl transition-all duration-300 ease-out group"
       >
         <img
-          class="w-32 rounded-xl group-hover:scale-110 transition-transform duration-300"
+          class="w-20 md:w-24 rounded-2xl flex-shrink-0 transition-transform duration-300"
           :class="{
             'rarity-5': weapon.rarity === 5,
             'rarity-4': weapon.rarity === 4,
             'rarity-3': weapon.rarity === 3,
           }"
           :src="weapon.image_url"
-          alt=""
+          :alt="weapon.name"
+          loading="lazy"
         />
-        <h3
-          class="text-text group-hover:opacity-80 transition-opacity duration-300"
-        >
+        <h3 class="text-base md:text-lg font-semibold line-clamp-2">
           {{ weapon.name }}
         </h3>
       </RouterLink>
     </div>
-  </div>
+  </main>
 </template>
+
+<style scoped>
+.rarity-5 {
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow:
+    0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+
+.rarity-4 {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow:
+    0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+
+.rarity-3 {
+  background: linear-gradient(145deg, #567496, #3a77b1);
+  box-shadow:
+    0px 0px 15px rgba(86, 116, 150, 0.8),
+    0px 0px 30px rgba(86, 116, 150, 0.5);
+}
+
+.weapon-card:hover img {
+  transform: scale(1.05) rotate(2deg);
+}
+
+.weapon-card:active {
+  transform: scale(0.98);
+}
+</style>
 
 <script setup>
 import { ref, onMounted } from "vue";
@@ -102,26 +118,3 @@ onMounted(() => {
   fetchAllWeapons();
 });
 </script>
-
-<style scoped>
-.rarity-5 {
-  background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow:
-    0px 0px 15px rgba(231, 148, 74, 0.8),
-    0px 0px 30px rgba(231, 148, 74, 0.5);
-}
-
-.rarity-4 {
-  background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow:
-    0px 0px 15px rgba(155, 114, 213, 0.8),
-    0px 0px 30px rgba(155, 114, 213, 0.5);
-}
-
-.rarity-3 {
-  background: linear-gradient(145deg, #567496, #3a77b1);
-  box-shadow:
-    0px 0px 15px rgba(86, 116, 150, 0.8),
-    0px 0px 30px rgba(86, 116, 150, 0.5);
-}
-</style>
