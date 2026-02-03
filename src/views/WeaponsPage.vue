@@ -1,6 +1,6 @@
 <template>
-  <main class="min-h-screen space-y-12 px-4 py-8">
-    <LoadingSpinner v-if="loading" />
+  <LoadingSpinner v-if="loading" />
+  <main v-else class="min-h-screen space-y-12 px-4 py-8">
     <h1 class="divider">Weapons</h1>
 
     <transition name="fade-slide" mode="out-in">
@@ -52,9 +52,7 @@
       </button>
 
       <div class="flex gap-1 md:hidden">
-        <button
-          class="btn btn-accent min-w-[40px]"
-        >
+        <button class="btn btn-accent min-w-[40px]">
           {{ currentPage }}
         </button>
         <button

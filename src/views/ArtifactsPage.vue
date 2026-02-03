@@ -1,104 +1,185 @@
 <template>
   <LoadingSpinner v-if="loading" />
-  <div v-else class="mx-24 mt-4">
-    <div class="h-[150px] w-3/4 relative rounded-2xl mx-auto">
-      <h1
-        class="absolute inset-0 z-20 flex items-center justify-center text-7xl font-acme tracking-wide outline-4"
+  <main v-else class="px-4 md:px-8 lg:px-24">
+    <h1 class="divider">Artifacts</h1>
+
+    <transition name="fade-slide" mode="out-in">
+      <div
+        :key="currentPage"
+        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 mt-8"
       >
-        Artifact Archive
-      </h1>
-      <div class="absolute inset-0 bg-black/50 z-10 rounded-2xl"></div>
-      <img
-        class="w-full h-full object-cover object-bottom rounded-2xl"
-        src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/06/07/77454259/c637405f1e1e8c997b72c82d5e346f37_2091886501370592478.png?x-oss-process=image%2Fformat%2Cwebp"
-        alt=""
-        loading="lazy"
-      />
-    </div>
-    <div class="divider my-4 px-24"></div>
-    <div class="grid grid-cols-4 gap-8">
-      <template v-for="artifact in artifacts" :key="artifact.id">
-        <div
-          class="artifact-card text-center bg-secondary px-8 py-4 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-200"
-          @click="toggleArtifact(artifact.id)"
+        <template
+          v-for="(artifact, index) in paginatedArtifacts"
+          :key="artifact.id"
         >
-          <img class="w-32 mx-auto" :src="artifact.flower_img_url" alt="" />
-          <h3 class="w-full truncate tracking-wide font-acme mt-2">
-            {{ artifact.name }}
-          </h3>
-        </div>
-      </template>
+          <div
+            class="artifact-card text-center bg-primary md:bg-secondary p-4 md:px-8 md:py-4 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-300"
+            :style="{ animationDelay: `${index * 50}ms` }"
+            @click="toggleArtifact(artifact.id)"
+          >
+            <img
+              class="w-20 md:w-32 mx-auto"
+              :src="artifact.flower_img_url"
+              alt=""
+            />
+            <h3
+              class="w-full truncate tracking-wide font-acme mt-2 text-sm md:text-base"
+            >
+              {{ artifact.name }}
+            </h3>
+          </div>
+        </template>
+      </div>
+    </transition>
+
+    <!-- Pagination Controls -->
+    <div class="flex justify-center items-center gap-2 md:gap-4 flex-wrap mt-8">
+      <button
+        @click="currentPage = 1"
+        :disabled="currentPage === 1"
+        class="btn btn-primary hidden md:inline-flex btn-sm md:btn-md"
+      >
+        First
+      </button>
+
+      <button
+        @click="currentPage--"
+        :disabled="currentPage === 1"
+        class="btn btn-primary btn-sm md:btn-md"
+      >
+        Previous
+      </button>
+
+      <div class="flex gap-1 md:hidden">
+        <button class="btn btn-accent min-w-[40px] btn-sm">
+          {{ currentPage }}
+        </button>
+        <button
+          v-if="currentPage < totalPages"
+          @click="currentPage = currentPage + 1"
+          class="btn btn-primary min-w-[40px] btn-sm"
+        >
+          {{ currentPage + 1 }}
+        </button>
+      </div>
+
+      <div class="hidden md:flex gap-2">
+        <button
+          v-for="page in visiblePages"
+          :key="page"
+          @click="currentPage = page"
+          :class="currentPage === page ? 'btn-accent' : 'btn-primary'"
+          class="btn min-w-[48px] btn-md"
+        >
+          {{ page }}
+        </button>
+      </div>
+
+      <button
+        @click="currentPage++"
+        :disabled="currentPage === totalPages"
+        class="btn btn-primary btn-sm md:btn-md"
+      >
+        Next
+      </button>
+
+      <button
+        @click="currentPage = totalPages"
+        :disabled="currentPage === totalPages"
+        class="btn btn-primary hidden md:inline-flex btn-sm md:btn-md"
+      >
+        Last
+      </button>
     </div>
+
+    <p class="text-center text-gray-400 text-sm md:text-base mt-4">
+      Showing {{ startIndex + 1 }}-{{ endIndex }} of
+      {{ artifacts.length }} artifacts
+    </p>
 
     <!-- Popup Overlay -->
     <transition name="fade">
       <div
         v-if="expandedArtifact"
-        class="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+        class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
         @click.self="closeArtifact"
       >
         <div
-          class="bg-primary w-[800px] h-[600px] p-6 rounded-xl relative overflow-y-scroll"
+          class="bg-primary w-full md:w-[700px] lg:w-[800px] max-h-[90vh] md:max-h-[600px] p-4 md:p-6 rounded-xl relative overflow-y-scroll"
         >
-          <div
-            class="absolute top-5 right-5 text-black hover:text-red-500 text-xl cursor-pointer px-2 rounded-full bg-tertiary"
+          <button
+            class="btn btn-circle btn-sm absolute top-3 right-3 md:top-5 md:right-5 z-10"
             @click="closeArtifact"
           >
             ✕
-          </div>
+          </button>
 
           <!-- Find the selected artifact -->
           <div v-if="selectedArtifact">
-            <h1 class="text-4xl font-acme tracking-wide">
+            <h1 class="text-2xl md:text-4xl font-acme tracking-wide pr-8">
               {{ selectedArtifact.name }}
             </h1>
-            <div class="flex flex-row justify-center items-center w-[90%] mt-8">
+            <div
+              class="flex flex-row flex-wrap justify-center items-center gap-2 md:gap-4 mt-6 md:mt-8"
+            >
               <img
-                class="w-24 mx-auto mb-4"
+                class="w-16 md:w-24"
                 :src="selectedArtifact.flower_img_url"
                 alt=""
               />
               <img
-                class="w-24 mx-auto mb-4"
+                class="w-16 md:w-24"
                 :src="selectedArtifact.plume_img_url"
                 alt=""
               />
               <img
-                class="w-24 mx-auto mb-4"
+                class="w-16 md:w-24"
                 :src="selectedArtifact.sands_img_url"
                 alt=""
               />
               <img
-                class="w-24 mx-auto mb-4"
+                class="w-16 md:w-24"
                 :src="selectedArtifact.goblet_img_url"
                 alt=""
               />
               <img
-                class="w-24 mx-auto mb-4"
+                class="w-16 md:w-24"
                 :src="selectedArtifact.circlet_img_url"
                 alt=""
               />
             </div>
-            <div class="divider m-0"></div>
-            <div class="px-10">
+            <div class="divider m-0 my-4"></div>
+            <div class="px-4 md:px-10">
               <div class="my-4">
-                <h2 class="mb-2 text-tertiary">2 Piece Set Bonus</h2>
-                <p>{{ selectedArtifact.two_piece.name }}</p>
+                <h2
+                  class="mb-2 text-tertiary font-semibold text-base md:text-lg"
+                >
+                  2 Piece Set Bonus
+                </h2>
+                <p class="text-sm md:text-base">
+                  {{ selectedArtifact.two_piece.name }}
+                </p>
               </div>
               <div class="my-4">
-                <h2 class="mb-2 text-tertiary">4 Piece Set Bonus</h2>
-                <p>{{ selectedArtifact.four_piece }}</p>
+                <h2
+                  class="mb-2 text-tertiary font-semibold text-base md:text-lg"
+                >
+                  4 Piece Set Bonus
+                </h2>
+                <p class="text-sm md:text-base">
+                  {{ selectedArtifact.four_piece }}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </transition>
-  </div>
+  </main>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingSpinner from "../components/Loadings/LoadingSpinner.vue";
 
@@ -106,6 +187,47 @@ const loading = ref(true);
 const error = ref(null);
 const artifacts = ref([]);
 const expandedArtifact = ref(null);
+const currentPage = ref(1);
+const itemsPerPage = 12;
+
+// Watch for page changes and scroll to top
+watch(currentPage, () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// Computed properties for pagination
+const totalPages = computed(() =>
+  Math.ceil(artifacts.value.length / itemsPerPage),
+);
+
+const startIndex = computed(() => (currentPage.value - 1) * itemsPerPage);
+
+const endIndex = computed(() => {
+  const end = startIndex.value + itemsPerPage;
+  return end > artifacts.value.length ? artifacts.value.length : end;
+});
+
+const paginatedArtifacts = computed(() => {
+  return artifacts.value.slice(startIndex.value, endIndex.value);
+});
+
+// Show max 5 page numbers at a time
+const visiblePages = computed(() => {
+  const pages = [];
+  const maxVisible = 5;
+  let start = Math.max(1, currentPage.value - Math.floor(maxVisible / 2));
+  let end = Math.min(totalPages.value, start + maxVisible - 1);
+
+  // Adjust start if we're near the end
+  if (end - start < maxVisible - 1) {
+    start = Math.max(1, end - maxVisible + 1);
+  }
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+  return pages;
+});
 
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = new Date().getTime();
@@ -167,22 +289,44 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.artifacts-page {
-  width: 1200px;
-  min-height: 100vh;
+.artifact-card {
+  animation: fadeInUp 0.5s ease-out backwards;
 }
 
-.artifact-card {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    background 0.3s ease;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .artifact-card:hover {
-  background: var(--filter-color-hover);
   transform: translateY(-6px) scale(1.03);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.artifact-card:active {
+  transform: scale(0.98);
+}
+
+/* Page transition effects */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 
 .fade-enter-active,
