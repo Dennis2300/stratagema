@@ -102,73 +102,6 @@
   </main>
 </template>
 
-<style scoped>
-.rarity-5 {
-  background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow:
-    0px 0px 15px rgba(231, 148, 74, 0.8),
-    0px 0px 30px rgba(231, 148, 74, 0.5);
-}
-.rarity-4 {
-  background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow:
-    0px 0px 15px rgba(155, 114, 213, 0.8),
-    0px 0px 30px rgba(155, 114, 213, 0.5);
-}
-.rarity-3 {
-  background: linear-gradient(145deg, #567496, #3a77b1);
-  box-shadow:
-    0px 0px 15px rgba(86, 116, 150, 0.8),
-    0px 0px 30px rgba(86, 116, 150, 0.5);
-}
-.weapon-card:hover img {
-  transform: scale(1.05) rotate(2deg);
-}
-.weapon-card:active {
-  transform: scale(0.98);
-}
-
-.fade-slide-enter-active,
-.fade-slide-leave-active {
-  transition: all 0.3s ease;
-}
-
-.fade-slide-enter-from {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.fade-slide-leave-to {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
-.weapon-card {
-  animation: fadeInUp 0.5s ease-out backwards;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1.05);
-  }
-  50% {
-    transform: scale(1.08);
-  }
-}
-</style>
-
 <script setup>
 import { ref, onMounted, computed, watch } from "vue";
 import { supabase } from "./../supabaseClient.js";
@@ -262,3 +195,70 @@ onMounted(() => {
   fetchAllWeapons();
 });
 </script>
+
+<style scoped>
+.rarity-5 {
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow:
+    0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+.rarity-4 {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow:
+    0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+.rarity-3 {
+  background: linear-gradient(145deg, #567496, #3a77b1);
+  box-shadow:
+    0px 0px 15px rgba(86, 116, 150, 0.8),
+    0px 0px 30px rgba(86, 116, 150, 0.5);
+}
+.weapon-card:hover img {
+  transform: scale(1.05) rotate(2deg);
+}
+.weapon-card:active {
+  transform: scale(0.98);
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.weapon-card {
+  animation: fadeInUp 0.5s ease-out backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+</style>
