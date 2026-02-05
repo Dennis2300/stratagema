@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center gap-8">
+  <div class="flex flex-col items-center gap-16">
     <TopSection />
     <MiddleSection />
     <UpdatesSection />

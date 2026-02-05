@@ -1,66 +1,111 @@
 <template>
-  <div class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 p-2 sm:p-4"
-    >
-      <router-link
-        v-for="link in navLinks"
-        :key="link.name"
-        :to="link.path"
-        class="group no-underline block perspective-1000"
+  <section class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl">
+    <h2 class="divider w-full pb-4">Current Banner</h2>
+    <div class="flex py-4 justify-around">
+      <div
+        v-for="a in currentBannerCharacters"
+        :key="a.character_id.id"
+        class="text-center space-y-2"
       >
         <div
-          class="overflow-hidden rounded-xl relative transform transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:-translate-y-2 shadow-lg group-hover:shadow-2xl"
+          class="w-32 h-32 rounded-2xl"
+          :class="{
+            'rarity-5': a.character_id.rarity === 5,
+            'rarity-4': a.character_id.rarity === 4,
+          }"
         >
           <img
-            :src="link.image"
-            :alt="link.name"
-            class="w-full h-[250px] sm:h-[300px] lg:h-[400px] object-cover object-top rounded-xl transform transition-all duration-700 ease-out group-hover:scale-105"
+            class="w-full h-full object-cover object-center"
+            :src="a.character_id.avatar_url"
+            alt=""
           />
-          <!-- Animated overlay with blur -->
-          <div
-            class="absolute inset-0 bg-gradient-to-br from-tertiary/30 via-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
-          ></div>
-          <!-- Shine effect -->
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-xl"
-          ></div>
         </div>
-        <h2
-          class="text-center mt-2 sm:mt-3 text-text font-bold text-base sm:text-lg group-hover:text-tertiary transition-all duration-300 transform group-hover:scale-110"
-        >
-          {{ link.name }}
-        </h2>
-      </router-link>
+        <h4>{{ a.character_id.name }}</h4>
+      </div>
     </div>
-  </div>
+    <div class="text-center my-2">
+      <p class="text-2xl font-semibold">
+        <span>Days left: </span>{{ countdown }}
+      </p>
+    </div>
+  </section>
 </template>
 
 <script setup>
-const navLinks = [
-  {
-    name: "Characters",
-    path: "/characters",
-    image:
-      "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/twins.webp",
-  },
-  {
-    name: "Weapons",
-    path: "/weapons",
-    image:
-      "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/skirk.webp",
-  },
-  {
-    name: "Artifacts",
-    path: "/artifacts",
-    image:
-      "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/chiori.webp",
-  },
-  {
-    name: "Banners",
-    path: "/current-banner",
-    image:
-      "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/twins2.png",
-  },
-];
+import { onMounted, onUnmounted, ref, computed } from "vue";
+import { supabase } from "@/supabaseClient";
+
+const currentBannerCharacters = ref([]);
+const currentTime = ref(Date.now());
+let countdownInterval = null;
+
+const countdown = computed(() => {
+  if (!currentBannerCharacters.value.length) return "";
+
+  const endDate = currentBannerCharacters.value[0].banner_id.end_date;
+  const end = new Date(endDate).getTime();
+  const now = currentTime.value;
+  const difference = end - now;
+
+  if (difference <= 0) {
+    return "Banner ended";
+  }
+
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+  );
+  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+  if (days > 0) {
+    return `${days}d ${hours}h ${minutes}m`;
+  } else if (hours > 0) {
+    return `${hours}h ${minutes}m ${seconds}s`;
+  } else {
+    return `${minutes}m ${seconds}s`;
+  }
+});
+
+async function fetchCurrentBannerCharacters() {
+  try {
+    let query = supabase
+      .from("character_banner")
+      .select("*, banner_id(*), character_id(name, rarity, avatar_url)");
+    const { data, error } = await query;
+    if (error) throw error;
+    currentBannerCharacters.value = data;
+    console.log(currentBannerCharacters.value);
+  } catch (err) {
+    console.error("Error fetching Current Banners");
+  }
+}
+
+onMounted(() => {
+  fetchCurrentBannerCharacters();
+  countdownInterval = setInterval(() => {
+    currentTime.value = Date.now();
+  }, 1000);
+});
+
+onUnmounted(() => {
+  if (countdownInterval) {
+    clearInterval(countdownInterval);
+  }
+});
 </script>
+
+<style>
+.rarity-5 {
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow:
+    0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+.rarity-4 {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow:
+    0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+</style>
