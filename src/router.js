@@ -37,11 +37,6 @@ const routes = [
     component: () => import("./views/ContributePage.vue"),
   },
   {
-    path: "/current-banner",
-    name: "CurrentBannerPage",
-    component: () => import("./views/CurrentBannerPage.vue"),
-  },
-  {
     path: "/admin",
     component: () => import("./views/AdminPage.vue"),
     meta: { requiresAuth: true },
