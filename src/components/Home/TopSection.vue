@@ -1,8 +1,6 @@
 <template>
   <section class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 p-2 sm:p-4"
-    >
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-6 p-2">
       <router-link
         v-for="link in navLinks"
         :key="link.name"
