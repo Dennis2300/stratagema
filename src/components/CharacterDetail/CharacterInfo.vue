@@ -4,7 +4,7 @@
       Character Details
     </h2>
 
-    <div class="flex flex-col gap-4 text-sm md:text-base md:w-1/2 md:mx-auto">
+    <div class="flex flex-col gap-4 text-sm md:text-base md:mx-auto">
       <!-- Rarity -->
       <div
         class="flex flex-row justify-between items-center py-2 border-b border-base-300"
