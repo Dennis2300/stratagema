@@ -1,10 +1,16 @@
 <template>
   <section class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl">
     <h2 class="divider w-full pb-4">Current Banner</h2>
-        <div class="grid auto-cols-max grid-flow-col gap-5 text-center justify-center my-4">
+    <div
+      class="grid auto-cols-max grid-flow-col gap-5 text-center justify-center my-4"
+    >
       <div v-if="countdownValues.days > 0" class="flex flex-col">
         <span class="countdown font-mono text-5xl">
-          <span :style="`--value:${countdownValues.days};`" aria-live="polite" :aria-label="countdownValues.days">
+          <span
+            :style="`--value:${countdownValues.days};`"
+            aria-live="polite"
+            :aria-label="countdownValues.days"
+          >
             {{ countdownValues.days }}
           </span>
         </span>
@@ -12,7 +18,11 @@
       </div>
       <div class="flex flex-col">
         <span class="countdown font-mono text-5xl">
-          <span :style="`--value:${countdownValues.hours};`" aria-live="polite" :aria-label="countdownValues.hours">
+          <span
+            :style="`--value:${countdownValues.hours};`"
+            aria-live="polite"
+            :aria-label="countdownValues.hours"
+          >
             {{ countdownValues.hours }}
           </span>
         </span>
@@ -20,7 +30,11 @@
       </div>
       <div class="flex flex-col">
         <span class="countdown font-mono text-5xl">
-          <span :style="`--value:${countdownValues.minutes};`" aria-live="polite" :aria-label="countdownValues.minutes">
+          <span
+            :style="`--value:${countdownValues.minutes};`"
+            aria-live="polite"
+            :aria-label="countdownValues.minutes"
+          >
             {{ countdownValues.minutes }}
           </span>
         </span>
@@ -28,19 +42,22 @@
       </div>
       <div class="flex flex-col">
         <span class="countdown font-mono text-5xl">
-          <span :style="`--value:${countdownValues.seconds};`" aria-live="polite" :aria-label="countdownValues.seconds">
+          <span
+            :style="`--value:${countdownValues.seconds};`"
+            aria-live="polite"
+            :aria-label="countdownValues.seconds"
+          >
             {{ countdownValues.seconds }}
           </span>
         </span>
         sec
       </div>
     </div>
-
-    <div class="flex py-4 justify-around">
+    <div class="grid grid-cols-2 gap-y-8 pt-4">
       <div
         v-for="a in currentBannerCharacters"
         :key="a.character_id.id"
-        class="text-center space-y-2"
+        class="flex flex-col items-center gap-2"
       >
         <div
           class="w-32 h-32 rounded-2xl"
@@ -55,7 +72,7 @@
             alt=""
           />
         </div>
-        <h4>{{ a.character_id.name }}</h4>
+        <h3>{{ a.character_id.name }}</h3>
       </div>
     </div>
   </section>
@@ -73,7 +90,7 @@ const countdownValues = computed(() => {
   if (!currentBannerCharacters.value.length) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
-  
+
   const endDate = currentBannerCharacters.value[0].banner_id.end_date;
   const end = new Date(endDate).getTime();
   const now = currentTime.value;
