@@ -4,7 +4,7 @@
     <div class="flex flex-col md:flex-row items-center mb-6">
       <figure class="relative">
         <img
-          class="bg-primary rounded-full absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-14 md:h-14 p-2 shadow-lg z-10"
+          class="bg-gray-700 rounded-full absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-14 md:h-14 p-2 shadow-lg z-10"
           :src="character.vision.image_url"
           alt=""
         />
