@@ -1,6 +1,41 @@
 <template>
   <section class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl">
     <h2 class="divider w-full pb-4">Current Banner</h2>
+        <div class="grid auto-cols-max grid-flow-col gap-5 text-center justify-center my-4">
+      <div v-if="countdownValues.days > 0" class="flex flex-col">
+        <span class="countdown font-mono text-5xl">
+          <span :style="`--value:${countdownValues.days};`" aria-live="polite" :aria-label="countdownValues.days">
+            {{ countdownValues.days }}
+          </span>
+        </span>
+        days
+      </div>
+      <div class="flex flex-col">
+        <span class="countdown font-mono text-5xl">
+          <span :style="`--value:${countdownValues.hours};`" aria-live="polite" :aria-label="countdownValues.hours">
+            {{ countdownValues.hours }}
+          </span>
+        </span>
+        hours
+      </div>
+      <div class="flex flex-col">
+        <span class="countdown font-mono text-5xl">
+          <span :style="`--value:${countdownValues.minutes};`" aria-live="polite" :aria-label="countdownValues.minutes">
+            {{ countdownValues.minutes }}
+          </span>
+        </span>
+        min
+      </div>
+      <div class="flex flex-col">
+        <span class="countdown font-mono text-5xl">
+          <span :style="`--value:${countdownValues.seconds};`" aria-live="polite" :aria-label="countdownValues.seconds">
+            {{ countdownValues.seconds }}
+          </span>
+        </span>
+        sec
+      </div>
+    </div>
+
     <div class="flex py-4 justify-around">
       <div
         v-for="a in currentBannerCharacters"
@@ -23,11 +58,6 @@
         <h4>{{ a.character_id.name }}</h4>
       </div>
     </div>
-    <div class="text-center my-2">
-      <p class="text-2xl font-semibold">
-        <span>Days left: </span>{{ countdown }}
-      </p>
-    </div>
   </section>
 </template>
 
@@ -39,16 +69,18 @@ const currentBannerCharacters = ref([]);
 const currentTime = ref(Date.now());
 let countdownInterval = null;
 
-const countdown = computed(() => {
-  if (!currentBannerCharacters.value.length) return "";
-
+const countdownValues = computed(() => {
+  if (!currentBannerCharacters.value.length) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+  
   const endDate = currentBannerCharacters.value[0].banner_id.end_date;
   const end = new Date(endDate).getTime();
   const now = currentTime.value;
   const difference = end - now;
 
   if (difference <= 0) {
-    return "Banner ended";
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 
   const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -58,13 +90,7 @@ const countdown = computed(() => {
   const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-  if (days > 0) {
-    return `${days}d ${hours}h ${minutes}m`;
-  } else if (hours > 0) {
-    return `${hours}h ${minutes}m ${seconds}s`;
-  } else {
-    return `${minutes}m ${seconds}s`;
-  }
+  return { days, hours, minutes, seconds };
 });
 
 async function fetchCurrentBannerCharacters() {
@@ -95,7 +121,7 @@ onUnmounted(() => {
 });
 </script>
 
-<style>
+<style scoped>
 .rarity-5 {
   background: linear-gradient(145deg, #e7944a, #b56a2b);
   box-shadow:
