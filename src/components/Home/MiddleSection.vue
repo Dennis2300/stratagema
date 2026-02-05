@@ -53,7 +53,7 @@
         sec
       </div>
     </div>
-    <div class="grid grid-cols-2 gap-y-8 pt-4">
+    <div class="grid grid-cols-2 gap-y-8 pt-4 md:flex md:justify-around">
       <div
         v-for="a in currentBannerCharacters"
         :key="a.character_id.id"
