@@ -1,8 +1,8 @@
 <template>
-  <section class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl">
+  <section class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl space-y-4">
     <h2 class="divider w-full pb-4">Current Banner</h2>
     <div
-      class="grid auto-cols-max grid-flow-col gap-5 text-center justify-center my-4"
+      class="grid auto-cols-max grid-flow-col gap-5 text-center justify-center"
     >
       <div v-if="countdownValues.days > 0" class="flex flex-col">
         <span class="countdown font-mono text-5xl">
@@ -75,6 +75,9 @@
         <h3>{{ a.character_id.name }}</h3>
       </div>
     </div>
+    <div class="text-center mb-6">
+      <p class="text-sm opacity-70">Ends: {{ formattedEndDate }}</p>
+    </div>
   </section>
 </template>
 
@@ -108,6 +111,19 @@ const countdownValues = computed(() => {
   const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
   return { days, hours, minutes, seconds };
+});
+
+const formattedEndDate = computed(() => {
+  if (!currentBannerCharacters.value.length) return "";
+
+  const endDate = new Date(currentBannerCharacters.value[0].banner_id.end_date);
+  return endDate.toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 });
 
 async function fetchCurrentBannerCharacters() {
