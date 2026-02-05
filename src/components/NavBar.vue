@@ -85,7 +85,6 @@ const navLinks = [
   { name: "Characters", path: "/characters" },
   { name: "Weapons", path: "/weapons" },
   { name: "Artifacts", path: "/artifacts" },
-  { name: "Banners", path: "/current-banner" },
 ];
 
 const isActive = (path) => route.path === path;
