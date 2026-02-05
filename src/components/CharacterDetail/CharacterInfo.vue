@@ -109,7 +109,9 @@
       <div
         class="flex flex-row justify-between items-center py-2 border-b border-base-300"
       >
-        <p class="text-base-content/60 font-semibold">Birthday:</p>
+        <p class="text-base-content/60 font-semibold">
+          Birthday <span class="text-gray-500">(mm/dd)</span>:
+        </p>
         <p v-if="character.birthday" class="text-base-content font-medium">
           {{ character.birthday }}
         </p>
