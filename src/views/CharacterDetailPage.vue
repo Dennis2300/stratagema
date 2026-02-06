@@ -30,8 +30,8 @@
       <CharacterInfo :character="character" />
 
       <!-- Equipment & Build Sections -->
-      <CharacterWeapons :character="character" />
       <CharacterArtifacts :character="character" />
+      <CharacterWeapons :character="character" />
       <CharacterBuild :character="character" />
       <CharacterMaterials :character="character" />
     </div>
@@ -161,23 +161,6 @@ async function fetchCharacterById(characterId) {
     loading.value = false;
     console.log(character);
   }
-}
-
-const scrollToSection = (id) => {
-  const el = document.getElementById(id);
-  if (!el) return;
-
-  el.scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-  });
-};
-
-function scrollToTop() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
 }
 
 onMounted(async () => {

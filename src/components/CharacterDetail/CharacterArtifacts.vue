@@ -15,7 +15,7 @@
           <!-- Rank Badge -->
           <div class="absolute top-3 right-3 z-10">
             <span
-              class="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 text-lg md:text-xl font-bold rounded-full border-2 border-white shadow-lg"
+              class="flex items-center justify-center w-8 h-8 font-bold rounded-full border-2 border-white shadow-lg"
               :class="{
                 'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black rank-shine':
                   rank == 1,
@@ -69,7 +69,7 @@
               <div class="flex flex-col gap-2 md:gap-3 flex-1 min-w-0">
                 <div class="flex flex-col">
                   <span
-                    class="text-xs md:text-sm text-primary font-semibold uppercase tracking-wide"
+                    class="text-xs md:text-sm text-text font-semibold tracking-wide"
                   >
                     {{ group.length === 2 ? "2-Piece" : "4-Piece" }}
                   </span>
@@ -215,8 +215,8 @@ const artifactsByRank = computed(() => {
   }
   50% {
     box-shadow:
-      0 0 20px rgba(255, 215, 0, 0.8),
-      0 0 30px rgba(255, 215, 0, 0.6);
+      0 0 10px rgba(255, 215, 0, 0.8),
+      0 0 15px rgba(255, 215, 0, 0.6);
   }
 }
 

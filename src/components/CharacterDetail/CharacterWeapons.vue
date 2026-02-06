@@ -35,7 +35,7 @@
           <!-- Weapon Info -->
           <div class="flex flex-col gap-2 md:gap-3 flex-1 min-w-0">
             <h3
-              class="text-lg md:text-xl font-bold group-hover:text-accent transition-colors truncate"
+              class="text-lg md:text-xl font-bold group-hover:text-tertiary transition-colors truncate"
             >
               {{ weapon.weapon_id.name }}
             </h3>
