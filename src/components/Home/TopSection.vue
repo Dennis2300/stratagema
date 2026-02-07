@@ -14,6 +14,7 @@
             :src="link.image"
             :alt="link.name"
             class="w-full h-[250px] sm:h-[300px] lg:h-[400px] object-cover object-top rounded-xl transform transition-all duration-700 ease-out group-hover:scale-105"
+            loading="lazy"
           />
           <!-- Animated overlay with blur -->
           <div
