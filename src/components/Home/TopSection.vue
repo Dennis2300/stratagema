@@ -26,7 +26,7 @@
           ></div>
         </div>
         <h2
-          class="text-center mt-2 sm:mt-3 text-text font-bold text-base sm:text-lg group-hover:text-tertiary transition-all duration-300 transform group-hover:scale-110"
+          class="text-center mt-2 sm:mt-3 text-text group-hover:text-tertiary transition-all duration-300 transform group-hover:scale-110"
         >
           {{ link.name }}
         </h2>

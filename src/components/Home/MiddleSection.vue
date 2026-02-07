@@ -1,5 +1,7 @@
 <template>
-  <section class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl space-y-4">
+  <section
+    class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl space-y-4"
+  >
     <h2 class="divider w-full pb-4">Current Banner</h2>
     <div
       class="grid auto-cols-max grid-flow-col gap-5 text-center justify-center"
@@ -54,25 +56,29 @@
       </div>
     </div>
     <div class="grid grid-cols-2 gap-y-8 pt-4 md:flex md:justify-around">
-      <div
-        v-for="a in currentBannerCharacters"
-        :key="a.character_id.id"
-        class="flex flex-col items-center gap-2"
-      >
-        <div
-          class="w-32 h-32 rounded-2xl"
-          :class="{
-            'rarity-5': a.character_id.rarity === 5,
-            'rarity-4': a.character_id.rarity === 4,
-          }"
+      <div v-for="a in currentBannerCharacters" :key="a.character_id.id">
+        <RouterLink
+          :to="`/characters/${a.character_id.id}?name=${encodeURIComponent(
+            a.character_id.name,
+          )}`"
+          target="_blank"
+          class="flex flex-col items-center gap-2 no-underline text-text"
         >
-          <img
-            class="w-full h-full object-cover object-center"
-            :src="a.character_id.avatar_url"
-            alt=""
-          />
-        </div>
-        <h3>{{ a.character_id.name }}</h3>
+          <div
+            class="w-32 h-32 rounded-2xl"
+            :class="{
+              'rarity-5': a.character_id.rarity === 5,
+              'rarity-4': a.character_id.rarity === 4,
+            }"
+          >
+            <img
+              class="w-full h-full object-cover object-center rounded-2xl"
+              :src="a.character_id.avatar_url"
+              alt=""
+            />
+          </div>
+          <h3>{{ a.character_id.name }}</h3>
+        </RouterLink>
       </div>
     </div>
     <div class="text-center mb-6">
@@ -130,7 +136,7 @@ async function fetchCurrentBannerCharacters() {
   try {
     let query = supabase
       .from("character_banner")
-      .select("*, banner_id(*), character_id(name, rarity, avatar_url)");
+      .select("*, banner_id(*), character_id(id, name, rarity, avatar_url)");
     const { data, error } = await query;
     if (error) throw error;
     currentBannerCharacters.value = data;
