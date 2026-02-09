@@ -77,7 +77,9 @@
               alt=""
             />
           </div>
-          <h3 class="group-hover:text-tertiary transition ease-in-out">{{ a.character_id.name }}</h3>
+          <h3 class="group-hover:text-tertiary transition ease-in-out">
+            {{ a.character_id.name }}
+          </h3>
         </RouterLink>
       </div>
     </div>
@@ -132,15 +134,45 @@ const formattedEndDate = computed(() => {
   });
 });
 
+function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
+  const now = new Date().getTime();
+  if (data) {
+    const item = {
+      data,
+      expiry: now + ttl,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
+    return data;
+  } else {
+    const cachedItem = localStorage.getItem(key);
+    if (!cachedItem) return null;
+
+    const parsedItem = JSON.parse(cachedItem);
+    if (now > parsedItem.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return parsedItem.data;
+  }
+}
+
 async function fetchCurrentBannerCharacters() {
+  const cacheKey = "current_banner_characters";
+
+  const cachedData = cache(cacheKey);
+  if (cachedData) {
+    currentBannerCharacters.value = cachedData;
+    return;
+  }
+
   try {
     let query = supabase
       .from("character_banner")
       .select("*, banner_id(*), character_id(id, name, rarity, avatar_url)");
     const { data, error } = await query;
     if (error) throw error;
+    cache(cacheKey, data);
     currentBannerCharacters.value = data;
-    console.log(currentBannerCharacters.value);
   } catch (err) {
     console.error("Error fetching Current Banners");
   }
