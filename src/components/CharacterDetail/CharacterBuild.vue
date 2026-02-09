@@ -32,8 +32,8 @@
       </div>
     </div>
   </div>
-  <div class="px-8 md:pt-8 md:space-y-4">
-    <h2 class="text-2xl md:text-3xl font-bold text-quaternary mb-6 divider">
+  <div class="px-8 md:pt-8 space-y-4">
+    <h2 class="text-2xl md:text-3xl font-bold text-quaternary divider">
       Build
     </h2>
     <MarkdownRender :content="character.builds[0].notes" />
