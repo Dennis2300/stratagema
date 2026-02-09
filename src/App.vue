@@ -4,6 +4,7 @@
     <router-view />
     <Footer />
   </div>
+  <Cookies />
 </template>
 
 <script setup>

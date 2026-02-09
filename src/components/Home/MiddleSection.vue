@@ -62,7 +62,7 @@
             a.character_id.name,
           )}`"
           target="_blank"
-          class="flex flex-col items-center gap-2 no-underline text-text"
+          class="flex flex-col items-center gap-2 no-underline text-text group"
         >
           <div
             class="w-32 h-32 rounded-2xl"
@@ -77,7 +77,7 @@
               alt=""
             />
           </div>
-          <h3>{{ a.character_id.name }}</h3>
+          <h3 class="group-hover:text-tertiary transition ease-in-out">{{ a.character_id.name }}</h3>
         </RouterLink>
       </div>
     </div>

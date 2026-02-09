@@ -18,7 +18,7 @@
               Privacy Policy
             </router-link>
             <a
-              href="https://www.patreon.com/"
+              href="https://www.patreon.com/cw/stratagema"
               target="_blank"
               class="text-white/90 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out inline-block text-sm sm:text-base"
             >

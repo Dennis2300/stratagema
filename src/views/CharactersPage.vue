@@ -182,7 +182,7 @@
             New
           </div>
         </div>
-        <div v-if="character.is_upcoming" class="absolute -top-3 -right-3 z-10">
+        <div v-if="character.is_upcoming" class="absolute -top-3 -left-3 z-10">
           <div
             class="flex items-center justify-center px-2 sm:px-3 h-6 sm:h-7 rounded-full bg-blue-500 text-white text-xs font-semibold uppercase shadow-md whitespace-nowrap"
           >
@@ -348,8 +348,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
 import { supabase } from "./../supabaseClient.js";
-import "./../css/Ribbon.css";
-// import "./../css/CharacterPage.css";
 import LoadingMoreSpinner from "../components/Loadings/LoadingMoreSpinner.vue";
 
 // state variables
