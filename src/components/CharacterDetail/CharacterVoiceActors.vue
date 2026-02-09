@@ -30,7 +30,7 @@
                     :href="a.link"
                     target="_blank"
                     rel="noopener"
-                    class="link link-primary hover:link-hover"
+                    class="link link-hover text-tertiary"
                   >
                     {{ a.name }}
                   </a>
