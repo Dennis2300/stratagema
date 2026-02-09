@@ -121,7 +121,7 @@
           >
             Build(s)
           </h2>
-          <MarkdownRender :content="build.notes" />
+          <MarkdownRender :content="build.notes" class="mt-6" />
         </div>
       </div>
 
