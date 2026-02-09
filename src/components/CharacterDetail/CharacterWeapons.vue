@@ -75,9 +75,9 @@
           </div>
 
           <!-- Rank Badge -->
-          <div class="absolute top-3 right-3 sm:static sm:flex-shrink-0">
+          <div class="absolute top-5 right-3 z-10">
             <span
-              class="relative flex items-center justify-center w-10 h-10 md:w-12 md:h-12 text-lg md:text-xl font-bold rounded-full border-2 border-white shadow-lg overflow-hidden"
+              class="flex items-center justify-center w-8 h-8 font-bold rounded-full border-2 border-white shadow-lg"
               :class="{
                 'bg-gradient-to-b from-yellow-300 to-yellow-500 text-black rank-shine':
                   weapon.rank === 1,
