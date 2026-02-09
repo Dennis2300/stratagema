@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="px-8 md:pt-8">
-    <h2 class="divider pb-2 text-accent">Build</h2>
+    <h2 class="divider pb-2 text-accent">Builds</h2>
     <MarkdownRender :content="character.builds[0].notes" />
   </div>
 </template>
