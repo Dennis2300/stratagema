@@ -43,10 +43,10 @@
 
           <!-- Dish Pop up -->
           <div
-            class="dish-pop-up absolute bottom-full right-0 md:left-1/2 md:-translate-x-1/2 mb-2 hidden group-hover:flex flex-col items-center z-50"
+            class="absolute bg-primary bottom-full right-0 md:left-1/2 md:-translate-x-1/2 mb-2 hidden group-hover:flex flex-col items-center z-50"
           >
             <div
-              class="bg-base-100 border border-primary/20 backdrop-blur-md p-4 w-72 md:w-96 flex flex-col items-center rounded-lg shadow-2xl"
+              class="bg-gray-800 border border-white border-solid p-4 w-72 md:w-96 flex flex-col items-center rounded-lg shadow-2xl"
             >
               <img
                 class="w-32 md:w-48 rounded-lg"
@@ -59,18 +59,14 @@
                 {{ character.signature_dish.name }}
               </h3>
               <div class="divider my-2"></div>
-              <p
-                class="text-center text-base-content/80 text-sm md:text-base px-2"
-              >
+              <p class="text-center text-sm md:text-base px-2">
                 {{ character.signature_dish.description }}
               </p>
             </div>
           </div>
 
           <!-- Dish name -->
-          <p
-            class="text-base-content font-medium max-w-32 md:max-w-64 truncate"
-          >
+          <p class="font-medium max-w-32 md:max-w-64 truncate">
             <a
               class="link link-primary hover:link-hover"
               :href="character.signature_dish.url"
