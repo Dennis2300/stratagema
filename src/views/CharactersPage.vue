@@ -33,7 +33,7 @@
         </div>
       </div>
       <div
-        class="custom-dropdown bg-filter rounded-lg z-40 border border-solid border-black md:w-52"
+        class="custom-dropdown bg-filter rounded-lg py-0.5 z-40 border border-solid border-black md:w-52"
       >
         <div class="dropdown-selected" @click="toggleDropdown('vision')">
           <img
@@ -71,7 +71,7 @@
         </ul>
       </div>
       <div
-        class="custom-dropdown bg-filter rounded-lg z-40 border border-solid border-black md:w-52"
+        class="custom-dropdown bg-filter rounded-lg py-0.5 z-40 border border-solid border-black md:w-52"
       >
         <div class="dropdown-selected" @click="toggleDropdown('weapon')">
           <img
@@ -112,7 +112,7 @@
         </ul>
       </div>
       <div
-        class="custom-dropdown bg-filter rounded-lg z-40 border border-solid border-black md:w-52"
+        class="custom-dropdown bg-filter rounded-lg py-0.5 z-40 border border-solid border-black md:w-52"
       >
         <div class="dropdown-selected" @click="toggleDropdown('region')">
           <img
