@@ -8,14 +8,14 @@
         Main Stats
       </h2>
       <div
-        v-for="stat in getMainStats(character.builds[0].build_stat)"
+        v-for="stat in formatMainStats(character.builds[0].build_stat)"
         :key="stat.id"
         class="my-4 flex justify-between items-center bg-secondary p-2 rounded-lg"
       >
         <span class="capitalize badge badge-soft badge-warning">{{
           stat.slot
         }}</span>
-        <strong>{{ stat.stat_id.name }}</strong>
+        <strong v-html="stat.stat_id.name"></strong>
       </div>
     </div>
     <div class="md:w-1/2">
@@ -23,7 +23,7 @@
         Substats
       </h2>
       <div
-        v-for="stat in getSubstats(character.builds[0].build_stat)"
+        v-for="stat in formatSubStats(character.builds[0].build_stat)"
         :key="stat.id"
         class="my-4 flex justify-between items-center bg-secondary p-2 rounded-lg"
       >
@@ -47,18 +47,35 @@ defineProps({
   character: Object,
 });
 
-const getMainStats = (buildStats) => {
-  return buildStats
-    .filter((stat) => stat.slot !== "substats")
-    .sort((a, b) => {
-      const order = { sands: 1, goblet: 2, circlet: 3 };
-      return order[a.slot] - order[b.slot];
-    });
-};
+function joinDuplicateSlots(stats) {
+  return stats.reduce((acc, stat) => {
+    const existing = acc.find((item) => item.slot === stat.slot);
 
-const getSubstats = (buildStats) => {
+    if (existing) {
+      existing.stat_id = {
+        ...existing.stat_id,
+        name: `${existing.stat_id.name} <span class="text-accent">or</span> ${stat.stat_id.name}`,
+      };
+    } else {
+      acc.push({ ...stat });
+    }
+
+    return acc;
+  }, []);
+}
+
+function formatMainStats(buildStats) {
+  const filtered = buildStats.filter((stat) => stat.slot !== "substats");
+  const sorted = filtered.sort((a, b) => {
+    const order = { sands: 1, goblet: 2, circlet: 3 };
+    return order[a.slot] - order[b.slot];
+  });
+  return joinDuplicateSlots(sorted);
+}
+
+function formatSubStats(buildStats) {
   return buildStats
     .filter((stat) => stat.slot === "substats")
     .sort((a, b) => a.rank - b.rank);
-};
+}
 </script>
