@@ -3,9 +3,7 @@
     v-if="character.weapons?.length > 0"
     class="bg-base-200/50 rounded-lg p-6 md:p-8"
   >
-    <h2 class="text-2xl md:text-3xl font-bold text-quaternary mb-6 divider">
-      Best Weapons
-    </h2>
+    <h2 class="text-2xl md:text-3xl text-quaternary divider">Best Weapons</h2>
 
     <div class="grid grid-cols-1 gap-4 md:gap-6">
       <RouterLink
