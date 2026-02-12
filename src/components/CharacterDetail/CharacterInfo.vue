@@ -10,7 +10,7 @@
         class="flex flex-row justify-between items-center py-2 border-b border-base-300"
       >
         <p class="text-base-content/60 font-semibold">Rarity:</p>
-        <p class="text-yellow-400 text-lg md:text-xl">
+        <p class="text-yellow-400 text-lg md:text-3xl">
           <span v-for="n in character.rarity" :key="n">★</span>
         </p>
       </div>
