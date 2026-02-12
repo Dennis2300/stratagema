@@ -1,8 +1,7 @@
 <template>
-  <div class="bg-base-200/50 rounded-lg p-6 md:p-8">
-    <!-- Avatar Section -->
-    <div class="flex flex-col md:flex-row items-center mb-6">
-      <figure class="relative">
+  <div class="p-6 md:p-8">
+    <div class="flex flex-col md:flex-row items-center gap-4">
+      <figure class="relative m-0">
         <img
           class="bg-gray-700 rounded-full absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-14 md:h-14 p-2 shadow-lg z-10"
           :src="character.vision.image_url"
@@ -18,13 +17,10 @@
           :alt="character.name"
         />
       </figure>
-
-      <!-- Info Section -->
       <div class="flex flex-col gap-4 text-center md:text-left w-full">
         <h1 class="text-2xl md:text-5xl font-bold text-text">
           {{ character.name }}
         </h1>
-
         <div class="flex flex-wrap gap-2 justify-center md:justify-start">
           <span
             v-if="character.vision"

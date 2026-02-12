@@ -1,11 +1,8 @@
 <template>
-  <div class="bg-base-200/50 rounded-lg md:p-8">
-    <h2 class="text-2xl md:text-3xl font-bold text-quaternary mb-4">
-      Voice Actors
-    </h2>
+  <div class="py-6 md:py-8">
+    <h2 class="divider text-quaternary py-4">Voice Actors</h2>
 
     <template v-if="props.character?.va?.length">
-      <!-- Desktop: Side by side -->
       <div class="hidden md:flex md:flex-row gap-8">
         <div class="flex flex-col gap-3 min-w-[140px]">
           <div

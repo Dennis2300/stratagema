@@ -14,7 +14,7 @@
       <!-- Hero Section & Voice Actors -->
       <div class="flex flex-col lg:flex-row justify-between">
         <!-- Hero Section -->
-        <div class="lg:w-3/5">
+        <div class="lg:w-3/5 flex items-center">
           <CharacterBasicInfo :character="character" />
         </div>
         <!-- Voice Actors -->

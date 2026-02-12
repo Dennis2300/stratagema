@@ -1,7 +1,7 @@
 <template>
   <div v-if="character.builds?.length" class="space-y-12">
     <div v-for="(build, index) in character.builds" :key="build.id || index">
-      <h2 class="text-2xl md:text-3xl text-quaternary divider pb-6">
+      <h2 class="text-2xl md:text-3xl text-quaternary divider pb-6 md:px-8">
         {{ build.title }}
       </h2>
       <div class="flex flex-col gap-8 md:flex-row md:justify-around md:px-8">
@@ -52,7 +52,7 @@ function joinDuplicateSlots(stats) {
     if (existing) {
       existing.stat_id = {
         ...existing.stat_id,
-        name: `${existing.stat_id.name} <span class="text-accent">or</span> ${stat.stat_id.name}`,
+        name: `${existing.stat_id.name} <span class="block text-center sm:inline text-accent"><span class="hidden sm:inline"> </span>or</span> ${stat.stat_id.name}`,
       };
     } else {
       acc.push({ ...stat });
