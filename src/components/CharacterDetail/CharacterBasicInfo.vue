@@ -1,6 +1,6 @@
 <template>
   <div class="p-6 md:p-8">
-    <div class="flex flex-col md:flex-row items-center gap-4">
+    <div class="flex flex-col md:flex-row items-center gap-5">
       <figure class="relative m-0">
         <img
           class="bg-gray-700 rounded-full absolute -top-3 -left-3 md:-top-4 md:-left-4 w-10 h-10 md:w-14 md:h-14 p-2 shadow-lg z-10"

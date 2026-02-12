@@ -4,14 +4,10 @@
     v-else-if="character"
     class="relative min-h-screen bg-primary rounded-2xl"
   >
-    <!-- Background Splash Art -->
     <CharacterSplashArt :character="character" />
-
-    <!-- Main Content -->
     <div
       class="relative z-10 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto py-8 space-y-8 md:space-y-0"
     >
-      <!-- Hero Section & Voice Actors -->
       <div class="flex flex-col lg:flex-row justify-between">
         <!-- Hero Section -->
         <div class="lg:w-3/5 flex items-center">
@@ -22,14 +18,9 @@
           <CharacterVoiceActors :character="character" />
         </div>
       </div>
-
       <CharacterRegions :character="character" />
       <CharacterAffiliation :character="character" />
-
-      <!-- Character Details -->
       <CharacterInfo :character="character" />
-
-      <!-- Equipment & Build Sections -->
       <CharacterArtifacts :character="character" />
       <CharacterWeapons :character="character" />
       <CharacterBuild :character="character" />

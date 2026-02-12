@@ -7,7 +7,7 @@
       v-if="character.splash_art_url"
       :src="character.splash_art_url"
       :alt="character.name"
-      class="w-full h-full object-cover object-center opacity-10"
+      class="w-full h-full object-cover object-center opacity-5"
       loading="lazy"
     />
   </div>

@@ -222,7 +222,6 @@
         <div
           class="bg-secondary flex flex-col sm:flex-row justify-between rounded-b-2xl py-4 sm:py-6 border-0 border-t-2 border-solid border-black gap-3 sm:gap-0"
         >
-          <!-- Mobile: Only vision image and role -->
           <div
             class="flex sm:hidden flex-row gap-3 items-center justify-left px-4"
           >
@@ -251,8 +250,6 @@
               {{ character.weapon_type.name }}
             </p>
           </div>
-
-          <!-- Desktop: All tags -->
           <div
             class="hidden sm:flex flex-row gap-2 lg:gap-4 items-center flex-wrap px-4 sm:px-0"
           >

@@ -1,6 +1,6 @@
 <template>
   <div class="bg-base-200/50 rounded-lg md:p-8">
-    <h2 class="text-2xl md:text-3xl font-bold text-quaternary mb-6 divider">
+    <h2 class="text-2xl md:text-3xl font-bold text-quaternary pb-4 md:pb-0 divider">
       Character Details
     </h2>
 
