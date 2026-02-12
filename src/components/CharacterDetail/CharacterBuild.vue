@@ -33,7 +33,7 @@
 
       <div class="px-8 md:pt-8 space-y-4">
         <h3 class="text-quaternary divider">Build Details</h3>
-        <MarkdownRender :content="build.notes" />
+        <MarkdownRender class="px-2" :content="build.notes" />
       </div>
     </div>
   </div>
