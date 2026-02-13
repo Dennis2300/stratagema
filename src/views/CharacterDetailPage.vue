@@ -4,6 +4,12 @@
     v-else-if="character"
     class="relative min-h-screen bg-primary rounded-2xl"
   >
+    <p
+      v-if="character.is_upcoming"
+      class="text-center py-4 underline text-red-700"
+    >
+      Preview content - details may change before release
+    </p>
     <CharacterSplashArt :character="character" />
     <div
       class="relative z-10 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto py-8 space-y-8 md:space-y-0"
@@ -116,7 +122,8 @@ async function fetchCharacterById(characterId) {
         talent_mats:character_talent(*, materials_talent_id(name, img_url)),
         enhancement_mats:character_enhancement(*, materials_enhancement_id(name, img_url)),
         local_specialty:character_local_specialty(*, local_specialty_id(name, img_url)),
-        role:role(id, name)
+        role:role(id, name),
+        is_upcoming
       `,
       )
       .eq("id", characterId)
