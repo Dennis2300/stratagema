@@ -3,7 +3,7 @@
     v-if="props.character && materials.length"
     class="bg-base-200/50 rounded-lg p-6 md:p-8"
   >
-    <h2 class="text-2xl md:text-3xl font-bold text-quaternary mb-6 divider">
+    <h2 class="text-2xl md:text-3xl font-bold text-quaternary pb-4 divider">
       Materials Required
     </h2>
 
