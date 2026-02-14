@@ -2,35 +2,66 @@
   <LoadingSpinner v-if="loading" />
   <div
     v-else-if="character"
-    class="relative min-h-screen bg-primary rounded-2xl"
+    class="bg-primary rounded-2xl p-8 relative overflow-hidden"
   >
-    <p
-      v-if="character.is_upcoming"
-      class="text-center py-4 underline text-red-700"
-    >
-      Preview content - details may change before release
-    </p>
-    <CharacterSplashArt :character="character" />
-    <div
-      class="relative z-10 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto py-8 space-y-8 md:space-y-0"
-    >
-      <div class="flex flex-col lg:flex-row justify-between">
-        <!-- Hero Section -->
-        <div class="lg:w-3/5 flex items-center">
-          <CharacterBasicInfo :character="character" />
+    <div class="absolute top-0 left-0 right-0 rounded-t-2xl overflow-hidden">
+      <img
+        class="w-full opacity-10"
+        :src="character.splash_art_url"
+        :alt="character.name"
+      />
+    </div>
+    <div class="relative z-10 space-y-4">
+      <section class="space-y-4 md:flex">
+        <div class="flex flex-col items-center md:w-2/3">
+          <div
+            class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden"
+            :class="{
+              'rarity-5': character.rarity === 5,
+              'rarity-4': character.rarity === 4,
+            }"
+          >
+            <img
+              class="w-full h-full object-cover rounded-full"
+              :src="character.img_url"
+              :alt="character.name"
+            />
+          </div>
+          <h1 class="">{{ character.name }}</h1>
+          <div class="flex flex-wrap justify-center gap-2">
+            <p class="badge badge-primary">{{ character.vision }}</p>
+            <p class="badge badge-primary">{{ character.weapon_type.name }}</p>
+            <p class="badge badge-primary">{{ character.role }}</p>
+            <p class="badge badge-primary">{{ character.main_stat }}</p>
+          </div>
         </div>
-        <!-- Voice Actors -->
-        <div class="lg:w-2/5">
-          <CharacterVoiceActors :character="character" />
+        <div class="space-y-2 md:w-1/3 md:flex md:flex-col md:justify-center">
+          <h2 class="divider py-2">Voice Actors</h2>
+          <template v-for="voice in character.voices" :key="voice.name">
+            <div class="flex items-center gap-2 pl-4">
+              <span :class="`fi fi-${voice.language} text-xl`"></span>
+              <p>{{ voice.name }}</p>
+            </div>
+          </template>
         </div>
-      </div>
-      <CharacterRegions :character="character" />
-      <CharacterAffiliation :character="character" />
-      <CharacterInfo :character="character" />
-      <CharacterArtifacts :character="character" />
-      <CharacterWeapons :character="character" />
-      <CharacterBuild :character="character" />
-      <CharacterMaterials :character="character" />
+      </section>
+      <section class="space-y-4">
+        <div class="flex flex-col gap-2">
+          <h2>Regions</h2>
+          <template v-for="a in character.regions" :key="a.region.name">
+            <p class="badge badge-primary">{{ a.region.name }}</p>
+          </template>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2>Affiliations</h2>
+          <template
+            v-for="a in character.affiliations"
+            :key="a.affiliation.name"
+          >
+            <p class="badge badge-primary">{{ a.affiliation.name }}</p>
+          </template>
+        </div>
+      </section>
     </div>
   </div>
   <CharacterNotFound v-else />
@@ -63,6 +94,13 @@ const loading = ref(null);
 const error = ref(null);
 
 const character = ref(null);
+
+const languages = [
+  { label: "English", code: "us" },
+  { label: "Japanese", code: "jp" },
+  { label: "Chinese", code: "cn" },
+  { label: "Korean", code: "kr" },
+];
 
 // To Use Later in Production
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
@@ -104,27 +142,12 @@ async function fetchCharacterById(characterId) {
       .from("characters")
       .select(
         `
-        *,
-        signature_dish(id, name, image_url, url, description),
-        vision:visions(*),
-        main_stat:stats(*),
-        weapon_type:weaponTypes(*),
-        released_region(id, name),
-        va:voiceActors(*, lang(*)),
-        regions:character_region(region_id(name, image_url)),
-        affiliations:character_affiliation(affiliation_id(name)),
-        builds(*, build_stat(*, stat_id(name), rank), title),
-        artifacts:character_artifact(*, artifact_id(id, name, two_piece(name), four_piece, flower_img_url)),
-        weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value)),
-        ascension_mats:character_ascension(*, materials_ascension_id(name, img_url)),
-        exp_mats:character_exp(*, materials_exp_id(name, img_url)),
-        level_up_mats:character_level_up(*, materials_level_up_id(name, img_url)),
-        talent_mats:character_talent(*, materials_talent_id(name, img_url)),
-        enhancement_mats:character_enhancement(*, materials_enhancement_id(name, img_url)),
-        local_specialty:character_local_specialty(*, local_specialty_id(name, img_url)),
-        role:role(id, name),
-        is_upcoming
-      `,
+  *,
+  regions:character_region(region(name)),
+  affiliations:character_affiliation(affiliation(name)),
+  voices:voice_actors(language, name, link),
+  weapon_type(name, img_url)
+`,
       )
       .eq("id", characterId)
       .single();
@@ -156,7 +179,7 @@ async function fetchCharacterById(characterId) {
     error.value = err.message || "Failed to load character";
   } finally {
     loading.value = false;
-    console.log(character);
+    console.log(character.value);
   }
 }
 
@@ -166,3 +189,19 @@ onMounted(async () => {
   await fetchCharacterById(characterId);
 });
 </script>
+
+<style scoped>
+.rarity-5 {
+  background: linear-gradient(145deg, #e7944a, #b56a2b);
+  box-shadow:
+    0px 0px 15px rgba(231, 148, 74, 0.8),
+    0px 0px 30px rgba(231, 148, 74, 0.5);
+}
+
+.rarity-4 {
+  background: linear-gradient(145deg, #9b72d5, #7149a3);
+  box-shadow:
+    0px 0px 15px rgba(155, 114, 213, 0.8),
+    0px 0px 30px rgba(155, 114, 213, 0.5);
+}
+</style>
