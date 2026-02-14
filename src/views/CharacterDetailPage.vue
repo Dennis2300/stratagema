@@ -4,65 +4,8 @@
     v-else-if="character"
     class="bg-primary rounded-2xl p-8 relative overflow-hidden"
   >
-    <div class="absolute top-0 left-0 right-0 rounded-t-2xl overflow-hidden">
-      <img
-        class="w-full opacity-10"
-        :src="character.splash_art_url"
-        :alt="character.name"
-      />
-    </div>
-    <div class="relative z-10 space-y-4">
-      <section class="space-y-4 md:flex">
-        <div class="flex flex-col items-center md:w-2/3">
-          <div
-            class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden"
-            :class="{
-              'rarity-5': character.rarity === 5,
-              'rarity-4': character.rarity === 4,
-            }"
-          >
-            <img
-              class="w-full h-full object-cover rounded-full"
-              :src="character.img_url"
-              :alt="character.name"
-            />
-          </div>
-          <h1 class="">{{ character.name }}</h1>
-          <div class="flex flex-wrap justify-center gap-2">
-            <p class="badge badge-primary">{{ character.vision }}</p>
-            <p class="badge badge-primary">{{ character.weapon_type.name }}</p>
-            <p class="badge badge-primary">{{ character.role }}</p>
-            <p class="badge badge-primary">{{ character.main_stat }}</p>
-          </div>
-        </div>
-        <div class="space-y-2 md:w-1/3 md:flex md:flex-col md:justify-center">
-          <h2 class="divider py-2">Voice Actors</h2>
-          <template v-for="voice in character.voices" :key="voice.name">
-            <div class="flex items-center gap-2 pl-4">
-              <span :class="`fi fi-${voice.language} text-xl`"></span>
-              <p>{{ voice.name }}</p>
-            </div>
-          </template>
-        </div>
-      </section>
-      <section class="space-y-4">
-        <div class="flex flex-col gap-2">
-          <h2>Regions</h2>
-          <template v-for="a in character.regions" :key="a.region.name">
-            <p class="badge badge-primary">{{ a.region.name }}</p>
-          </template>
-        </div>
-        <div class="flex flex-col gap-2">
-          <h2>Affiliations</h2>
-          <template
-            v-for="a in character.affiliations"
-            :key="a.affiliation.name"
-          >
-            <p class="badge badge-primary">{{ a.affiliation.name }}</p>
-          </template>
-        </div>
-      </section>
-    </div>
+    <CharacterSplashArt :character="character" />
+    <CharacterBasicInfo :character="character" />
   </div>
   <CharacterNotFound v-else />
 </template>
