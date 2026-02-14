@@ -1,13 +1,13 @@
 <template>
   <nav class="bg-primary p-4 rounded-b-2xl flex">
     <div class="flex-1">
-      <RouterLink to="/" class="flex items-center gap-2 no-underline text-text">
+      <RouterLink to="/" class="flex items-center gap-2 no-underline text-text w-fit">
         <img
           src="/src/assets/images/icons/webIcon.webp"
           alt="Logo"
           class="w-10"
         />
-        <h2 class="font-bold no-underline">Stratagema</h2>
+        <h2 class="font-bold no-underline cursor-pointer">Stratagema</h2>
       </RouterLink>
     </div>
     <div class="hidden md:flex gap-2">
