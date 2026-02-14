@@ -1,5 +1,5 @@
 <template>
-  <div class="relative z-10 space-y-4">
+  <div class="space-y-8">
     <section class="space-y-4 md:flex">
       <div
         class="flex flex-col items-center md:w-2/3 md:flex-row md:gap-6 md:justify-center"
@@ -30,21 +30,21 @@
       <div class="space-y-2 md:w-1/3 md:flex md:flex-col md:justify-center">
         <h2 class="divider py-2">Voice Actors</h2>
         <template v-for="voice in character.voices" :key="voice.name">
-          <div class="flex items-center gap-2 pl-4">
+          <div class="flex items-center gap-2 md:pl-4">
             <span :class="`fi fi-${voice.language} text-xl`"></span>
             <p>{{ voice.name }}</p>
           </div>
         </template>
       </div>
     </section>
-    <section class="space-y-4">
+    <section class="space-y-2">
       <h2>Regions</h2>
       <div class="flex flex-wrap gap-2">
         <template v-for="a in character.regions" :key="a.region.name">
           <p class="badge badge-primary">{{ a.region.name }}</p>
         </template>
       </div>
-      <h2>Affiliations</h2>
+      <h2 class="pt-2">Affiliations</h2>
       <div class="flex flex-wrap gap-2">
         <template v-for="a in character.affiliations" :key="a.affiliation.name">
           <p class="badge badge-primary">{{ a.affiliation.name }}</p>

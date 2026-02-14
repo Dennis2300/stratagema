@@ -1,12 +1,15 @@
 <template>
   <LoadingSpinner v-if="loading" />
-  <div
-    v-else-if="character"
-    class="bg-primary rounded-2xl p-8 relative overflow-hidden"
-  >
-    <CharacterSplashArt :character="character" />
-    <CharacterBasicInfo :character="character" />
-  </div>
+  <template v-else-if="character">
+    <div class="bg-primary rounded-2xl p-8 relative overflow-hidden">
+      <CharacterSplashArt :character="character" />
+      <div class="relative z-10 space-y-4">
+        <CharacterBasicInfo :character="character" />
+        <!------------------------------------------>
+        <CharacterInfo :character="character" />
+      </div>
+    </div>
+  </template>
   <CharacterNotFound v-else />
 </template>
 
@@ -84,34 +87,25 @@ async function fetchCharacterById(characterId) {
     let query = supabase
       .from("characters")
       .select(
-        `
-  *,
-  regions:character_region(region(name)),
-  affiliations:character_affiliation(affiliation(name)),
-  voices:voice_actors(language, name, link),
-  weapon_type(name, img_url)
-`,
+        `*,
+        regions:character_region(region(name)),
+        affiliations:character_affiliation(affiliation(name)),
+        voices:voice_actors(language, name, link),
+        weapon_type(name, img_url),
+        signature_dish:signature_dish(*)
+        `,
       )
       .eq("id", characterId)
       .single();
-
-    // The Fetch to Supabase
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
-
-    // Sort Artifacts and Weapons by the rank column
     if (data.artifacts) {
       data.artifacts.sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
     }
-
     if (data.weapons) {
       data.weapons.sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
     }
-
-    // Insert the Fetched Data to Character State
     character.value = data;
-
-    // Session Storage for Caching
     sessionStorage.setItem(
       "character",
       JSON.stringify({
