@@ -1,7 +1,9 @@
 <template>
   <div class="relative z-10 space-y-4">
     <section class="space-y-4 md:flex">
-      <div class="flex flex-col items-center md:w-2/3 md:flex-row md:gap-6 md:justify-center">
+      <div
+        class="flex flex-col items-center md:w-2/3 md:flex-row md:gap-6 md:justify-center"
+      >
         <div
           class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden"
           :class="{
@@ -36,14 +38,14 @@
       </div>
     </section>
     <section class="space-y-4">
-      <div class="flex flex-col gap-2">
-        <h2>Regions</h2>
+      <h2>Regions</h2>
+      <div class="flex flex-wrap gap-2">
         <template v-for="a in character.regions" :key="a.region.name">
           <p class="badge badge-primary">{{ a.region.name }}</p>
         </template>
       </div>
-      <div class="flex flex-col gap-2">
-        <h2>Affiliations</h2>
+      <h2>Affiliations</h2>
+      <div class="flex flex-wrap gap-2">
         <template v-for="a in character.affiliations" :key="a.affiliation.name">
           <p class="badge badge-primary">{{ a.affiliation.name }}</p>
         </template>
