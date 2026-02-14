@@ -2,29 +2,32 @@
   <section>
     <h2 class="divider py-3">{{ character.name }} Info</h2>
     <div class="space-y-4">
-      <div class="flex justify-between">
+      <div class="flex justify-between h-[32px] items-center">
         <p>Rarity</p>
         <div class="text-yellow-500">
           <span v-for="n in character.rarity" :key="n">★</span>
         </div>
       </div>
-      <div class="flex justify-between">
+      <div class="flex justify-between h-[32px] items-center">
         <p>Constellation</p>
         <p>{{ character.constellation }}</p>
       </div>
-      <div class="flex justify-between">
+      <div class="flex justify-between h-[32px] items-center">
         <p>Birthday</p>
         <p>{{ character.birthday }}</p>
       </div>
-      <div class="flex justify-between">
+      <div class="flex justify-between h-[32px] items-center">
         <p>Weapon Type</p>
-        <p>{{ character.weapon_type.name }}</p>
+        <div class="flex items-center gap-2">
+          <img class="w-8" :src="character.weapon_type.img_url" alt="" />
+          <p>{{ character.weapon_type.name }}</p>
+        </div>
       </div>
-      <div class="flex justify-between">
+      <div class="flex justify-between h-[32px] items-center">
         <p>Signature Dish</p>
         <p>{{ character.signature_dish.name }}</p>
       </div>
-      <div class="flex justify-between">
+      <div class="flex justify-between h-[32px] items-center">
         <p>Release Date</p>
         <p>
           {{

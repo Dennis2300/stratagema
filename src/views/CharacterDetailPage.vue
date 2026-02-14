@@ -5,8 +5,8 @@
       <CharacterSplashArt :character="character" />
       <div class="relative z-10 space-y-4">
         <CharacterBasicInfo :character="character" />
-        <!------------------------------------------>
         <CharacterInfo :character="character" />
+        <!------------------------------------------>
       </div>
     </div>
   </template>
