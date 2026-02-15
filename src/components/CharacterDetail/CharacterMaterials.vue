@@ -2,7 +2,7 @@
   <section class="space-y-4">
     <h2 class="divider text-quaternary">Materials</h2>
     <h3>Ascension</h3>
-    <div class="space-y-4 md:space-y-0 md:flex items-center justify-between">
+    <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
       <template v-for="a in sortedMaterials" :key="a.material_ascension.id">
         <div class="flex items-center gap-3">
           <img
@@ -17,6 +17,7 @@
         </div>
       </template>
     </div>
+    <h3>Talent</h3>
   </section>
 </template>
 
