@@ -14,6 +14,7 @@
         </div>
         <!------------------------------------------>
         <CharacterBuild :character="character" />
+        <CharacterMaterials :character="character" />
       </div>
     </div>
   </template>
@@ -91,7 +92,8 @@ async function fetchCharacterById(characterId) {
         signature_dish:signature_dish(*),
         artifacts:character_artifact(artifact(*, two_piece_effect(name)), rank),
         weapons:character_weapon(weapon(name, base_attack, bonus_effect_type, bonus_effect_value, img_url), rank),
-        builds:builds(character, details, title, stat:build_stat(build, slot, stat, rank))
+        builds:builds(character, details, title, stat:build_stat(build, slot, stat, rank)),
+        materials:character_ascension(material_ascension(*), amount)
         `,
       )
       .eq("id", characterId)
