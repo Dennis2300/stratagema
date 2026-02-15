@@ -1,8 +1,8 @@
 <template>
   <section class="space-y-6">
     <template v-for="build in character.builds">
-      <h1 class="divider text-quaternary">{{ build.title }}</h1>
-      <div class="w-full md:flex gap-12">
+      <h1 class="divider text-quaternary text-2xl md:text-3xl">{{ build.title }}</h1>
+      <div class="w-full space-y-8 md:space-y-0 md:flex gap-12">
         <div class="md:w-1/2 space-y-4">
           <h2 class="text-tertiary">Main Stats</h2>
           <div
@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="bg-secondary p-4 rounded-lg">
         <h2 class="text-tertiary">Build Details</h2>
         <MarkdownRender :content="build.details" />
       </div>
