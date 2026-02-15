@@ -1,7 +1,9 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <template v-else-if="character">
-    <div class="bg-primary rounded-2xl px-3 py-8 md:p-8 relative overflow-hidden">
+    <div
+      class="bg-primary rounded-2xl px-3 py-8 md:p-8 relative overflow-hidden"
+    >
       <CharacterSplashArt :character="character" />
       <div class="relative z-10 space-y-10">
         <CharacterBasicInfo :character="character" />
@@ -29,8 +31,6 @@ import LoadingSpinner from "../components/Loadings/LoadingSpinner.vue";
 // Character Detail Components
 import CharacterSplashArt from "@/components/CharacterDetail/CharacterSplashArt.vue";
 import CharacterBasicInfo from "@/components/CharacterDetail/CharacterBasicInfo.vue";
-import CharacterRegions from "@/components/CharacterDetail/CharacterRegions.vue";
-import CharacterAffiliation from "@/components/CharacterDetail/CharacterAffiliation.vue";
 import CharacterInfo from "@/components/CharacterDetail/CharacterInfo.vue";
 import CharacterWeapons from "@/components/CharacterDetail/CharacterWeapons.vue";
 import CharacterArtifacts from "@/components/CharacterDetail/CharacterArtifacts.vue";

@@ -42,16 +42,8 @@
               </span>
             </div>
           </div>
-          <p
-            class="p-2 rounded-full text-xs w-3 h-3 md:text-base md:w-6 md:h-6 flex items-center justify-center"
-            :class="{
-              'bg-yellow-500 text-black': a.rank === 1,
-              'bg-gray-300 text-black': a.rank === 2,
-              'bg-orange-600 text-black': a.rank === 3,
-              'bg-tertiary': a.rank > 3,
-            }"
-          >
-            {{ a.rank }}{{ getRankSuffix(a.rank) }}
+          <p class="badge badge-primary">
+            {{ a.rank }}
           </p>
         </div>
       </template>
