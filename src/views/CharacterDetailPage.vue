@@ -8,11 +8,12 @@
       <div class="relative z-10 space-y-10">
         <CharacterBasicInfo :character="character" />
         <CharacterInfo :character="character" />
-        <!------------------------------------------>
         <div class="space-y-8 md:space-y-0 md:flex md:gap-8">
           <CharacterArtifacts :character="character" />
           <CharacterWeapons :character="character" />
         </div>
+        <!------------------------------------------>
+        <CharacterBuild :character="character" />
       </div>
     </div>
   </template>
@@ -36,7 +37,6 @@ import CharacterWeapons from "@/components/CharacterDetail/CharacterWeapons.vue"
 import CharacterArtifacts from "@/components/CharacterDetail/CharacterArtifacts.vue";
 import CharacterBuild from "@/components/CharacterDetail/CharacterBuild.vue";
 import CharacterMaterials from "@/components/CharacterDetail/CharacterMaterials.vue";
-import CharacterVoiceActors from "@/components/CharacterDetail/CharacterVoiceActors.vue";
 import CharacterNotFound from "@/components/CharacterDetail/CharacterNotFound.vue";
 
 const route = useRoute();
@@ -90,7 +90,8 @@ async function fetchCharacterById(characterId) {
         weapon_type(name, img_url),
         signature_dish:signature_dish(*),
         artifacts:character_artifact(artifact(*, two_piece_effect(name)), rank),
-        weapons:character_weapon(weapon(name, base_attack, bonus_effect_type, bonus_effect_value, img_url), rank)
+        weapons:character_weapon(weapon(name, base_attack, bonus_effect_type, bonus_effect_value, img_url), rank),
+        builds:builds(character, details, title, stat:build_stat(build, slot, stat, rank))
         `,
       )
       .eq("id", characterId)

@@ -1,42 +1,39 @@
 <template>
-  <div v-if="character.builds?.length" class="space-y-12">
-    <div v-for="(build, index) in character.builds" :key="build.id || index">
-      <h2 class="text-2xl md:text-3xl text-quaternary divider pb-6 md:px-8">
-        {{ build.title }}
-      </h2>
-      <div class="flex flex-col gap-8 md:flex-row md:justify-around md:px-8">
-        <div class="md:w-1/2">
-          <h3>Main Stats</h3>
+  <section class="space-y-6">
+    <template v-for="build in character.builds">
+      <h1 class="divider text-quaternary">{{ build.title }}</h1>
+      <div class="w-full md:flex gap-12">
+        <div class="md:w-1/2 space-y-4">
+          <h2 class="text-tertiary">Main Stats</h2>
           <div
-            class="my-3 p-2 flex justify-between items-center bg-secondary rounded-lg"
-            v-for="stat in formatMainStats(build.build_stat)"
-            :key="stat.id"
+            class="flex justify-between items-center bg-secondary py-2 px-4 rounded-lg"
+            v-for="stat in getMainStats(build.stat)"
+            :key="stat.slot"
           >
-            <span class="capitalize badge badge-soft badge-warning">{{
-              stat.slot
-            }}</span>
-            <strong v-html="stat.stat_id.name"></strong>
+            <span class="capitalize">{{ stat.slot }}</span>
+            <span class="text-warning" v-html="stat.stat"></span>
           </div>
         </div>
-        <div class="md:w-1/2">
-          <h3>Substats</h3>
+        <div class="md:w-1/2 space-y-4">
+          <h2 class="text-tertiary">Substats</h2>
           <div
-            class="my-3 p-2 flex justify-between items-center bg-secondary rounded-lg"
-            v-for="stat in formatSubStats(build.build_stat)"
-            :key="stat.id"
+            class="flex justify-between items-center bg-secondary py-2 px-4 rounded-lg"
+            v-for="stat in getSubstats(build.stat)"
+            :key="stat.slot"
           >
-            <span class="badge badge-soft badge-warning">{{ stat.rank }}</span>
-            <strong>{{ stat.stat_id.name }}</strong>
+            <span class="text-warning">{{ stat.stat }}</span>
+            <p class="badge badge-primary">
+              {{ stat.rank }}
+            </p>
           </div>
         </div>
       </div>
-
-      <div class="px-8 md:pt-8 space-y-4">
-        <h3 class="text-quaternary divider">Build Details</h3>
-        <MarkdownRender class="px-2" :content="build.notes" />
+      <div>
+        <h2 class="text-tertiary">Build Details</h2>
+        <MarkdownRender :content="build.details" />
       </div>
-    </div>
-  </div>
+    </template>
+  </section>
 </template>
 
 <script setup>
@@ -46,33 +43,31 @@ defineProps({
   character: Object,
 });
 
-function joinDuplicateSlots(stats) {
-  return stats.reduce((acc, stat) => {
-    const existing = acc.find((item) => item.slot === stat.slot);
-    if (existing) {
-      existing.stat_id = {
-        ...existing.stat_id,
-        name: `${existing.stat_id.name} <span class="block text-center sm:inline text-accent"><span class="hidden sm:inline"> </span>or</span> ${stat.stat_id.name}`,
-      };
-    } else {
-      acc.push({ ...stat });
+function getMainStats(stats) {
+  const mainStats = stats.filter((stat) => stat.slot !== "substat");
+  return joinMainStats(mainStats);
+}
+
+function joinMainStats(mainStats) {
+  const grouped = mainStats.reduce((acc, stat) => {
+    if (!acc[stat.slot]) {
+      acc[stat.slot] = [];
     }
+    acc[stat.slot].push(stat.stat);
     return acc;
-  }, []);
+  }, {});
+  return Object.entries(grouped).map(([slot, statValues]) => ({
+    slot,
+    stat:
+      statValues.length >= 2
+        ? statValues.join(' <span class="text-text">or</span> ')
+        : statValues[0],
+  }));
 }
 
-function formatMainStats(buildStats) {
-  const filtered = buildStats.filter((stat) => stat.slot !== "substats");
-  const sorted = filtered.sort((a, b) => {
-    const order = { sands: 1, goblet: 2, circlet: 3 };
-    return order[a.slot] - order[b.slot];
-  });
-  return joinDuplicateSlots(sorted);
-}
-
-function formatSubStats(buildStats) {
-  return buildStats
-    .filter((stat) => stat.slot === "substats")
+function getSubstats(stats) {
+  return stats
+    .filter((stat) => stat.slot === "substat")
     .sort((a, b) => a.rank - b.rank);
 }
 </script>
