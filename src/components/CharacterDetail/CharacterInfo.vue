@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2 class="divider py-3">{{ character.name }} Info</h2>
+    <h1 class="text-quaternary">{{ character.name }} Info</h1>
     <div class="space-y-4">
       <div class="flex justify-between h-[32px] items-center">
         <p>Rarity</p>

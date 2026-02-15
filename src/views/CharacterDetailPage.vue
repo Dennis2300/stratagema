@@ -1,12 +1,16 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <template v-else-if="character">
-    <div class="bg-primary rounded-2xl p-8 relative overflow-hidden">
+    <div class="bg-primary rounded-2xl px-3 py-8 md:p-8 relative overflow-hidden">
       <CharacterSplashArt :character="character" />
-      <div class="relative z-10 space-y-4">
+      <div class="relative z-10 space-y-10">
         <CharacterBasicInfo :character="character" />
         <CharacterInfo :character="character" />
         <!------------------------------------------>
+        <div class="space-y-8 md:space-y-0 md:flex md:gap-8">
+          <CharacterArtifacts :character="character" />
+          <CharacterWeapons :character="character" />
+        </div>
       </div>
     </div>
   </template>
@@ -38,15 +42,7 @@ import CharacterNotFound from "@/components/CharacterDetail/CharacterNotFound.vu
 const route = useRoute();
 const loading = ref(null);
 const error = ref(null);
-
 const character = ref(null);
-
-const languages = [
-  { label: "English", code: "us" },
-  { label: "Japanese", code: "jp" },
-  { label: "Chinese", code: "cn" },
-  { label: "Korean", code: "kr" },
-];
 
 // To Use Later in Production
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
@@ -92,7 +88,9 @@ async function fetchCharacterById(characterId) {
         affiliations:character_affiliation(affiliation(name)),
         voices:voice_actors(language, name, link),
         weapon_type(name, img_url),
-        signature_dish:signature_dish(*)
+        signature_dish:signature_dish(*),
+        artifacts:character_artifact(artifact(*, two_piece_effect(name)), rank),
+        weapons:character_weapon(weapon(name, base_attack, bonus_effect_type, bonus_effect_value, img_url), rank)
         `,
       )
       .eq("id", characterId)
@@ -126,19 +124,3 @@ onMounted(async () => {
   await fetchCharacterById(characterId);
 });
 </script>
-
-<style scoped>
-.rarity-5 {
-  background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow:
-    0px 0px 15px rgba(231, 148, 74, 0.8),
-    0px 0px 30px rgba(231, 148, 74, 0.5);
-}
-
-.rarity-4 {
-  background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow:
-    0px 0px 15px rgba(155, 114, 213, 0.8),
-    0px 0px 30px rgba(155, 114, 213, 0.5);
-}
-</style>
