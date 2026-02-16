@@ -12,12 +12,21 @@
         >
           <span class="text-yellow-500" v-for="n in 4" :key="n">★</span>
         </div>
-        <div class="dropdown-container relative min-w-[160px]">
+        <div
+          class="dropdown-container relative min-w-[175px]"
+          ref="visionDropdownRef"
+        >
           <div
             class="dropdown-header flex justify-between items-center px-4 py-2.5 rounded cursor-pointer transition-all duration-200 select-none border-2 border-transparent h-full hover:border-white/10 active:scale-[0.98]"
             @click="toggleVisionDropdown"
           >
-            <span class="font-medium">
+            <span class="font-medium flex items-center gap-1.5">
+              <img
+                v-if="selectedVision"
+                class="w-5"
+                :src="selectedVision.img_url"
+                alt=""
+              />
               {{ selectedVision ? selectedVision.name : "Vision" }}
             </span>
             <span
@@ -28,24 +37,37 @@
           </div>
           <div
             v-if="visionDropdownOpen"
-            class="dropdown-menu absolute top-[calc(100%+8px)] left-0 right-0 rounded border-2 border-white/10 shadow-lg z-[1000] max-h-[250px] overflow-y-auto"
+            class="dropdown-menu absolute top-[calc(100%+8px)] left-0 right-0 rounded border-2 border-white/10 shadow-lg z-[1000]"
           >
             <div
               v-for="vision in visions"
               :key="vision.id"
-              class="dropdown-item px-4 py-3 cursor-pointer transition-all duration-150 border-l-[3px] border-l-transparent hover:pl-[18px]"
+              class="dropdown-item flex gap-1.5 px-4 py-3 cursor-pointer transition-all duration-150 border-l-[3px] border-l-transparent hover:pl-[18px]"
               @click="selectVision(vision)"
             >
-              {{ vision.name }}
+              <img class="w-5" :src="vision.img_url" alt="" />
+              <span>
+                {{ vision.name }}
+              </span>
             </div>
           </div>
         </div>
-        <div class="dropdown-container relative min-w-[160px]">
+
+        <div
+          class="dropdown-container relative min-w-[175px]"
+          ref="weaponDropdownRef"
+        >
           <div
             class="dropdown-header flex justify-between items-center px-4 py-2.5 rounded cursor-pointer transition-all duration-200 select-none border-2 border-transparent h-full hover:border-white/10 active:scale-[0.98]"
             @click="toggleWeaponDropdown"
           >
-            <span class="font-medium">
+            <span class="font-medium flex items-center gap-1.5">
+              <img
+                v-if="selectedWeapon"
+                class="w-5"
+                :src="selectedWeapon.img_url"
+                alt=""
+              />
               {{ selectedWeapon ? selectedWeapon.name : "Weapon" }}
             </span>
             <span
@@ -61,19 +83,33 @@
             <div
               v-for="weapon in weapon_types"
               :key="weapon.id"
-              class="dropdown-item px-4 py-3 cursor-pointer transition-all duration-150 border-l-[3px] border-l-transparent hover:pl-[18px]"
+              class="dropdown-item flex gap-1.5 px-4 py-3 cursor-pointer transition-all duration-150 border-l-[3px] border-l-transparent hover:pl-[18px]"
               @click="selectWeapon(weapon)"
             >
-              {{ weapon.name }}
+              <img class="w-5" :src="weapon.img_url" alt="" />
+              <span>{{ weapon.name }}</span>
             </div>
           </div>
         </div>
-        <div class="dropdown-container relative min-w-[160px]">
+
+        <div
+          class="dropdown-container relative min-w-[175px]"
+          ref="regionDropdownRef"
+        >
           <div
             class="dropdown-header flex justify-between items-center px-4 py-2.5 rounded cursor-pointer transition-all duration-200 select-none border-2 border-transparent h-full hover:border-white/10 active:scale-[0.98]"
             @click="toggleRegionDropdown"
           >
-            <span class="font-medium">
+            <span class="font-medium flex items-center gap-1.5">
+              <img
+                v-if="selectedRegion"
+                class="w-5"
+                :src="
+                  selectedRegion.img_url ||
+                  'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/10/30/237301566/93cd2bc9b90c8b87b1f8cbdbe95b4b9d_5225561202100412280.png?x-oss-process=image%2Fformat%2Cwebp'
+                "
+                alt=""
+              />
               {{ selectedRegion ? selectedRegion.name : "Region" }}
             </span>
             <span
@@ -89,10 +125,18 @@
             <div
               v-for="region in regions"
               :key="region.id"
-              class="dropdown-item px-4 py-3 cursor-pointer transition-all duration-150 border-l-[3px] border-l-transparent hover:pl-[18px]"
+              class="dropdown-item flex gap-1.5 px-4 py-3 cursor-pointer transition-all duration-150 border-l-[3px] border-l-transparent hover:pl-[18px]"
               @click="selectRegion(region)"
             >
-              {{ region.name }}
+              <img
+                class="w-5"
+                :src="
+                  region.img_url ||
+                  'https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2024/10/30/237301566/93cd2bc9b90c8b87b1f8cbdbe95b4b9d_5225561202100412280.png?x-oss-process=image%2Fformat%2Cwebp'
+                "
+                alt=""
+              />
+              <span>{{ region.name }}</span>
             </div>
           </div>
         </div>
@@ -278,18 +322,15 @@
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingMoreSpinner from "../components/Loadings/LoadingMoreSpinner.vue";
-
 // state variables
 const filtering = ref(false);
 const loading = ref(false);
 const error = ref(null);
-
 // data states
 const characters = ref([]);
 const visions = ref([]);
 const weapon_types = ref([]);
 const regions = ref([]);
-
 // drop down states
 const visionDropdownOpen = ref(false);
 const weaponDropdownOpen = ref(false);
@@ -297,16 +338,16 @@ const regionDropdownOpen = ref(false);
 const selectedVision = ref(null);
 const selectedWeapon = ref(null);
 const selectedRegion = ref(null);
-
+const visionDropdownRef = ref(null);
+const weaponDropdownRef = ref(null);
+const regionDropdownRef = ref(null);
 // pagination states
 const page = ref(1);
 const pageSize = 10;
 const hasMore = ref(true);
 const loadMoreTrigger = ref(null);
-
 // Intersection Observer instance
 let observer = null;
-
 // -------- Cache Functions -------------
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = new Date().getTime();
@@ -329,7 +370,6 @@ function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
     return parsedItem.data;
   }
 }
-
 // -------- Data Fetching Function --------
 async function fetchVisions() {
   try {
@@ -347,7 +387,6 @@ async function fetchVisions() {
     console.error("Error fetching visions:", err);
   }
 }
-
 async function fetchWeaponTypes() {
   try {
     const cached = cache("weapon_types");
@@ -364,7 +403,6 @@ async function fetchWeaponTypes() {
     console.error("Error fetching weapon types:", err);
   }
 }
-
 async function fetchRegions() {
   try {
     const cached = cache("regions");
@@ -381,7 +419,6 @@ async function fetchRegions() {
     console.error("Error fetching regions:", err);
   }
 }
-
 async function fetchCharacters({ reset = false } = {}) {
   if (reset) {
     page.value = 1;
@@ -427,7 +464,6 @@ async function fetchCharacters({ reset = false } = {}) {
     loading.value = false;
   }
 }
-
 // -------- Filter Functions -------------
 function toggleVisionDropdown() {
   visionDropdownOpen.value = !visionDropdownOpen.value;
@@ -438,7 +474,6 @@ function toggleVisionDropdown() {
     regionDropdownOpen.value = false;
   }
 }
-
 function toggleWeaponDropdown() {
   weaponDropdownOpen.value = !weaponDropdownOpen.value;
   if (weaponDropdownOpen.value) {
@@ -448,7 +483,6 @@ function toggleWeaponDropdown() {
     regionDropdownOpen.value = false;
   }
 }
-
 function toggleRegionDropdown() {
   regionDropdownOpen.value = !regionDropdownOpen.value;
   if (regionDropdownOpen.value) {
@@ -458,12 +492,10 @@ function toggleRegionDropdown() {
     weaponDropdownOpen.value = false;
   }
 }
-
 function selectVision(vision) {
   selectedVision.value = vision;
   visionDropdownOpen.value = false;
 }
-
 function selectWeapon(weapon) {
   selectedWeapon.value = weapon;
   weaponDropdownOpen.value = false;
@@ -472,7 +504,26 @@ function selectRegion(region) {
   selectedRegion.value = region;
   regionDropdownOpen.value = false;
 }
-
+function handleClickOutside(event) {
+  if (
+    visionDropdownRef.value &&
+    !visionDropdownRef.value.contains(event.target)
+  ) {
+    visionDropdownOpen.value = false;
+  }
+  if (
+    weaponDropdownRef.value &&
+    !weaponDropdownRef.value.contains(event.target)
+  ) {
+    weaponDropdownOpen.value = false;
+  }
+  if (
+    regionDropdownRef.value &&
+    !regionDropdownRef.value.contains(event.target)
+  ) {
+    regionDropdownOpen.value = false;
+  }
+}
 // -------- Utility Functions -------------
 function scrollToTop() {
   window.scrollTo({
@@ -480,7 +531,6 @@ function scrollToTop() {
     behavior: "smooth",
   });
 }
-
 function setupObserver() {
   if (observer && loadMoreTrigger.value) {
     observer.unobserve(loadMoreTrigger.value);
@@ -506,12 +556,12 @@ function setupObserver() {
     }
   });
 }
-
 // -------- Computed Properties -------------
 
 // -------- Lifecycle Hooks -------------
 // on component mount, fetch initial data and setup observer
 onMounted(async () => {
+  document.addEventListener("click", handleClickOutside);
   await fetchVisions();
   await fetchWeaponTypes();
   await fetchRegions();
@@ -532,6 +582,7 @@ onMounted(async () => {
 });
 // clean up observer on component unmount
 onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
   if (observer && loadMoreTrigger.value) {
     observer.unobserve(loadMoreTrigger.value);
     observer.disconnect();
