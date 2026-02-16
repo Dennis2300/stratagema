@@ -96,7 +96,8 @@ async function fetchCharacterById(characterId) {
         enhancements:character_enhancement(material_enhancements(*), amount),
         talents:character_talent(material_talents(*), amount),
         local_specialty:character_local_specialty(local_specialty(*)),
-        level_up_material:character_level_up_material(level_up_material(*), amount)
+        level_up_material:character_level_up_material(level_up_material(*), amount),
+        vision(name, img_url)
         `,
       )
       .eq("id", characterId)

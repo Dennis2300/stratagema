@@ -56,10 +56,10 @@
       </div>
     </div>
     <div class="grid grid-cols-2 gap-y-8 pt-4 md:flex md:justify-around">
-      <div v-for="a in currentBannerCharacters" :key="a.character_id.id">
+      <div v-for="a in currentBannerCharacters" :key="a.character.id">
         <RouterLink
-          :to="`/characters/${a.character_id.id}?name=${encodeURIComponent(
-            a.character_id.name,
+          :to="`/characters/${a.character.id}?name=${encodeURIComponent(
+            a.character.name,
           )}`"
           target="_blank"
           class="flex flex-col items-center gap-2 no-underline text-text group"
@@ -67,18 +67,18 @@
           <div
             class="w-32 h-32 rounded-2xl"
             :class="{
-              'rarity-5': a.character_id.rarity === 5,
-              'rarity-4': a.character_id.rarity === 4,
+              'rarity-5': a.character.rarity === 5,
+              'rarity-4': a.character.rarity === 4,
             }"
           >
             <img
               class="w-full h-full object-cover object-center rounded-2xl"
-              :src="a.character_id.avatar_url"
+              :src="a.character.img_url"
               alt=""
             />
           </div>
           <h3 class="group-hover:text-tertiary transition ease-in-out">
-            {{ a.character_id.name }}
+            {{ a.character.name }}
           </h3>
         </RouterLink>
       </div>
@@ -102,7 +102,7 @@ const countdownValues = computed(() => {
     return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 
-  const endDate = currentBannerCharacters.value[0].banner_id.end_date;
+  const endDate = currentBannerCharacters.value[0].banner.end_date;
   const end = new Date(endDate).getTime();
   const now = currentTime.value;
   const difference = end - now;
@@ -124,7 +124,7 @@ const countdownValues = computed(() => {
 const formattedEndDate = computed(() => {
   if (!currentBannerCharacters.value.length) return "";
 
-  const endDate = new Date(currentBannerCharacters.value[0].banner_id.end_date);
+  const endDate = new Date(currentBannerCharacters.value[0].banner.end_date);
   return endDate.toLocaleString("en-US", {
     year: "numeric",
     month: "long",
@@ -168,11 +168,14 @@ async function fetchCurrentBannerCharacters() {
   try {
     let query = supabase
       .from("character_banner")
-      .select("*, banner_id(*), character_id(id, name, rarity, avatar_url)");
+      .select(
+        "*, banner(start_date, end_date), character(id, name, img_url, rarity)",
+      );
     const { data, error } = await query;
     if (error) throw error;
     cache(cacheKey, data);
     currentBannerCharacters.value = data;
+    console.log(currentBannerCharacters.value);
   } catch (err) {
     console.error("Error fetching Current Banners");
   }

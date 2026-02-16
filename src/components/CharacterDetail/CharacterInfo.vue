@@ -25,7 +25,7 @@
       </div>
       <div class="flex justify-between h-[32px] items-center">
         <p>Signature Dish</p>
-        <p>{{ character.signature_dish.name }}</p>
+        <p>{{ character?.signature_dish?.name }}</p>
       </div>
       <div class="flex justify-between h-[32px] items-center">
         <p>Release Date</p>

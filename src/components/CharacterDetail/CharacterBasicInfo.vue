@@ -4,23 +4,30 @@
       <div
         class="flex flex-col items-center md:w-2/3 md:flex-row md:gap-6 md:justify-center"
       >
-        <div
-          class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden"
-          :class="{
-            'rarity-5': character.rarity === 5,
-            'rarity-4': character.rarity === 4,
-          }"
-        >
+        <div class="relative">
           <img
-            class="w-full h-full object-cover rounded-full"
-            :src="character.img_url"
-            :alt="character.name"
+            class="absolute w-16 -top-3 -left-3 bg-gray-700 rounded-full"
+            :src="character.vision.img_url"
+            alt=""
           />
+          <div
+            class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden"
+            :class="{
+              'rarity-5': character.rarity === 5,
+              'rarity-4': character.rarity === 4,
+            }"
+          >
+            <img
+              class="w-full h-full object-cover rounded-full"
+              :src="character.img_url"
+              :alt="character.name"
+            />
+          </div>
         </div>
         <div class="flex flex-col items-center md:items-start">
           <h1 class="">{{ character.name }}</h1>
           <div class="flex flex-wrap justify-center gap-2">
-            <p class="badge badge-primary">{{ character.vision }}</p>
+            <p class="badge badge-primary">{{ character.vision.name }}</p>
             <p class="badge badge-primary">{{ character.weapon_type.name }}</p>
             <p class="badge badge-primary">{{ character.role }}</p>
             <p class="badge badge-primary">{{ character.main_stat }}</p>
