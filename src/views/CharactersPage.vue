@@ -233,7 +233,7 @@
             </p>
           </div>
           <div
-            class="hidden sm:flex flex-row gap-2 lg:gap-4 items-center flex-wrap px-2"
+            class="hidden sm:flex flex-row gap-2 lg:gap-4 items-center flex-wrap px-3"
           >
             <img
               class="w-10 sm:w-12 ml-0 sm:ml-2"
@@ -440,7 +440,7 @@ async function fetchCharacters({ reset = false } = {}) {
     let query = supabase
       .from("characters")
       .select(
-        "*, vision(id, name), weapon_type(id, name), regions:character_region(region(id, name))",
+        "*, vision(*), weapon_type(id, name), regions:character_region(region(id, name))",
       )
       .order("release_date", { ascending: false })
       .range(from, to);
