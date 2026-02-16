@@ -93,7 +93,8 @@ async function fetchCharacterById(characterId) {
         artifacts:character_artifact(artifact(*, two_piece_effect(name)), rank),
         weapons:character_weapon(weapon(name, base_attack, bonus_effect_type, bonus_effect_value, img_url), rank),
         builds:builds(character, details, title, stat:build_stat(build, slot, stat, rank)),
-        materials:character_ascension(material_ascension(*), amount)
+        ascensions:character_ascension(material_ascension(*), amount),
+        enhancements:character_enhancement(material_enhancements(*), amount)
         `,
       )
       .eq("id", characterId)
