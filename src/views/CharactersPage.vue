@@ -1,165 +1,18 @@
 <template>
   <div class="min-h-screen flex flex-col items-center gap-8">
-    <div class="h-[150px] hidden md:block w-full md:w-3/4 relative rounded-2xl">
-      <h1
-        class="absolute inset-0 z-20 flex items-center justify-center md:text-5xl font-acme tracking-wide outline-4"
-      >
-        Character Archive
-      </h1>
-      <div class="absolute inset-0 bg-black/50 z-10 rounded-2xl"></div>
-      <img
-        class="w-full h-full object-cover object-bottom rounded-2xl"
-        src="https://act-upload.hoyoverse.com/event-ugc-hoyowiki/2025/07/09/237301566/2627ae5e68e2632df6eeb87b58b6a4f6_8879732995034865752.png?x-oss-process=image%2Fformat%2Cwebp"
-        alt=""
-        loading="lazy"
-      />
-    </div>
-
-    <div class="flex flex-col md:flex-row md:items-center gap-4">
-      <div class="flex flex-row justify-around md:flex-none gap-4">
-        <div
-          class="selected bg-filter p-2 w-[100px] md:w-fit md:h-fit md:text-lg text-center rounded-lg border border-black border-solid text-yellow-500 cursor-pointer"
-          :class="{ active: selectedRarity === 5 }"
-          @click="selectRarity(5)"
-        >
-          ★★★★★
-        </div>
-        <div
-          class="selected bg-filter p-2 w-[100px] md:w-fit md:h-fit md:text-lg text-center rounded-lg border border-black border-solid text-yellow-500 cursor-pointer"
-          :class="{ active: selectedRarity === 4 }"
-          @click="selectRarity(4)"
-        >
-          ★★★★
-        </div>
+    <div>
+      <h1>Filter</h1>
+      <div>
+        <template v-for="vision in visions">
+          <p>{{ vision.name }}</p>
+        </template>
       </div>
-      <div
-        class="custom-dropdown bg-filter rounded-lg py-0.5 z-40 border border-solid border-black md:w-52"
-      >
-        <div class="dropdown-selected" @click="toggleDropdown('vision')">
-          <img
-            v-if="selectedVisionObj"
-            :src="selectedVisionObj.image_url"
-            alt=""
-            loading="lazy"
-            class="dropdown-icon"
-          />
-          <span>
-            {{ selectedVisionObj ? selectedVisionObj.name : "Vision" }}
-          </span>
-          <span class="arrow">▼</span>
-        </div>
-        <ul
-          v-if="isOpen('vision')"
-          class="dropdown-list bg-filter border border-solid border-black"
-        >
-          <li @click="selectVision(null)">
-            <span>All</span>
-          </li>
-          <li
-            v-for="vision in visions"
-            :key="vision.id"
-            @click="selectVision(vision)"
-          >
-            <img
-              loading="lazy"
-              :src="vision.image_url"
-              alt=""
-              class="dropdown-icon"
-            />
-            <span>{{ vision.name }}</span>
-          </li>
-        </ul>
-      </div>
-      <div
-        class="custom-dropdown bg-filter rounded-lg py-0.5 z-40 border border-solid border-black md:w-52"
-      >
-        <div class="dropdown-selected" @click="toggleDropdown('weapon')">
-          <img
-            v-if="selectedWeaponTypeObj"
-            :src="selectedWeaponTypeObj.image_url"
-            loading="lazy"
-            alt=""
-            class="dropdown-icon"
-          />
-          <span>
-            {{
-              selectedWeaponTypeObj ? selectedWeaponTypeObj.name : "Weapon Type"
-            }}
-          </span>
-          <span class="arrow">▼</span>
-        </div>
-
-        <ul
-          v-if="isOpen('weapon')"
-          class="dropdown-list bg-filter border border-solid border-black"
-        >
-          <li @click="selectWeaponType(null)">
-            <span>All</span>
-          </li>
-          <li
-            v-for="weaponType in weaponTypes"
-            :key="weaponType.id"
-            @click="selectWeaponType(weaponType)"
-          >
-            <img
-              loading="lazy"
-              :src="weaponType.image_url"
-              alt=""
-              class="dropdown-icon"
-            />
-            <span>{{ weaponType.name }}</span>
-          </li>
-        </ul>
-      </div>
-      <div
-        class="custom-dropdown bg-filter rounded-lg py-0.5 z-40 border border-solid border-black md:w-52"
-      >
-        <div class="dropdown-selected" @click="toggleDropdown('region')">
-          <img
-            v-if="selectedRegionObj"
-            :src="selectedRegionObj.image_url"
-            alt=""
-            loading="lazy"
-            class="dropdown-icon"
-          />
-          <span>
-            {{ selectedRegionObj ? selectedRegionObj.name : "Region" }}
-          </span>
-          <span class="arrow">▼</span>
-        </div>
-
-        <ul
-          v-if="isOpen('region')"
-          class="dropdown-list bg-filter border border-solid border-black"
-        >
-          <li @click="selectRegion(null)">
-            <span>All</span>
-          </li>
-          <li
-            v-for="region in regions"
-            :key="region.id"
-            @click="selectRegion(region)"
-          >
-            <img
-              loading="lazy"
-              :src="region.image_url"
-              alt=""
-              class="dropdown-icon"
-            />
-            <span>{{ region.name }}</span>
-          </li>
-        </ul>
-      </div>
-      <div class="flex justify-around md:gap-4">
-        <button class="btn btn-soft btn-success" @click="applyFilters">
-          Apply
-        </button>
-        <button class="btn btn-soft btn-warning" @click="resetFilters">
-          Reset
-        </button>
+      <div>
+        <template v-for="weapon_type in weapon_types">
+          <p>{{ weapon_type.name }}</p>
+        </template>
       </div>
     </div>
-
     <div class="divider w-full mx-auto"></div>
     <div class="h-fit w-full lg:w-4/5 flex flex-col gap-10 md:gap-16">
       <RouterLink
@@ -201,7 +54,7 @@
                 'rarity-5': character.rarity === 5,
                 'rarity-4': character.rarity === 4,
               }"
-              :src="character.avatar_url"
+              :src="character.img_url"
               loading="lazy"
             />
             <h1
@@ -217,7 +70,7 @@
             loading="lazy"
             alt=""
           />
-          <div v-if="!character.splash_art"></div>
+          <div v-if="!character.splash_art_url"></div>
         </div>
         <div
           class="bg-secondary flex flex-col sm:flex-row justify-between rounded-b-2xl py-4 sm:py-6 border-0 border-t-2 border-solid border-black gap-3 sm:gap-0"
@@ -251,11 +104,11 @@
             </p>
           </div>
           <div
-            class="hidden sm:flex flex-row gap-2 lg:gap-4 items-center flex-wrap px-4 sm:px-0"
+            class="hidden sm:flex flex-row gap-2 lg:gap-4 items-center flex-wrap px-2"
           >
             <img
               class="w-10 sm:w-12 ml-0 sm:ml-2"
-              :src="character.vision.image_url"
+              :src="character.vision.img_url"
               loading="lazy"
               alt=""
             />
@@ -269,7 +122,7 @@
               v-if="character.role"
               class="px-3 sm:px-4 py-1 sm:py-2 badge badge-soft badge-primary text-text text-xs sm:text-sm"
             >
-              {{ character.role.name }}
+              {{ character.role }}
             </p>
             <p
               v-if="character.weapon_type"
@@ -281,13 +134,7 @@
               v-if="character.main_stat"
               class="px-3 sm:px-4 py-1 sm:py-2 badge badge-soft badge-primary text-text text-xs sm:text-sm"
             >
-              {{ character.main_stat.name }}
-            </p>
-            <p
-              v-if="character.team_role"
-              class="px-3 sm:px-4 py-1 sm:py-2 badge badge-soft badge-primary text-text text-xs sm:text-sm"
-            >
-              {{ character.team_role.name }}
+              {{ character.main_stat }}
             </p>
           </div>
 
@@ -343,7 +190,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick, computed } from "vue";
+import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingMoreSpinner from "../components/Loadings/LoadingMoreSpinner.vue";
 
@@ -351,20 +198,11 @@ import LoadingMoreSpinner from "../components/Loadings/LoadingMoreSpinner.vue";
 const filtering = ref(false);
 const loading = ref(false);
 const error = ref(null);
-const openDropdown = ref(null);
-const filterActive = ref(false);
 
 // data states
 const characters = ref([]);
 const visions = ref([]);
-const weaponTypes = ref([]);
-const regions = ref([]);
-
-// Select options states
-const selectedVision = ref(null);
-const selectedRarity = ref(null);
-const selectedWeaponType = ref(null);
-const selectedRegion = ref(null);
+const weapon_types = ref([]);
 
 // pagination states
 const page = ref(1);
@@ -406,7 +244,7 @@ async function fetchVisions() {
       visions.value = cached;
       return;
     }
-    let query = supabase.from("visions").select("*,id, name, image_url");
+    let query = supabase.from("visions").select("*");
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
     cache("visions", data);
@@ -418,40 +256,18 @@ async function fetchVisions() {
 
 async function fetchWeaponTypes() {
   try {
-    const cached = cache("weaponTypes");
+    const cached = cache("weapon_types");
     if (cached) {
-      weaponTypes.value = cached;
+      weapon_types.value = cached;
       return;
     }
-    let query = supabase.from("weaponTypes").select("*,id, name, image_url");
+    let query = supabase.from("weapon_types").select("*");
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
-    cache("weaponTypes", data);
-    weaponTypes.value = data;
+    cache("weapon_types", data);
+    weapon_types.value = data;
   } catch (err) {
     console.error("Error fetching weapon types:", err);
-  }
-}
-
-async function fetchRegions() {
-  try {
-    // Check cache first
-    const cached = cache("regions");
-    if (cached) {
-      regions.value = cached;
-      return;
-    }
-    // Fetch regions from Supabase
-    const { data, error: fetchError } = await supabase
-      .from("regions")
-      .select("*,id, name, image_url")
-      .in("id", [1, 2, 3, 4, 5, 6, 7]);
-    if (fetchError) throw fetchError;
-
-    cache("regions", data);
-    regions.value = data;
-  } catch (err) {
-    console.error("Error fetching regions:", err);
   }
 }
 
@@ -475,13 +291,12 @@ async function fetchCharacters({ reset = false } = {}) {
     }
     let query = supabase
       .from("characters")
-      .select(
-        "*, vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name), role(id, name)",
-      )
+      .select("*, vision(*), weapon_type(*)")
       .order("release_date", { ascending: false })
       .range(from, to);
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
+
     if (data.length < pageSize) hasMore.value = false;
     characters.value.push(...data);
     page.value++;
@@ -500,112 +315,7 @@ async function fetchCharacters({ reset = false } = {}) {
   }
 }
 
-async function fetchFilteredCharacters(filters = {}) {
-  loading.value = true;
-  characters.value = [];
-  hasMore.value = false; // disables infinite scroll
-
-  try {
-    let query = supabase
-      .from("characters")
-      .select(
-        "*, released_region:regions(id) , vision:visions(id, name, image_url), main_stat:stats(id, name), weapon_type:weaponTypes(id, name), role(id, name)",
-      )
-      .order("release_date", { ascending: false });
-    if (filters.vision) query = query.eq("vision", filters.vision);
-    if (filters.rarity) query = query.eq("rarity", filters.rarity);
-    if (filters.weaponType) query = query.eq("weapon_type", filters.weaponType);
-    if (filters.region) query = query.eq("released_region", filters.region);
-    const { data, error: fetchError } = await query;
-    if (fetchError) throw fetchError;
-    characters.value = data;
-  } catch (err) {
-    error.value = err.message || "Failed to load filtered characters";
-  } finally {
-    loading.value = false;
-  }
-}
-
-// ------ Dropdown Functions -------------
-function selectRarity(rarity) {
-  if (selectedRarity.value === rarity) {
-    selectedRarity.value = null;
-  } else {
-    selectedRarity.value = rarity;
-  }
-}
-
-function selectVision(vision) {
-  selectedVision.value = vision ? vision.id : null;
-  openDropdown.value = false;
-}
-
-function selectWeaponType(weaponType) {
-  selectedWeaponType.value = weaponType ? weaponType.id : null;
-  openDropdown.value = false;
-}
-
-function selectRegion(region) {
-  selectedRegion.value = region ? region.id : null;
-  openDropdown.value = false;
-}
-
-function toggleDropdown(type) {
-  openDropdown.value = openDropdown.value === type ? null : type;
-}
-
-function isOpen(type) {
-  return openDropdown.value === type;
-}
-
 // -------- Filter Functions -------------
-function getActiveFilters() {
-  return {
-    vision: selectedVision.value,
-    rarity: selectedRarity.value,
-    weaponType: selectedWeaponType.value,
-    region: selectedRegion.value,
-  };
-}
-
-async function applyFilters() {
-  const filters = getActiveFilters();
-  const noFiltersSelected =
-    !filters.vision &&
-    !filters.rarity &&
-    !filters.weaponType &&
-    !filters.region;
-
-  if (noFiltersSelected) {
-    alert("Please select at least one filter before applying.");
-    return;
-  }
-
-  filtering.value = true;
-
-  try {
-    await fetchFilteredCharacters(filters);
-    filterActive.value = true;
-  } catch (error) {
-    console.error("Error applying filters:", error);
-  } finally {
-    filtering.value = false;
-  }
-}
-
-function resetFilters() {
-  selectedVision.value = null;
-  selectedRarity.value = null;
-  selectedWeaponType.value = null;
-  selectedRegion.value = null;
-  characters.value = [];
-  page.value = 1;
-  hasMore.value = true;
-  fetchCharacters({ reset: true }).then(() => {
-    setupObserver(); // Re-setup observer after resetting
-  });
-  filterActive.value = false;
-}
 
 // -------- Utility Functions -------------
 function scrollToTop() {
@@ -642,21 +352,12 @@ function setupObserver() {
 }
 
 // -------- Computed Properties -------------
-const selectedVisionObj = computed(() =>
-  visions.value.find((v) => v.id === selectedVision.value),
-);
-const selectedWeaponTypeObj = computed(() =>
-  weaponTypes.value.find((wt) => wt.id === selectedWeaponType.value),
-);
-const selectedRegionObj = computed(() =>
-  regions.value.find((r) => r.id === selectedRegion.value),
-);
+
 // -------- Lifecycle Hooks -------------
 // on component mount, fetch initial data and setup observer
 onMounted(async () => {
   await fetchVisions();
   await fetchWeaponTypes();
-  await fetchRegions();
   const cached = sessionStorage.getItem("characters");
   if (cached) {
     const {
