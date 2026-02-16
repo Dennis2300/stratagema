@@ -12,7 +12,6 @@
           <CharacterArtifacts :character="character" />
           <CharacterWeapons :character="character" />
         </div>
-        <!------------------------------------------>
         <CharacterBuild :character="character" />
         <CharacterMaterials :character="character" />
       </div>
