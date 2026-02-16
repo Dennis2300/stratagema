@@ -1,16 +1,47 @@
 <template>
   <div class="min-h-screen flex flex-col items-center gap-8">
-    <div>
-      <h1>Filter</h1>
-      <div>
-        <template v-for="vision in visions">
-          <p>{{ vision.name }}</p>
-        </template>
+    <div class="w-full">
+      <div class="flex justify-around">
+        <p>
+          <span v-for="n in 5" :key="n">★</span>
+        </p>
+        <p>
+          <span v-for="n in 4" :key="n">★</span>
+        </p>
       </div>
-      <div>
-        <template v-for="weapon_type in weapon_types">
-          <p>{{ weapon_type.name }}</p>
-        </template>
+      <div class="dropdown-container">
+        <div class="dropdown-header" @click="toggleVisionDropdown">
+          <span>{{ selectedVision ? selectedVision.name : "Vision" }}</span>
+          <span class="arrow" :class="{ open: visionDropdownOpen }">▼</span>
+        </div>
+        <div v-if="visionDropdownOpen" class="dropdown-menu">
+          <div
+            v-for="vision in visions"
+            :key="vision.id"
+            class="dropdown-item"
+            @click="selectVision(vision)"
+          >
+            {{ vision.name }}
+          </div>
+        </div>
+      </div>
+      <div class="dropdown-container">
+        <div class="dropdown-header" @click="toggleWeaponDropdown">
+          <span>{{
+            selectedWeapon ? selectedWeapon.name : "Weapon Type"
+          }}</span>
+          <span class="arrow" :class="{ open: weaponDropdownOpen }">▼</span>
+        </div>
+        <div v-if="weaponDropdownOpen" class="dropdown-menu">
+          <div
+            v-for="weapon in weapon_types"
+            :key="weapon.id"
+            class="dropdown-item"
+            @click="selectWeapon(weapon)"
+          >
+            {{ weapon.name }}
+          </div>
+        </div>
       </div>
     </div>
     <div class="divider w-full mx-auto"></div>
@@ -204,6 +235,12 @@ const characters = ref([]);
 const visions = ref([]);
 const weapon_types = ref([]);
 
+// drop down states
+const visionDropdownOpen = ref(false);
+const weaponDropdownOpen = ref(false);
+const selectedVision = ref(null);
+const selectedWeapon = ref(null);
+
 // pagination states
 const page = ref(1);
 const pageSize = 10;
@@ -316,6 +353,29 @@ async function fetchCharacters({ reset = false } = {}) {
 }
 
 // -------- Filter Functions -------------
+function toggleVisionDropdown() {
+  visionDropdownOpen.value = !visionDropdownOpen.value;
+  if (visionDropdownOpen.value) {
+    weaponDropdownOpen.value = false;
+  }
+}
+
+function toggleWeaponDropdown() {
+  weaponDropdownOpen.value = !weaponDropdownOpen.value;
+  if (weaponDropdownOpen.value) {
+    visionDropdownOpen.value = false;
+  }
+}
+
+function selectVision(vision) {
+  selectedVision.value = vision;
+  visionDropdownOpen.value = false;
+}
+
+function selectWeapon(weapon) {
+  selectedWeapon.value = weapon;
+  weaponDropdownOpen.value = false;
+}
 
 // -------- Utility Functions -------------
 function scrollToTop() {
