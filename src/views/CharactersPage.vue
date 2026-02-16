@@ -209,7 +209,7 @@
           >
             <img
               class="w-10"
-              :src="character.vision.image_url"
+              :src="character.vision.img_url"
               loading="lazy"
               alt=""
             />
@@ -223,7 +223,7 @@
               v-if="character.role"
               class="px-3 py-1 badge badge-soft badge-primary text-text text-xs"
             >
-              {{ character.role.name }}
+              {{ character.role }}
             </p>
             <p
               v-if="character.weapon_type"
