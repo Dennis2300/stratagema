@@ -1,60 +1,103 @@
 <template>
-  <section class="space-y-4">
+  <section class="space-y-10">
     <h2 class="divider text-quaternary">Materials</h2>
-    <h3>Ascension</h3>
-    <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
-      <template v-for="a in sortedAscensions" :key="a.material_ascension.id">
-        <div class="flex items-center gap-3">
-          <img
-            class="w-20 bg-secondary rounded-xl"
-            :src="a.material_ascension.img_url"
-            alt=""
-          />
-          <div class="flex flex-col gap-2">
-            <p>{{ a.material_ascension.name }}</p>
-            <strong class="text-accent">x{{ a.amount }}</strong>
+    <article class="space-y-2">
+      <h3>Ascension</h3>
+      <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
+        <template v-for="a in sortedAscensions" :key="a.material_ascension.id">
+          <div class="flex items-center gap-3">
+            <img
+              class="w-20 bg-secondary rounded-xl"
+              :src="a.material_ascension.img_url"
+              alt=""
+            />
+            <div class="flex flex-col gap-2">
+              <p>{{ a.material_ascension.name }}</p>
+              <strong class="text-accent">x{{ a.amount }}</strong>
+            </div>
           </div>
-        </div>
-      </template>
-    </div>
-    <h3>Enhancement</h3>
-    <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
-      <template
-        v-for="a in sortedEnhancements"
-        :key="a.material_enhancements.id"
-      >
-        <div class="flex items-center gap-3">
-          <img
-            class="w-20 bg-secondary rounded-xl"
-            :src="a.material_enhancements.img_url"
-            alt=""
-          />
-          <div class="flex flex-col gap-2">
-            <p>{{ a.material_enhancements.name }}</p>
-            <strong class="text-accent">x{{ a.amount }}</strong>
+        </template>
+      </div>
+    </article>
+
+    <article class="space-y-2">
+      <h3>Talents</h3>
+      <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
+        <template v-for="a in sortedTalents" :key="a.material_talents.id">
+          <div class="flex items-center gap-3">
+            <img
+              class="w-20 bg-secondary rounded-xl"
+              :src="a.material_talents.img_url"
+              alt=""
+            />
+            <div class="flex flex-col gap-2">
+              <p>{{ a.material_talents.name }}</p>
+              <strong class="text-accent">x{{ a.amount }}</strong>
+            </div>
           </div>
-        </div>
-      </template>
-    </div>
-    <h3>Talents</h3>
-    <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
-      <template
-        v-for="a in sortedTalents"
-        :key="a.material_talents.id"
-      >
-        <div class="flex items-center gap-3">
-          <img
-            class="w-20 bg-secondary rounded-xl"
-            :src="a.material_talents.img_url"
-            alt=""
-          />
-          <div class="flex flex-col gap-2">
-            <p>{{ a.material_talents.name }}</p>
-            <strong class="text-accent">x{{ a.amount }}</strong>
+        </template>
+      </div>
+    </article>
+
+    <article class="space-y-2">
+      <h3>Enhancement</h3>
+      <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
+        <template
+          v-for="a in sortedEnhancements"
+          :key="a.material_enhancements.id"
+        >
+          <div class="flex items-center gap-3">
+            <img
+              class="w-20 bg-secondary rounded-xl"
+              :src="a.material_enhancements.img_url"
+              alt=""
+            />
+            <div class="flex flex-col gap-2">
+              <p>{{ a.material_enhancements.name }}</p>
+              <strong class="text-accent">x{{ a.amount }}</strong>
+            </div>
           </div>
-        </div>
-      </template>
-    </div>
+        </template>
+      </div>
+    </article>
+
+    <article class="space-y-2">
+      <h3>Level Up</h3>
+      <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
+        <template v-for="a in character.level_up_material">
+          <div class="flex items-center gap-3">
+            <img
+              class="w-20 bg-secondary rounded-xl"
+              :src="a.level_up_material.img_url"
+              alt=""
+            />
+            <div class="flex flex-col gap-2">
+              <p>{{ a.level_up_material.name }}</p>
+              <strong class="text-accent">x{{ a.amount }}</strong>
+            </div>
+          </div>
+        </template>
+      </div>
+    </article>
+
+    <article class="space-y-2">
+      <h3>Local Specialty</h3>
+      <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
+        <template v-for="a in character.local_specialty">
+          <div class="flex items-center gap-3">
+            <img
+              class="w-20 bg-secondary rounded-xl"
+              :src="a.local_specialty.img_url"
+              alt=""
+            />
+            <div class="flex flex-col gap-2">
+              <p>{{ a.local_specialty.name }}</p>
+              <strong class="text-accent">x168</strong>
+            </div>
+          </div>
+        </template>
+      </div>
+    </article>
   </section>
 </template>
 

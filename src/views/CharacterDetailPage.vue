@@ -95,7 +95,9 @@ async function fetchCharacterById(characterId) {
         builds:builds(character, details, title, stat:build_stat(build, slot, stat, rank)),
         ascensions:character_ascension(material_ascension(*), amount),
         enhancements:character_enhancement(material_enhancements(*), amount),
-        talents:character_talent(material_talents(*), amount)
+        talents:character_talent(material_talents(*), amount),
+        local_specialty:character_local_specialty(local_specialty(*)),
+        level_up_material:character_level_up_material(level_up_material(*), amount)
         `,
       )
       .eq("id", characterId)
