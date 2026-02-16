@@ -1,50 +1,104 @@
 <template>
-  <div class="min-h-screen flex flex-col items-center gap-8">
+  <div class="min-h-screen flex flex-col items-center gap-2">
     <div class="w-full">
-      <div class="flex justify-around">
-        <p>
-          <span v-for="n in 5" :key="n">★</span>
-        </p>
-        <p>
-          <span v-for="n in 4" :key="n">★</span>
-        </p>
-      </div>
-      <div class="dropdown-container">
-        <div class="dropdown-header" @click="toggleVisionDropdown">
-          <span>{{ selectedVision ? selectedVision.name : "Vision" }}</span>
-          <span class="arrow" :class="{ open: visionDropdownOpen }">▼</span>
+      <div class="flex gap-5 items-center flex-wrap">
+        <div
+          class="bg-filter flex items-center px-4 py-1.5 rounded cursor-pointer transition-all duration-200 text-lg border-2 border-transparent hover:translate-y-[-2px] active:translate-y-0"
+        >
+          <span class="text-yellow-500" v-for="n in 5" :key="n">★</span>
         </div>
-        <div v-if="visionDropdownOpen" class="dropdown-menu">
+        <div
+          class="bg-filter flex items-center px-4 py-1.5 rounded cursor-pointer transition-all duration-200 text-lg border-2 border-transparent hover:translate-y-[-2px] active:translate-y-0"
+        >
+          <span class="text-yellow-500" v-for="n in 4" :key="n">★</span>
+        </div>
+        <div class="dropdown-container relative min-w-[160px]">
           <div
-            v-for="vision in visions"
-            :key="vision.id"
-            class="dropdown-item"
-            @click="selectVision(vision)"
+            class="dropdown-header flex justify-between items-center px-4 py-2.5 rounded cursor-pointer transition-all duration-200 select-none border-2 border-transparent h-full hover:border-white/10 active:scale-[0.98]"
+            @click="toggleVisionDropdown"
           >
-            {{ vision.name }}
+            <span class="font-medium">
+              {{ selectedVision ? selectedVision.name : "Vision" }}
+            </span>
+            <span
+              class="arrow ml-3 text-xs opacity-70 transition-transform duration-300 ease-in-out"
+              :class="{ open: visionDropdownOpen }"
+              >▼</span
+            >
+          </div>
+          <div
+            v-if="visionDropdownOpen"
+            class="dropdown-menu absolute top-[calc(100%+8px)] left-0 right-0 rounded border-2 border-white/10 shadow-lg z-[1000] max-h-[250px] overflow-y-auto"
+          >
+            <div
+              v-for="vision in visions"
+              :key="vision.id"
+              class="dropdown-item px-4 py-3 cursor-pointer transition-all duration-150 border-l-[3px] border-l-transparent hover:pl-[18px]"
+              @click="selectVision(vision)"
+            >
+              {{ vision.name }}
+            </div>
           </div>
         </div>
-      </div>
-      <div class="dropdown-container">
-        <div class="dropdown-header" @click="toggleWeaponDropdown">
-          <span>{{
-            selectedWeapon ? selectedWeapon.name : "Weapon Type"
-          }}</span>
-          <span class="arrow" :class="{ open: weaponDropdownOpen }">▼</span>
-        </div>
-        <div v-if="weaponDropdownOpen" class="dropdown-menu">
+        <div class="dropdown-container relative min-w-[160px]">
           <div
-            v-for="weapon in weapon_types"
-            :key="weapon.id"
-            class="dropdown-item"
-            @click="selectWeapon(weapon)"
+            class="dropdown-header flex justify-between items-center px-4 py-2.5 rounded cursor-pointer transition-all duration-200 select-none border-2 border-transparent h-full hover:border-white/10 active:scale-[0.98]"
+            @click="toggleWeaponDropdown"
           >
-            {{ weapon.name }}
+            <span class="font-medium">
+              {{ selectedWeapon ? selectedWeapon.name : "Weapon" }}
+            </span>
+            <span
+              class="arrow ml-3 text-xs opacity-70 transition-transform duration-300 ease-in-out"
+              :class="{ open: weaponDropdownOpen }"
+              >▼</span
+            >
+          </div>
+          <div
+            v-if="weaponDropdownOpen"
+            class="dropdown-menu absolute top-[calc(100%+8px)] left-0 right-0 rounded border-2 border-white/10 shadow-lg z-[1000] max-h-[250px] overflow-y-auto"
+          >
+            <div
+              v-for="weapon in weapon_types"
+              :key="weapon.id"
+              class="dropdown-item px-4 py-3 cursor-pointer transition-all duration-150 border-l-[3px] border-l-transparent hover:pl-[18px]"
+              @click="selectWeapon(weapon)"
+            >
+              {{ weapon.name }}
+            </div>
+          </div>
+        </div>
+        <div class="dropdown-container relative min-w-[160px]">
+          <div
+            class="dropdown-header flex justify-between items-center px-4 py-2.5 rounded cursor-pointer transition-all duration-200 select-none border-2 border-transparent h-full hover:border-white/10 active:scale-[0.98]"
+            @click="toggleRegionDropdown"
+          >
+            <span class="font-medium">
+              {{ selectedRegion ? selectedRegion.name : "Region" }}
+            </span>
+            <span
+              class="arrow ml-3 text-xs opacity-70 transition-transform duration-300 ease-in-out"
+              :class="{ open: regionDropdownOpen }"
+              >▼</span
+            >
+          </div>
+          <div
+            v-if="regionDropdownOpen"
+            class="dropdown-menu absolute top-[calc(100%+8px)] left-0 right-0 rounded border-2 border-white/10 shadow-lg z-[1000] max-h-[250px] overflow-y-auto"
+          >
+            <div
+              v-for="region in regions"
+              :key="region.id"
+              class="dropdown-item px-4 py-3 cursor-pointer transition-all duration-150 border-l-[3px] border-l-transparent hover:pl-[18px]"
+              @click="selectRegion(region)"
+            >
+              {{ region.name }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="divider w-full mx-auto"></div>
+    <div class="divider w-full pb-6"></div>
     <div class="h-fit w-full lg:w-4/5 flex flex-col gap-10 md:gap-16">
       <RouterLink
         :to="`/characters/${character.id}?name=${encodeURIComponent(
@@ -234,12 +288,15 @@ const error = ref(null);
 const characters = ref([]);
 const visions = ref([]);
 const weapon_types = ref([]);
+const regions = ref([]);
 
 // drop down states
 const visionDropdownOpen = ref(false);
 const weaponDropdownOpen = ref(false);
+const regionDropdownOpen = ref(false);
 const selectedVision = ref(null);
 const selectedWeapon = ref(null);
+const selectedRegion = ref(null);
 
 // pagination states
 const page = ref(1);
@@ -308,6 +365,23 @@ async function fetchWeaponTypes() {
   }
 }
 
+async function fetchRegions() {
+  try {
+    const cached = cache("regions");
+    if (cached) {
+      regions.value = cached;
+      return;
+    }
+    let query = supabase.from("regions").select("*");
+    const { data, error: fetchError } = await query;
+    if (fetchError) throw fetchError;
+    cache("regions", data);
+    regions.value = data;
+  } catch (err) {
+    console.error("Error fetching regions:", err);
+  }
+}
+
 async function fetchCharacters({ reset = false } = {}) {
   if (reset) {
     page.value = 1;
@@ -328,7 +402,9 @@ async function fetchCharacters({ reset = false } = {}) {
     }
     let query = supabase
       .from("characters")
-      .select("*, vision(*), weapon_type(*)")
+      .select(
+        "*, vision(id, name), weapon_type(id, name), regions:character_region(region(id, name))",
+      )
       .order("release_date", { ascending: false })
       .range(from, to);
     const { data, error: fetchError } = await query;
@@ -358,12 +434,28 @@ function toggleVisionDropdown() {
   if (visionDropdownOpen.value) {
     weaponDropdownOpen.value = false;
   }
+  if (visionDropdownOpen) {
+    regionDropdownOpen.value = false;
+  }
 }
 
 function toggleWeaponDropdown() {
   weaponDropdownOpen.value = !weaponDropdownOpen.value;
   if (weaponDropdownOpen.value) {
     visionDropdownOpen.value = false;
+  }
+  if (weaponDropdownOpen.value) {
+    regionDropdownOpen.value = false;
+  }
+}
+
+function toggleRegionDropdown() {
+  regionDropdownOpen.value = !regionDropdownOpen.value;
+  if (regionDropdownOpen.value) {
+    visionDropdownOpen.value = false;
+  }
+  if (regionDropdownOpen.value) {
+    weaponDropdownOpen.value = false;
   }
 }
 
@@ -375,6 +467,10 @@ function selectVision(vision) {
 function selectWeapon(weapon) {
   selectedWeapon.value = weapon;
   weaponDropdownOpen.value = false;
+}
+function selectRegion(region) {
+  selectedRegion.value = region;
+  regionDropdownOpen.value = false;
 }
 
 // -------- Utility Functions -------------
@@ -418,6 +514,7 @@ function setupObserver() {
 onMounted(async () => {
   await fetchVisions();
   await fetchWeaponTypes();
+  await fetchRegions();
   const cached = sessionStorage.getItem("characters");
   if (cached) {
     const {
@@ -441,75 +538,3 @@ onUnmounted(() => {
   }
 });
 </script>
-
-<style scoped>
-.selected.active {
-  border: 1px solid var(--tertiary);
-}
-.custom-dropdown {
-  position: relative;
-  letter-spacing: 1.5px;
-}
-
-.dropdown-selected {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-}
-
-.dropdown-selected img.dropdown-icon {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-
-.dropdown-list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  margin-top: 0.25rem;
-  list-style: none;
-  padding: 0;
-  z-index: 10;
-}
-
-.dropdown-list li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-}
-
-.dropdown-list li:hover {
-  background: var(--filter-color-hover);
-}
-
-.dropdown-list img.dropdown-icon {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-}
-
-.arrow {
-  margin-left: auto;
-  font-size: 0.8rem;
-  color: white;
-}
-.rarity-5 {
-  background: linear-gradient(145deg, #e7944a, #b56a2b);
-  box-shadow:
-    0px 0px 15px rgba(231, 148, 74, 0.8),
-    0px 0px 30px rgba(231, 148, 74, 0.5);
-}
-.rarity-4 {
-  background: linear-gradient(145deg, #9b72d5, #7149a3);
-  box-shadow:
-    0px 0px 15px rgba(155, 114, 213, 0.8),
-    0px 0px 30px rgba(155, 114, 213, 0.5);
-}
-</style>
