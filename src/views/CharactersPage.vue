@@ -281,8 +281,10 @@ async function fetchFilteredCharacters(filters) {
     if (filters.rarity) query = query.eq("rarity", filters.rarity);
     if (filters.vision) query = query.eq("vision", filters.vision.id);
     if (filters.weapon) query = query.eq("weapon_type", filters.weapon.id);
-    if (filters.region)
-      query = query.eq("character_region.region_id", filters.region.id);
+    if (filters.region) {
+      const ids = await getCharacterIdsByRegion(filters.region.id);
+      query = query.in("id", ids);
+    }
 
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
@@ -293,6 +295,16 @@ async function fetchFilteredCharacters(filters) {
   } finally {
     loading.value = false;
   }
+}
+async function getCharacterIdsByRegion(regionId) {
+  // get all characters that have the selected region
+  const { data, error } = await supabase
+    .from("character_region")
+    .select("character_id")
+    .eq("region_id", regionId);
+  if (error) throw error;
+  // create an array with the recently filtered array of characters by region
+  return data.map((r) => r.character_id);
 }
 // -------- Utility Functions -------------
 function scrollToTop() {
