@@ -3,15 +3,15 @@
     <div class="w-full">
       <div class="flex gap-5 items-center flex-wrap">
         <div
-          class="bg-filter flex items-center px-4 py-1.5 rounded cursor-pointer transition-all duration-200 text-lg border-2 border-transparent hover:translate-y-[-2px] active:translate-y-0"
+          v-for="stars in [5, 4]"
+          :key="stars"
+          class="bg-filter flex items-center px-4 py-1.5 rounded cursor-pointer transition-all duration-200 text-lg border-2 hover:translate-y-[-2px] active:translate-y-0"
+          :style="selectedRarity === stars ? 'border-color: gold' : ''"
+          @click="toggleRarity(stars)"
         >
-          <span class="text-yellow-500" v-for="n in 5" :key="n">★</span>
+          <span class="text-yellow-500" v-for="n in stars" :key="n">★</span>
         </div>
-        <div
-          class="bg-filter flex items-center px-4 py-1.5 rounded cursor-pointer transition-all duration-200 text-lg border-2 border-transparent hover:translate-y-[-2px] active:translate-y-0"
-        >
-          <span class="text-yellow-500" v-for="n in 4" :key="n">★</span>
-        </div>
+
         <div
           class="dropdown-container relative min-w-[175px]"
           ref="visionDropdownRef"
@@ -140,6 +140,9 @@
             </div>
           </div>
         </div>
+
+        <button class="btn btn-success" @click="applyFilters">Apply</button>
+        <button class="btn btn-warning">Reset</button>
       </div>
     </div>
     <div class="divider w-full pb-6"></div>
@@ -335,12 +338,15 @@ const regions = ref([]);
 const visionDropdownOpen = ref(false);
 const weaponDropdownOpen = ref(false);
 const regionDropdownOpen = ref(false);
+const selectedRarity = ref(null);
 const selectedVision = ref(null);
 const selectedWeapon = ref(null);
 const selectedRegion = ref(null);
 const visionDropdownRef = ref(null);
 const weaponDropdownRef = ref(null);
 const regionDropdownRef = ref(null);
+// filter
+const activeFilters = ref({ vision: null, weapon: null, region: null });
 // pagination states
 const page = ref(1);
 const pageSize = 10;
@@ -492,6 +498,10 @@ function toggleRegionDropdown() {
     weaponDropdownOpen.value = false;
   }
 }
+function toggleRarity(rarity) {
+  selectedRarity.value = selectedRarity.value === rarity ? null : rarity;
+  console.log("selectedRarity:", selectedRarity.value, "rarity:", rarity);
+}
 function selectVision(vision) {
   selectedVision.value = vision;
   visionDropdownOpen.value = false;
@@ -523,6 +533,42 @@ function handleClickOutside(event) {
   ) {
     regionDropdownOpen.value = false;
   }
+}
+async function fetchFilteredCharacters(filters) {
+  loading.value = true;
+  characters.value = [];
+  try {
+    let query = supabase
+      .from("characters")
+      .select(
+        "*, vision(*), weapon_type(id, name), regions:character_region(region(id, name))",
+      )
+      .order("release_date", { ascending: false });
+
+    if (filters.rarity) query = query.eq("rarity", filters.rarity);
+    if (filters.vision) query = query.eq("vision", filters.vision.id);
+    if (filters.weapon) query = query.eq("weapon_type", filters.weapon.id);
+    if (filters.region)
+      query = query.eq("character_region.region_id", filters.region.id);
+
+    const { data, error: fetchError } = await query;
+    if (fetchError) throw fetchError;
+    characters.value = data;
+    hasMore.value = false;
+  } catch (err) {
+    error.value = err.message || "Failed to filter characters";
+  } finally {
+    loading.value = false;
+  }
+}
+function applyFilters() {
+  activeFilters.value = {
+    vision: selectedVision.value,
+    weapon: selectedWeapon.value,
+    region: selectedRegion.value,
+    rarity: selectedRarity.value,
+  };
+  fetchFilteredCharacters(activeFilters.value);
 }
 // -------- Utility Functions -------------
 function scrollToTop() {
