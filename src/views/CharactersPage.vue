@@ -300,11 +300,11 @@ async function getCharacterIdsByRegion(regionId) {
   // get all characters that have the selected region
   const { data, error } = await supabase
     .from("character_region")
-    .select("character_id")
-    .eq("region_id", regionId);
+    .select("character")
+    .eq("region", regionId);
   if (error) throw error;
   // create an array with the recently filtered array of characters by region
-  return data.map((r) => r.character_id);
+  return data.map((r) => r.character);
 }
 // -------- Utility Functions -------------
 function scrollToTop() {
