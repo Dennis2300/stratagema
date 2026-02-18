@@ -16,7 +16,7 @@
         >
           <img
             class="w-full h-full object-cover rounded-2xl"
-            :src="weapon.image_url"
+            :src="weapon.img_url"
             :alt="weapon.name"
           />
         </div>

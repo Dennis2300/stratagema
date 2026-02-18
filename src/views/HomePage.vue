@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center gap-8">
     <TopSection />
     <MiddleSection />
-    <UpdatesSection />
+    <!-- <UpdatesSection /> -->
   </div>
 </template>
 

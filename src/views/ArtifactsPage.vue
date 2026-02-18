@@ -1,233 +1,95 @@
 <template>
-  <LoadingSpinner v-if="loading" />
-  <main v-else class="px-4 md:px-8 lg:px-24">
-    <h1 class="divider">Artifacts</h1>
-
-    <transition name="fade-slide" mode="out-in">
-      <div
-        :key="currentPage"
-        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 mt-8"
-      >
-        <template
-          v-for="(artifact, index) in paginatedArtifacts"
-          :key="artifact.id"
-        >
+  <main class="space-y-6 px-4 pb-8 min-h-screen">
+    <LoadingSpinner v-if="loading" />
+    <section v-else-if="!loading">
+      <h1 class="divider pb-8">Artifacts</h1>
+      <div class="flex justify-center">
+        <input
+          v-model="search"
+          type="text"
+          placeholder="Search artifacts..."
+          class="input input-bordered w-full max-w-sm mb-6"
+        />
+      </div>
+      <div class="grid md:grid-cols-4 gap-6">
+        <template v-for="artifact in filteredArtifacts" :key="artifact.id">
           <div
-            class="artifact-card text-center bg-primary md:bg-secondary p-4 md:px-8 md:py-4 rounded-xl cursor-pointer hover:shadow-lg transition-all duration-300"
-            :style="{ animationDelay: `${index * 50}ms` }"
-            @click="toggleArtifact(artifact.id)"
+            @click="selectedArtifact = artifact"
+            class="flex flex-col items-center justify-center bg-secondary pb-4 rounded-xl hover:bg-filter-hover transition cursor-pointer"
           >
-            <img
-              class="w-20 md:w-32 mx-auto"
-              :src="artifact.flower_img_url"
-              alt=""
-            />
-            <h3
-              class="w-full truncate tracking-wide font-acme mt-2 text-sm md:text-base"
-            >
-              {{ artifact.name }}
-            </h3>
+            <img class="w-32" :src="artifact.flower_img_url" alt="" />
+            <p>{{ artifact.name }}</p>
           </div>
         </template>
       </div>
-    </transition>
-
-    <!-- Pagination Controls -->
-    <div class="flex justify-center items-center gap-2 md:gap-4 flex-wrap mt-8">
-      <button
-        @click="currentPage = 1"
-        :disabled="currentPage === 1"
-        class="btn btn-primary hidden md:inline-flex btn-sm md:btn-md"
-      >
-        First
-      </button>
-
-      <button
-        @click="currentPage--"
-        :disabled="currentPage === 1"
-        class="btn btn-primary btn-sm md:btn-md"
-      >
-        Previous
-      </button>
-
-      <div class="flex gap-1 md:hidden">
-        <button class="btn btn-accent min-w-[40px] btn-sm">
-          {{ currentPage }}
-        </button>
-        <button
-          v-if="currentPage < totalPages"
-          @click="currentPage = currentPage + 1"
-          class="btn btn-primary min-w-[40px] btn-sm"
-        >
-          {{ currentPage + 1 }}
-        </button>
-      </div>
-
-      <div class="hidden md:flex gap-2">
-        <button
-          v-for="page in visiblePages"
-          :key="page"
-          @click="currentPage = page"
-          :class="currentPage === page ? 'btn-accent' : 'btn-primary'"
-          class="btn min-w-[48px] btn-md"
-        >
-          {{ page }}
-        </button>
-      </div>
-
-      <button
-        @click="currentPage++"
-        :disabled="currentPage === totalPages"
-        class="btn btn-primary btn-sm md:btn-md"
-      >
-        Next
-      </button>
-
-      <button
-        @click="currentPage = totalPages"
-        :disabled="currentPage === totalPages"
-        class="btn btn-primary hidden md:inline-flex btn-sm md:btn-md"
-      >
-        Last
-      </button>
-    </div>
-
-    <p class="text-center text-gray-400 text-sm md:text-base mt-4">
-      Showing {{ startIndex + 1 }}-{{ endIndex }} of
-      {{ artifacts.length }} artifacts
-    </p>
-
-    <!-- Popup Overlay -->
-    <transition name="fade">
       <div
-        v-if="expandedArtifact"
-        class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
-        @click.self="closeArtifact"
+        v-if="selectedArtifact"
+        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+        @click.self="selectedArtifact = null"
       >
-        <div
-          class="bg-primary w-full md:w-[700px] lg:w-[800px] max-h-[90vh] md:max-h-[600px] p-4 md:p-6 rounded-xl relative overflow-y-scroll"
-        >
-          <button
-            class="btn btn-circle btn-sm absolute top-3 right-3 md:top-5 md:right-5 z-10"
-            @click="closeArtifact"
+        <div class="bg-secondary rounded-2xl p-6 relative w-[560px] shadow-xl">
+          <div
+            class="absolute top-4 right-4 text-red-500 cursor-pointer"
+            @click="selectedArtifact = null"
           >
             ✕
-          </button>
-
-          <!-- Find the selected artifact -->
-          <div v-if="selectedArtifact">
-            <h1 class="text-2xl md:text-4xl font-acme tracking-wide pr-8">
-              {{ selectedArtifact.name }}
-            </h1>
-            <div
-              class="flex flex-row flex-wrap justify-center items-center gap-2 md:gap-4 mt-6 md:mt-8"
-            >
+          </div>
+          <h3 class="text-xl font-bold mb-5">{{ selectedArtifact.name }}</h3>
+          <div class="flex justify-between bg-base-100/30 rounded-xl p-3">
+            <template v-for="type in artifactTypes" :key="type">
               <img
-                class="w-16 md:w-24"
-                :src="selectedArtifact.flower_img_url"
-                alt=""
+                v-if="selectedArtifact?.[`${type}_img_url`]"
+                class="w-16 h-16 md:w-24 md:h-24 object-contain drop-shadow-md"
+                :src="selectedArtifact[`${type}_img_url`]"
+                :alt="type"
+                loading="lazy"
               />
-              <img
-                class="w-16 md:w-24"
-                :src="selectedArtifact.plume_img_url"
-                alt=""
-              />
-              <img
-                class="w-16 md:w-24"
-                :src="selectedArtifact.sands_img_url"
-                alt=""
-              />
-              <img
-                class="w-16 md:w-24"
-                :src="selectedArtifact.goblet_img_url"
-                alt=""
-              />
-              <img
-                class="w-16 md:w-24"
-                :src="selectedArtifact.circlet_img_url"
-                alt=""
-              />
+            </template>
+          </div>
+          <div class="flex flex-col gap-3 mt-2">
+            <div class="bg-base-100/30 rounded-xl">
+              <p class="text-xs font-bold uppercase tracking-widest opacity-40">
+                2-Piece
+              </p>
+              <p class="text-sm opacity-80">
+                {{ selectedArtifact.two_piece_effect.name }}
+              </p>
             </div>
-            <div class="divider m-0 my-4"></div>
-            <div class="px-4 md:px-10">
-              <div class="my-4">
-                <h2
-                  class="mb-2 text-tertiary font-semibold text-base md:text-lg"
-                >
-                  2 Piece Set Bonus
-                </h2>
-                <p class="text-sm md:text-base">
-                  {{ selectedArtifact.two_piece.name }}
-                </p>
-              </div>
-              <div class="my-4">
-                <h2
-                  class="mb-2 text-tertiary font-semibold text-base md:text-lg"
-                >
-                  4 Piece Set Bonus
-                </h2>
-                <p class="text-sm md:text-base">
-                  {{ selectedArtifact.four_piece }}
-                </p>
-              </div>
+            <div class="bg-base-100/30 rounded-xl">
+              <p class="text-xs font-bold uppercase tracking-widest opacity-40">
+                4-Piece
+              </p>
+              <p class="text-sm opacity-80">
+                {{ selectedArtifact.four_piece_effect }}
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </transition>
+    </section>
+    <div class="text-center flex flex-col items-center gap-8" v-if="loading">
+      <img
+        class="w-48"
+        src="https://upload-static.hoyoverse.com/hoyolab-wiki/2023/10/14/151578876/2e03d2af283a8f13053a757f7497d6d8_4575400536973253402.png?x-oss-process=image%2Fformat%2Cwebp"
+        alt=""
+      />
+      <p class="badge badge-error">Something went wrong, try again later!</p>
+    </div>
   </main>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingSpinner from "../components/Loadings/LoadingSpinner.vue";
 
-const loading = ref(true);
+const loading = ref(false);
 const error = ref(null);
 const artifacts = ref([]);
-const expandedArtifact = ref(null);
-const currentPage = ref(1);
-const itemsPerPage = 12;
+const selectedArtifact = ref(null);
+const search = ref("");
 
-// Watch for page changes and scroll to top
-watch(currentPage, () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-// Computed properties for pagination
-const totalPages = computed(() =>
-  Math.ceil(artifacts.value.length / itemsPerPage),
-);
-
-const startIndex = computed(() => (currentPage.value - 1) * itemsPerPage);
-
-const endIndex = computed(() => {
-  const end = startIndex.value + itemsPerPage;
-  return end > artifacts.value.length ? artifacts.value.length : end;
-});
-
-const paginatedArtifacts = computed(() => {
-  return artifacts.value.slice(startIndex.value, endIndex.value);
-});
-
-// Show max 5 page numbers at a time
-const visiblePages = computed(() => {
-  const pages = [];
-  const maxVisible = 5;
-  let start = Math.max(1, currentPage.value - Math.floor(maxVisible / 2));
-  let end = Math.min(totalPages.value, start + maxVisible - 1);
-
-  // Adjust start if we're near the end
-  if (end - start < maxVisible - 1) {
-    start = Math.max(1, end - maxVisible + 1);
-  }
-
-  for (let i = start; i <= end; i++) {
-    pages.push(i);
-  }
-  return pages;
-});
+const artifactTypes = ["flower", "plume", "sands", "goblet", "circlet"];
 
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = new Date().getTime();
@@ -250,28 +112,29 @@ function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
     return parsedItem.data;
   }
 }
+const filteredArtifacts = computed(() => {
+  if (!search.value) return artifacts.value;
+  return artifacts.value.filter((artifact) =>
+    artifact.name.toLowerCase().includes(search.value.toLowerCase()),
+  );
+});
 
-function toggleArtifact(id) {
-  expandedArtifact.value = expandedArtifact.value === id ? null : id;
-}
-
-function closeArtifact() {
-  expandedArtifact.value = null;
-}
-
-async function getAllArtifacts() {
+async function fetchArtifacts() {
+  loading.value = true;
   try {
     const cached = cache("artifacts");
     if (cached) {
       artifacts.value = cached;
+      loading.value = false;
       return;
     }
     const { data, error: fetchError } = await supabase
       .from("artifacts")
-      .select("*, two_piece:twoPieceSets(name)");
+      .select("*, two_piece_effect(*)");
     if (fetchError) throw fetchError;
     cache("artifacts", data);
     artifacts.value = data;
+    console.log(artifacts.value);
   } catch (err) {
     error.value = err.message || "Failed to load artifacts";
   } finally {
@@ -279,12 +142,8 @@ async function getAllArtifacts() {
   }
 }
 
-const selectedArtifact = computed(() =>
-  artifacts.value.find((a) => a.id === expandedArtifact.value),
-);
-
 onMounted(() => {
-  getAllArtifacts();
+  fetchArtifacts();
 });
 </script>
 

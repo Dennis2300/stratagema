@@ -1,41 +1,22 @@
 <template>
   <LoadingSpinner v-if="loading" />
-  <div
-    v-else-if="character"
-    class="relative min-h-screen bg-primary rounded-2xl"
-  >
-    <!-- Background Splash Art -->
-    <CharacterSplashArt :character="character" />
-
-    <!-- Main Content -->
+  <template v-else-if="character">
     <div
-      class="relative z-10 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto py-8 space-y-8 md:space-y-0"
+      class="bg-primary rounded-2xl px-3 py-8 md:p-8 relative overflow-hidden"
     >
-      <!-- Hero Section & Voice Actors -->
-      <div class="flex flex-col lg:flex-row justify-between">
-        <!-- Hero Section -->
-        <div class="lg:w-3/5 flex items-center">
-          <CharacterBasicInfo :character="character" />
+      <CharacterSplashArt :character="character" />
+      <div class="relative z-10 space-y-10">
+        <CharacterBasicInfo :character="character" />
+        <CharacterInfo :character="character" />
+        <div class="space-y-8 md:space-y-0 md:flex md:gap-8">
+          <CharacterArtifacts :character="character" />
+          <CharacterWeapons :character="character" />
         </div>
-        <!-- Voice Actors -->
-        <div class="lg:w-2/5">
-          <CharacterVoiceActors :character="character" />
-        </div>
+        <CharacterBuild :character="character" />
+        <CharacterMaterials :character="character" />
       </div>
-
-      <CharacterRegions :character="character" />
-      <CharacterAffiliation :character="character" />
-
-      <!-- Character Details -->
-      <CharacterInfo :character="character" />
-
-      <!-- Equipment & Build Sections -->
-      <CharacterArtifacts :character="character" />
-      <CharacterWeapons :character="character" />
-      <CharacterBuild :character="character" />
-      <CharacterMaterials :character="character" />
     </div>
-  </div>
+  </template>
   <CharacterNotFound v-else />
 </template>
 
@@ -51,20 +32,16 @@ import LoadingSpinner from "../components/Loadings/LoadingSpinner.vue";
 // Character Detail Components
 import CharacterSplashArt from "@/components/CharacterDetail/CharacterSplashArt.vue";
 import CharacterBasicInfo from "@/components/CharacterDetail/CharacterBasicInfo.vue";
-import CharacterRegions from "@/components/CharacterDetail/CharacterRegions.vue";
-import CharacterAffiliation from "@/components/CharacterDetail/CharacterAffiliation.vue";
 import CharacterInfo from "@/components/CharacterDetail/CharacterInfo.vue";
 import CharacterWeapons from "@/components/CharacterDetail/CharacterWeapons.vue";
 import CharacterArtifacts from "@/components/CharacterDetail/CharacterArtifacts.vue";
 import CharacterBuild from "@/components/CharacterDetail/CharacterBuild.vue";
 import CharacterMaterials from "@/components/CharacterDetail/CharacterMaterials.vue";
-import CharacterVoiceActors from "@/components/CharacterDetail/CharacterVoiceActors.vue";
 import CharacterNotFound from "@/components/CharacterDetail/CharacterNotFound.vue";
 
 const route = useRoute();
 const loading = ref(null);
 const error = ref(null);
-
 const character = ref(null);
 
 // To Use Later in Production
@@ -106,48 +83,34 @@ async function fetchCharacterById(characterId) {
     let query = supabase
       .from("characters")
       .select(
-        `
-        *,
-        signature_dish(id, name, image_url, url, description),
-        vision:visions(*),
-        main_stat:stats(*),
-        weapon_type:weaponTypes(*),
-        released_region(id, name),
-        va:voiceActors(*, lang(*)),
-        regions:character_region(region_id(name, image_url)),
-        affiliations:character_affiliation(affiliation_id(name)),
-        builds(*, build_stat(*, stat_id(name), rank), title),
-        artifacts:character_artifact(*, artifact_id(id, name, two_piece(name), four_piece, flower_img_url)),
-        weapons:character_weapon(*, weapon_id(id, name, rarity, base_attack, image_url, bonus_effect_type(name), bonus_effect_value)),
-        ascension_mats:character_ascension(*, materials_ascension_id(name, img_url)),
-        exp_mats:character_exp(*, materials_exp_id(name, img_url)),
-        level_up_mats:character_level_up(*, materials_level_up_id(name, img_url)),
-        talent_mats:character_talent(*, materials_talent_id(name, img_url)),
-        enhancement_mats:character_enhancement(*, materials_enhancement_id(name, img_url)),
-        local_specialty:character_local_specialty(*, local_specialty_id(name, img_url)),
-        role:role(id, name)
-      `,
+        `*,
+        regions:character_region(region(name)),
+        affiliations:character_affiliation(affiliation(name)),
+        voices:voice_actors(language, name, link),
+        weapon_type(name, img_url),
+        signature_dish:signature_dish(*),
+        artifacts:character_artifact(artifact(*, two_piece_effect(name)), rank),
+        weapons:character_weapon(weapon(name, base_attack, bonus_effect_type, bonus_effect_value, img_url), rank),
+        builds:builds(character, details, title, stat:build_stat(build, slot, stat, rank)),
+        ascensions:character_ascension(material_ascension(*), amount),
+        enhancements:character_enhancement(material_enhancements(*), amount),
+        talents:character_talent(material_talents(*), amount),
+        local_specialty:character_local_specialty(local_specialty(*)),
+        level_up_material:character_level_up_material(level_up_material(*), amount),
+        vision(name, img_url)
+        `,
       )
       .eq("id", characterId)
       .single();
-
-    // The Fetch to Supabase
     const { data, error: fetchError } = await query;
     if (fetchError) throw fetchError;
-
-    // Sort Artifacts and Weapons by the rank column
     if (data.artifacts) {
       data.artifacts.sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
     }
-
     if (data.weapons) {
       data.weapons.sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
     }
-
-    // Insert the Fetched Data to Character State
     character.value = data;
-
-    // Session Storage for Caching
     sessionStorage.setItem(
       "character",
       JSON.stringify({
@@ -158,7 +121,7 @@ async function fetchCharacterById(characterId) {
     error.value = err.message || "Failed to load character";
   } finally {
     loading.value = false;
-    console.log(character);
+    console.log(character.value);
   }
 }
 

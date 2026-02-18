@@ -93,7 +93,7 @@
               'rarity-4': weapon.rarity === 4,
               'rarity-3': weapon.rarity === 3,
             }"
-            :src="weapon.image_url"
+            :src="weapon.img_url"
             :alt="weapon.name"
             loading="lazy"
           />
@@ -249,7 +249,7 @@ async function applyFilters() {
 function buildQuery() {
   let query = supabase
     .from("weapons")
-    .select("id, name, rarity, image_url, type!inner(name)")
+    .select("id, name, rarity, img_url, type!inner(name)")
     .order("name", { ascending: true });
   if (selectedWeaponType.value) {
     query = query.eq("type.name", selectedWeaponType.value);
@@ -381,7 +381,7 @@ onMounted(async () => {
     0px 0px 30px rgba(86, 116, 150, 0.5);
 }
 .weapon-card:hover img {
-  transform: scale(1.05) rotate(2deg);
+  transform: scale(1.1);
 }
 .weapon-card:active {
   transform: scale(0.98);
@@ -394,12 +394,12 @@ onMounted(async () => {
 
 .fade-slide-enter-from {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(-20px);
 }
 
 .fade-slide-leave-to {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(20px);
 }
 
 .weapon-card {

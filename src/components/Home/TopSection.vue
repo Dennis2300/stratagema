@@ -56,8 +56,8 @@ const navLinks = [
       "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/chiori.webp",
   },
   {
-    name: "Banners",
-    path: "/current-banner",
+    name: "Home for now",
+    path: "/",
     image:
       "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/twins2.png",
   },
