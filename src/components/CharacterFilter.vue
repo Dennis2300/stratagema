@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <div class="flex gap-5 items-center flex-wrap">
+    <div class="flex gap-5 items-center flex-wrap md:justify-center">
       <div
         v-for="stars in [5, 4]"
         :key="stars"

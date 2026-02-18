@@ -4,7 +4,7 @@
     <div class="text-center" v-if="loading">
       <span class="loading loading-spinner loading-xl"></span>
     </div>
-    <div v-if="!loading">
+    <div v-if="!loading" class="space-y-6">
       <div
         class="grid auto-cols-max grid-flow-col gap-5 text-center justify-center"
       >
@@ -138,6 +138,7 @@ const formattedEndDate = computed(() => {
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    timeZoneName: "short",
   });
 });
 
