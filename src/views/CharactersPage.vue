@@ -360,7 +360,6 @@ onMounted(async () => {
 });
 // clean up observer on component unmount
 onUnmounted(() => {
-  document.removeEventListener("click", handleClickOutside);
   if (observer && loadMoreTrigger.value) {
     observer.unobserve(loadMoreTrigger.value);
     observer.disconnect();
