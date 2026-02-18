@@ -6,12 +6,12 @@
       >
         <div class="relative">
           <img
-            class="absolute w-12 -top-3 -left-3 bg-gray-700 rounded-full"
+            class="absolute w-12 md:w-16 -top-3 -left-3 bg-gray-700 rounded-full"
             :src="character.vision.img_url"
             alt=""
           />
           <div
-            class="w-32 h-32 md:w-42 md:h-42 rounded-full overflow-hidden"
+            class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden"
             :class="{
               'rarity-5': character.rarity === 5,
               'rarity-4': character.rarity === 4,

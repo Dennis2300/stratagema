@@ -5,7 +5,7 @@
       <div class="flex justify-between h-[32px] items-center">
         <p>Rarity</p>
         <div class="text-yellow-500">
-          <span v-for="n in character.rarity" :key="n">★</span>
+          <span class="md:text-3xl" v-for="n in character.rarity" :key="n">★</span>
         </div>
       </div>
       <div class="flex justify-between h-[32px] items-center">
