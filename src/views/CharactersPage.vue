@@ -155,6 +155,7 @@
       <div ref="loadMoreTrigger" class="load-more-trigger" v-if="hasMore">
         <LoadingMoreSpinner />
       </div>
+      <CharacterNotFound v-if="characters.length === 0 && !loading" />
       <div v-if="filtering">
         <LoadingMoreSpinner />
       </div>
@@ -185,6 +186,7 @@ import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingMoreSpinner from "../components/Loadings/LoadingMoreSpinner.vue";
 import CharacterFilter from "@/components/CharacterFilter.vue";
+import CharacterNotFound from "@/components/CharacterNotFound.vue";
 
 const filtering = ref(false);
 // state variables

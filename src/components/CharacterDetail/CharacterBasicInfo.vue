@@ -6,12 +6,12 @@
       >
         <div class="relative">
           <img
-            class="absolute w-16 -top-3 -left-3 bg-gray-700 rounded-full"
+            class="absolute w-12 -top-3 -left-3 bg-gray-700 rounded-full"
             :src="character.vision.img_url"
             alt=""
           />
           <div
-            class="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden"
+            class="w-32 h-32 md:w-42 md:h-42 rounded-full overflow-hidden"
             :class="{
               'rarity-5': character.rarity === 5,
               'rarity-4': character.rarity === 4,
@@ -25,7 +25,7 @@
           </div>
         </div>
         <div class="flex flex-col items-center md:items-start">
-          <h1 class="">{{ character.name }}</h1>
+          <h1>{{ character.name }}</h1>
           <div class="flex flex-wrap justify-center gap-2">
             <p class="badge badge-primary">{{ character.vision.name }}</p>
             <p class="badge badge-primary">{{ character.weapon_type.name }}</p>
