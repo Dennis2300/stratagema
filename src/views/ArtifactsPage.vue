@@ -3,15 +3,25 @@
     <LoadingSpinner v-if="loading" />
     <section v-else-if="!loading">
       <h1 class="divider pb-8">Artifacts</h1>
+      <div class="flex justify-center">
+        <input
+          v-model="search"
+          type="text"
+          placeholder="Search artifacts..."
+          class="input input-bordered w-full max-w-sm mb-6"
+        />
+      </div>
       <div class="grid grid-cols-4 gap-6">
-        <template v-for="artifact in artifacts" :key="artifact.id">
-          <div @click="selectedArtifact = artifact" class="flex flex-col items-center justify-center bg-secondary pb-4 rounded-xl hover:bg-filter-hover transition cursor-pointer">
+        <template v-for="artifact in filteredArtifacts" :key="artifact.id">
+          <div
+            @click="selectedArtifact = artifact"
+            class="flex flex-col items-center justify-center bg-secondary pb-4 rounded-xl hover:bg-filter-hover transition cursor-pointer"
+          >
             <img class="w-32" :src="artifact.flower_img_url" alt="" />
             <p>{{ artifact.name }}</p>
           </div>
         </template>
       </div>
-
       <div
         v-if="selectedArtifact"
         class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
@@ -90,7 +100,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingSpinner from "../components/Loadings/LoadingSpinner.vue";
 
@@ -98,6 +108,7 @@ const loading = ref(false);
 const error = ref(null);
 const artifacts = ref([]);
 const selectedArtifact = ref(null);
+const search = ref("");
 
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = new Date().getTime();
@@ -120,21 +131,27 @@ function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
     return parsedItem.data;
   }
 }
+const filteredArtifacts = computed(() => {
+  if (!search.value) return artifacts.value;
+  return artifacts.value.filter((artifact) =>
+    artifact.name.toLowerCase().includes(search.value.toLowerCase()),
+  );
+});
 
 async function fetchArtifacts() {
   loading.value = true;
   try {
-    // const cached = cache("artifacts");
-    // if (cached) {
-    //   artifacts.value = cached;
-    //loading.value = false;
-    //   return;
-    // }
+    const cached = cache("artifacts");
+    if (cached) {
+      artifacts.value = cached;
+      loading.value = false;
+      return;
+    }
     const { data, error: fetchError } = await supabase
       .from("artifacts")
       .select("*, two_piece_effect(*)");
     if (fetchError) throw fetchError;
-    // cache("artifacts", data);
+    cache("artifacts", data);
     artifacts.value = data;
     console.log(artifacts.value);
   } catch (err) {
