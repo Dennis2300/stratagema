@@ -4,7 +4,7 @@
     <div class="text-center" v-if="loading">
       <span class="loading loading-spinner loading-xl"></span>
     </div>
-    <div v-if="loading">
+    <div v-if="!loading">
       <div
         class="grid auto-cols-max grid-flow-col gap-5 text-center justify-center"
       >
@@ -89,7 +89,7 @@
         <p class="text-sm opacity-70">Ends: {{ formattedEndDate }}</p>
       </div>
     </div>
-    <div class="text-center" v-if="!loading">
+    <div class="text-center" v-if="loading">
       <span class="badge badge-error">Something went wrong, try again later!</span>
     </div>
   </section>
