@@ -11,7 +11,7 @@
           class="input input-bordered w-full max-w-sm mb-6"
         />
       </div>
-      <div class="grid grid-cols-4 gap-6">
+      <div class="grid md:grid-cols-4 gap-6">
         <template v-for="artifact in filteredArtifacts" :key="artifact.id">
           <div
             @click="selectedArtifact = artifact"
@@ -36,36 +36,15 @@
           </div>
           <h3 class="text-xl font-bold mb-5">{{ selectedArtifact.name }}</h3>
           <div class="flex justify-between bg-base-100/30 rounded-xl p-3">
-            <img
-              class="w-24 h-24 object-contain drop-shadow-md"
-              :src="selectedArtifact.flower_img_url"
-              alt="Flower"
-              loading="lazy"
-            />
-            <img
-              class="w-24 h-24 object-contain drop-shadow-md"
-              :src="selectedArtifact.plume_img_url"
-              alt="Plume"
-              loading="lazy"
-            />
-            <img
-              class="w-24 h-24 object-contain drop-shadow-md"
-              :src="selectedArtifact.sands_img_url"
-              alt="Sands"
-              loading="lazy"
-            />
-            <img
-              class="w-24 h-24 object-contain drop-shadow-md"
-              :src="selectedArtifact.goblet_img_url"
-              alt="Goblet"
-              loading="lazy"
-            />
-            <img
-              class="w-24 h-24 object-contain drop-shadow-md"
-              :src="selectedArtifact.circlet_img_url"
-              alt="Circlet"
-              loading="lazy"
-            />
+            <template v-for="type in artifactTypes" :key="type">
+              <img
+                v-if="selectedArtifact?.[`${type}_img_url`]"
+                class="w-16 h-16 md:w-24 md:h-24 object-contain drop-shadow-md"
+                :src="selectedArtifact[`${type}_img_url`]"
+                :alt="type"
+                loading="lazy"
+              />
+            </template>
           </div>
           <div class="flex flex-col gap-3 mt-2">
             <div class="bg-base-100/30 rounded-xl">
@@ -109,6 +88,8 @@ const error = ref(null);
 const artifacts = ref([]);
 const selectedArtifact = ref(null);
 const search = ref("");
+
+const artifactTypes = ["flower", "plume", "sands", "goblet", "circlet"];
 
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = new Date().getTime();
