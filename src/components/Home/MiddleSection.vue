@@ -185,7 +185,6 @@ async function fetchCurrentBannerCharacters() {
     if (error) throw error;
     cache(cacheKey, data);
     currentBannerCharacters.value = data;
-    console.log(currentBannerCharacters.value);
   } catch (err) {
     console.error("Error fetching Current Banners");
   } finally {
