@@ -41,6 +41,11 @@ const routes = [
     component: () => import("./views/AdminPage.vue"),
     meta: { requiresAuth: true },
   },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("./views/PageNotFound.vue"),
+  },
 ];
 
 const router = createRouter({
