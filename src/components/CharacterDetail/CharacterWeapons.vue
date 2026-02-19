@@ -3,7 +3,7 @@
     <h2 class="text-xl md:text-2xl font-semibold text-quaternary">
       Best Weapons
     </h2>
-    <div class="grid grid-cols-1 md:gap-6">
+    <div class="grid grid-cols-1 md:gap-4">
       <template v-for="a in character.weapons" :key="a.weapon.name">
         <div class="flex items-center gap-3 md:backdrop-blur-xl p-4 rounded-xl">
           <div
