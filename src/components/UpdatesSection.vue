@@ -1,52 +1,27 @@
 <template>
-  <div
-    class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl mb-12 sm:mb-16 lg:mb-24 shadow-xl"
-  >
-    <h1 class="mt-2 text-2xl sm:text-3xl lg:text-4xl">Updates</h1>
-    <div class="divider mb-4 sm:mb-6"></div>
-    <div v-if="updates.length" class="space-y-4 sm:space-y-6">
-      <article
-        v-for="update in updates"
-        :key="update.id"
-        class="bg-primary mx-0 sm:mx-4 p-4 sm:p-6 rounded-xl transition-all duration-300 ease-out hover:shadow-lg hover:shadow-tertiary/10 hover:-translate-y-1 border border-transparent hover:border-tertiary/20 cursor-default"
-      >
-        <header class="mb-3 sm:mb-4">
-          <h3
-            class="text-white text-lg sm:text-xl lg:text-[1.4rem] font-semibold mb-1 transition-colors duration-200 hover:text-tertiary"
-          >
-            {{ update.title }}
-          </h3>
-          <div class="flex gap-3 text-xs sm:text-sm text-gray-400">
+  <section class="w-full lg:w-3/4 bg-secondary p-4 md:p-8 rounded-2xl">
+    <h2 class="divider w-full pb-6 text-quaternary">Notice Board</h2>
+    <div class="flex flex-col gap-3">
+      <template v-for="update in updates">
+        <div class="bg-white/5 rounded-xl p-5">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <h3 class="text-base font-semibold text-white leading-snug">
+              {{ update.title }}
+            </h3>
             <span
-              class="text-tertiary underline flex items-center justify-center transition-all duration-200 hover:text-tertiary/80 hover:no-underline"
+              class="text-xs text-gray-400 whitespace-nowrap mt-0.5 font-mono"
             >
-              {{ new Date(update.published_at).toLocaleDateString() }}
+              {{ update.slug }}
             </span>
           </div>
-        </header>
-        <div
-          class="text-gray-300 leading-relaxed text-sm sm:text-base space-y-2 update-content"
-          v-html="update.content"
-        ></div>
-      </article>
+          <p class="text-sm text-gray-400 leading-relaxed">
+            {{ update.content }}
+          </p>
+        </div>
+      </template>
     </div>
-  </div>
+  </section>
 </template>
-
-<style scoped>
-.update-content :deep(p) {
-  transition: color 0.2s ease;
-}
-
-.update-content :deep(a) {
-  transition: all 0.2s ease;
-}
-
-.update-content :deep(a:hover) {
-  color: var(--color-tertiary);
-  text-decoration: none;
-}
-</style>
 
 <script setup>
 import { ref, onMounted } from "vue";
