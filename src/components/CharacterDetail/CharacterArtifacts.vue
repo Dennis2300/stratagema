@@ -39,7 +39,8 @@
                 }}</span>
                 <button
                   v-if="!a.combined"
-                  class="w-fit badge badge-soft badge-info"
+                  class="w-fit btn btn-primary btn-xs"
+                  @click="openModal(a.first.artifact)"
                 >
                   View
                 </button>
@@ -58,17 +59,94 @@
           </div>
           <p class="badge badge-primary">{{ a.rank }}</p>
         </div>
+        <div
+          v-if="showModal && selectedArtifact"
+          class="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          @click.self="closeModal"
+        >
+          <div
+            class="bg-base-200 rounded-2xl p-6 w-full max-w-md flex flex-col gap-5 shadow-xl"
+          >
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-quaternary">
+                {{ selectedArtifact.name }}
+              </h3>
+              <button
+                class="btn btn-sm btn-ghost btn-circle"
+                @click="closeModal"
+              >
+                ✕
+              </button>
+            </div>
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-2">
+                <div class="grid grid-cols-5 gap-2">
+                  <div
+                    v-for="piece in artifactPieces"
+                    :key="piece.key"
+                    class="flex flex-col items-center gap-1"
+                  >
+                    <div class="w-14 h-14 rarity-5 rounded-xl overflow-hidden">
+                      <img
+                        class="w-full h-full object-cover"
+                        :src="selectedArtifact[piece.key]"
+                        :alt="piece.label"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-base-300 rounded-xl p-3 mt-2">
+                <p class="text-xs text-warning font-semibold mb-1">
+                  2-Piece Effect
+                </p>
+                <p class="text-sm">
+                  {{ selectedArtifact.two_piece_effect.name }}
+                </p>
+              </div>
+              <div class="bg-base-300 rounded-xl p-3">
+                <p class="text-xs text-warning font-semibold mb-1">
+                  4-Piece Effect
+                </p>
+                <p class="text-sm">
+                  {{ selectedArtifact.four_piece_effect }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </template>
     </div>
   </section>
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   character: Object,
 });
+
+const artifactPieces = [
+  { key: "flower_img_url", label: "Flower" },
+  { key: "plume_img_url", label: "Plume" },
+  { key: "sands_img_url", label: "Sands" },
+  { key: "goblet_img_url", label: "Goblet" },
+  { key: "circlet_img_url", label: "Circlet" },
+];
+
+const selectedArtifact = ref(null);
+const showModal = ref(false);
+
+function openModal(artifact) {
+  selectedArtifact.value = artifact;
+  showModal.value = true;
+}
+
+function closeModal() {
+  showModal.value = false;
+  selectedArtifact.value = null;
+}
 
 function combineTwoArtifactsByRank(artifacts) {
   const result = [];
