@@ -8,9 +8,20 @@
       <div class="relative z-10 space-y-10">
         <CharacterBasicInfo :character="character" />
         <CharacterInfo :character="character" />
-        <div class="space-y-8 md:space-y-0 md:flex md:gap-8">
-          <CharacterArtifacts :character="character" />
-          <CharacterWeapons :character="character" />
+        <div
+          v-if="
+            character.artifacts?.length > 0 || character.weapons?.length > 0
+          "
+          class="space-y-8 md:space-y-0 md:flex md:gap-8"
+        >
+          <CharacterArtifacts
+            :character="character"
+            v-if="character.artifacts?.length > 0"
+          />
+          <CharacterWeapons
+            :character="character"
+            v-if="character.weapons?.length > 0"
+          />
         </div>
         <CharacterBuild :character="character" />
         <CharacterMaterials :character="character" />
