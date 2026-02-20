@@ -5,7 +5,9 @@
       <div class="flex justify-between h-[32px] items-center">
         <p>Rarity</p>
         <div class="text-yellow-500">
-          <span class="md:text-3xl" v-for="n in character.rarity" :key="n">★</span>
+          <span class="md:text-3xl" v-for="n in character.rarity" :key="n"
+            >★</span
+          >
         </div>
       </div>
       <div class="flex justify-between h-[32px] items-center">
@@ -14,7 +16,8 @@
       </div>
       <div class="flex justify-between h-[32px] items-center">
         <p>Birthday</p>
-        <p>{{ character.birthday }}</p>
+        <p v-if="character.birthday">{{ character.birthday }}</p>
+        <p v-else class="text-red-500">N/A</p>
       </div>
       <div class="flex justify-between h-[32px] items-center">
         <p>Weapon Type</p>
@@ -25,7 +28,10 @@
       </div>
       <div class="flex justify-between h-[32px] items-center">
         <p>Signature Dish</p>
-        <p>{{ character?.signature_dish?.name }}</p>
+        <p v-if="character?.signature_dish?.name">
+          {{ character?.signature_dish?.name }}
+        </p>
+        <p v-else class="text-red-500">N/A</p>
       </div>
       <div class="flex justify-between h-[32px] items-center">
         <p>Release Date</p>
