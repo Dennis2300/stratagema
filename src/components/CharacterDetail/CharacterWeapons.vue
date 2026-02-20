@@ -56,10 +56,4 @@ defineProps({
   character: Object,
 });
 
-const getRankSuffix = (rank) => {
-  if (rank === 1) return "st";
-  if (rank === 2) return "nd";
-  if (rank === 3) return "rd";
-  return "th";
-};
 </script>
