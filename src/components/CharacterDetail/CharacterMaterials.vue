@@ -22,7 +22,18 @@
 
     <article class="space-y-2">
       <h3>Talents</h3>
-      <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
+      <div class="space-y-4 md:grid md:grid-cols-4">
+        <div class="flex items-center gap-3">
+          <img
+            class="w-20 bg-secondary rounded-xl"
+            src="https://wiki.hoyolab.com/_ipx/f_webp/https://bbs.hoyolab.com/hoyowiki/picture/object/Crown%2520of%2520Insight_icon.png"
+            alt=""
+          />
+          <div class="flex flex-col gap-2">
+            <p>Crown Of Insight</p>
+            <strong class="text-accent">x3</strong>
+          </div>
+        </div>
         <template v-for="a in sortedTalents" :key="a.material_talents.id">
           <div class="flex items-center gap-3">
             <img
@@ -72,7 +83,12 @@
               alt=""
             />
             <div class="flex flex-col gap-2">
-              <p>{{ a.level_up_material.name }}</p>
+              <p>
+                {{ a.level_up_material.name }}
+                <span v-if="a.level_up_material.is_new" class="text-warning"
+                  >(NEW)</span
+                >
+              </p>
               <strong class="text-accent">x{{ a.amount }}</strong>
             </div>
           </div>
