@@ -98,6 +98,22 @@
         </template>
       </div>
     </article>
+    <article class="space-y-2">
+      <h3>Cost</h3>
+      <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
+        <div class="flex items-center gap-3">
+          <img
+            class="w-20 bg-secondary rounded-xl"
+            src="https://wiki.hoyolab.com/_ipx/f_webp/https://bbs.hoyolab.com/hoyowiki/picture/object/Mora_icon.png"
+            alt=""
+          />
+          <div class="flex flex-col gap-2">
+            <p>Mora</p>
+            <strong class="text-accent">7,050,100</strong>
+          </div>
+        </div>
+      </div>
+    </article>
   </section>
 </template>
 
