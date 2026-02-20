@@ -8,6 +8,10 @@
         <div class="flex items-center gap-3 md:backdrop-blur-xl p-4 rounded-xl">
           <div
             class="w-16 h-16 rarity-5 rounded-xl overflow-hidden flex-shrink-0"
+            :class="{
+              'rarity-5': a.weapon.rarity === 5,
+              'rarity-4': a.weapon.rarity === 4,
+            }"
           >
             <img
               class="w-full h-full object-cover"
@@ -55,5 +59,4 @@
 defineProps({
   character: Object,
 });
-
 </script>
