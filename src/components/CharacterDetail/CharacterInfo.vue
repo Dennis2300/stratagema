@@ -12,7 +12,7 @@
       </div>
       <div class="flex justify-between h-[32px] items-center">
         <p>Constellation</p>
-        <p>{{ character.constellation }}</p>
+        <p class="italic">{{ character.constellation }}</p>
       </div>
       <div class="flex justify-between h-[32px] items-center">
         <p>Birthday</p>
