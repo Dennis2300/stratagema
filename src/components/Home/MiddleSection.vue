@@ -4,7 +4,7 @@
     <div class="text-center" v-if="loading">
       <span class="loading loading-spinner loading-xl"></span>
     </div>
-    <div v-if="!loading" class="space-y-6">
+    <div v-if="!error" class="space-y-6">
       <div
         class="grid auto-cols-max grid-flow-col gap-5 text-center justify-center"
       >
@@ -89,8 +89,10 @@
         <p class="text-sm opacity-70">Ends: {{ formattedEndDate }}</p>
       </div>
     </div>
-    <div class="text-center" v-if="loading">
-      <span class="badge badge-error">Something went wrong, try again later!</span>
+    <div class="text-center" v-else>
+      <span class="badge badge-error"
+        >Something went wrong, try again later!</span
+      >
     </div>
   </section>
 </template>
@@ -103,6 +105,7 @@ const currentBannerCharacters = ref([]);
 const currentTime = ref(Date.now());
 let countdownInterval = null;
 const loading = ref(false);
+const error = ref(false);
 
 const countdownValues = computed(() => {
   if (!currentBannerCharacters.value.length) {
@@ -187,6 +190,7 @@ async function fetchCurrentBannerCharacters() {
     currentBannerCharacters.value = data;
   } catch (err) {
     console.error("Error fetching Current Banners");
+    error.value = true;
   } finally {
     loading.value = false;
   }
