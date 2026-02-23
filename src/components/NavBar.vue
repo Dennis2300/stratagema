@@ -113,7 +113,7 @@
 
         <!-- Dropdown links flat in mobile -->
         <div class="border-t my-1"></div>
-        <h5>Other</h5>
+        <h5>More</h5>
         <RouterLink
           v-for="link in dropdownLinks"
           :key="link.path"
