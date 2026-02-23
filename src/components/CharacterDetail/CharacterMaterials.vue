@@ -2,12 +2,12 @@
   <section>
     <h2 class="divider text-quaternary">Materials</h2>
     <p class="my-4 text-center text-gray-500">
-      This is all the materials needed for Character level 90 and max out
-      all Talents to level 10
+      This is all the materials needed for Character level 90 and max out all
+      Talents to level 10
     </p>
     <div class="space-y-10">
       <article class="space-y-2">
-        <h3>Ascension</h3>
+        <h3 class="text-tertiary">Ascension</h3>
         <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
           <template
             v-for="a in sortedAscensions"
@@ -29,7 +29,7 @@
       </article>
 
       <article class="space-y-2">
-        <h3>Talents</h3>
+        <h3 class="text-tertiary">Talents</h3>
         <div class="space-y-4 md:grid md:grid-cols-4">
           <div class="flex items-center gap-3">
             <img
@@ -59,7 +59,7 @@
       </article>
 
       <article class="space-y-2">
-        <h3>Enhancement</h3>
+        <h3 class="text-tertiary">Enhancement</h3>
         <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
           <template
             v-for="a in sortedEnhancements"
@@ -81,7 +81,7 @@
       </article>
 
       <article class="space-y-2">
-        <h3>Level Up</h3>
+        <h3 class="text-tertiary">Level Up</h3>
         <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
           <template v-for="a in character.level_up_material">
             <div class="flex items-center gap-3">
@@ -105,7 +105,7 @@
       </article>
 
       <article class="space-y-2">
-        <h3>Local Specialty</h3>
+        <h3 class="text-tertiary">Local Specialty</h3>
         <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
           <template v-for="a in character.local_specialty">
             <div class="flex items-center gap-3">
@@ -122,8 +122,9 @@
           </template>
         </div>
       </article>
+
       <article class="space-y-2">
-        <h3>Cost</h3>
+        <h3 class="text-tertiary">Cost</h3>
         <div class="space-y-4 md:space-y-0 md:grid md:grid-cols-4">
           <div class="flex items-center gap-3">
             <img
