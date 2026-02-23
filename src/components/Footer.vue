@@ -1,8 +1,8 @@
 <template>
   <footer class="bg-primary rounded-t-2xl overflow-hidden shadow-2xl">
-    <div class="p-4 mx-8 mb-8">
+    <div class="p-6">
       <div
-        class="flex flex-col sm:flex-row justify-between items-start mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-white/20 gap-6 sm:gap-0"
+        class="flex flex-col sm:flex-row justify-between items-start border-b border-white/20 gap-6 sm:gap-0"
       >
         <nav class="flex-1 w-full sm:w-auto">
           <h6
@@ -110,7 +110,7 @@
       <div
         class="space-y-3 sm:space-y-4 text-white/80 text-xs sm:text-sm leading-relaxed"
       >
-        <p class="hover:text-white/90 transition-colors duration-300">
+        <p class="hover:text-white/90 transition-colors duration-300 mt-6">
           This website is a fan-made project and is not affiliated with,
           endorsed by, or sponsored by
           <strong class="text-white">HoYoverse</strong> or
