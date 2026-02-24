@@ -39,19 +39,19 @@ const navLinks = [
     name: "Characters",
     path: "/characters",
     image:
-      "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/twins.webp",
+      "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/twins.webp",
   },
   {
     name: "Weapons",
     path: "/weapons",
     image:
-      "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/skirk.webp",
+      "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/skirk.webp",
   },
   {
     name: "Artifacts",
     path: "/artifacts",
     image:
-      "https://fcvtcwoutrlordurhweb.supabase.co/storage/v1/object/public/Vision%20Forge%20Storage%20Bucket/chiori.webp",
+      "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/chiori.webp",
   },
 ];
 </script>
