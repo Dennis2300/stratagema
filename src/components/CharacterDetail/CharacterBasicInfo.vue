@@ -1,9 +1,7 @@
 <template>
   <div class="space-y-8">
     <section class="space-y-4 md:flex">
-      <div
-        class="flex flex-col items-center md:w-2/3 md:flex-row md:gap-6 md:justify-center"
-      >
+      <div class="flex flex-col items-center md:w-2/3 md:flex-row md:gap-6">
         <div class="relative">
           <img
             class="absolute w-12 md:w-16 -top-3 -left-3 bg-gray-700 rounded-full"
@@ -25,7 +23,7 @@
           </div>
         </div>
         <div class="flex flex-col items-center md:items-start">
-          <h1>{{ character.name }}</h1>
+          <h1 class="my-2">{{ character.name }}</h1>
           <div class="flex flex-wrap justify-center gap-2">
             <p class="badge badge-primary">{{ character.vision.name }}</p>
             <p class="badge badge-primary">{{ character.weapon_type.name }}</p>
