@@ -30,7 +30,8 @@
       </div>
       <div class="bg-secondary p-4 rounded-lg space-y-2">
         <h2 class="text-tertiary">Build Details</h2>
-        <MarkdownRender :content="build.details" />
+        <MarkdownRender v-if="build.details" :content="build.details" />
+        <p v-else class="text-red-500">Come back later for the build details.</p>
       </div>
     </template>
   </section>
