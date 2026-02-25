@@ -1,6 +1,6 @@
 <template>
-  <section class="w-2/3 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl">
-    <h2 class="divider w-full pb-6 text-quaternary">Current Banner</h2>
+  <section class="w-full md:w-2/3 p-4 sm:p-6 lg:p-8 rounded-2xl">
+    <h1 class="divider w-full pb-6 text-quaternary">Current Banner</h1>
     <div class="text-center" v-if="loading">
       <span class="loading loading-spinner loading-xl"></span>
     </div>
@@ -57,8 +57,8 @@
           sec
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-y-8 pt-4 md:flex md:justify-around">
-        <div v-for="a in currentBannerCharacters" :key="a.character.id">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <template v-for="a in currentBannerCharacters" :key="a.character.id">
           <RouterLink
             :to="`/characters/${a.character.id}?name=${encodeURIComponent(
               a.character.name,
@@ -67,23 +67,26 @@
             class="flex flex-col items-center gap-2 no-underline text-text group"
           >
             <div
-              class="w-32 h-32 rounded-2xl"
+              class="w-32 h-32 rounded-2xl overflow-hidden transition-transform duration-200 ease-out group-hover:-translate-y-1"
               :class="{
                 'rarity-5': a.character.rarity === 5,
                 'rarity-4': a.character.rarity === 4,
               }"
             >
               <img
-                class="w-full h-full object-cover object-center rounded-2xl"
+                class="w-full h-full object-cover object-center rounded-2xl transition-transform duration-300 ease-out group-hover:scale-105"
                 :src="a.character.img_url"
                 alt=""
               />
             </div>
-            <h3 class="group-hover:text-tertiary transition ease-in-out">
+
+            <h3
+              class="text-center transition-colors duration-200 group-hover:text-tertiary"
+            >
               {{ a.character.name }}
             </h3>
           </RouterLink>
-        </div>
+        </template>
       </div>
       <div class="text-center mb-6">
         <p class="text-sm opacity-70">Ends: {{ formattedEndDate }}</p>

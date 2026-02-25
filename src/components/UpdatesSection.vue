@@ -1,11 +1,13 @@
 <template>
-  <section class="w-2/3 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl">
+  <section class="md:w-2/3 p-4 sm:p-6 lg:p-8 rounded-2xl">
     <h2 class="divider w-full pb-6 text-quaternary">Notice Board</h2>
     <div class="flex flex-col gap-3">
       <template v-for="update in updates">
         <div class="bg-white/5 rounded-xl p-5">
-          <div class="flex items-start justify-between gap-4 mb-2">
-            <h3 class="text-base font-semibold text-white leading-snug">
+          <div
+            class="flex flex-col md:flex-row items-start justify-between gap-4 mb-2"
+          >
+            <h3 class="text-warning leading-snug">
               {{ update.title }}
             </h3>
             <span
@@ -14,7 +16,7 @@
               {{ update.slug }}
             </span>
           </div>
-          <p class="text-sm text-gray-400 leading-relaxed">
+          <p class="text-sm text-text leading-relaxed">
             {{ update.content }}
           </p>
         </div>
