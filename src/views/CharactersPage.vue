@@ -5,7 +5,7 @@
       @reset="fetchCharacters({ reset: true })"
     />
     <div class="divider w-full pb-6"></div>
-    <div class="h-fit w-full lg:w-4/5 flex flex-col gap-10 md:gap-16">
+    <div class="md:w-full max-w-6xl flex flex-col gap-8 md:gap-12 mb-12">
       <RouterLink
         :to="`/characters/${character.id}?name=${encodeURIComponent(
           character.name,
