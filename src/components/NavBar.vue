@@ -59,7 +59,7 @@
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <ul class="menu bg-base-200 min-h-full w-48 p-4 gap-4">
+      <ul class="menu bg-base-200 min-h-full w-48 p-4 m-0 gap-4">
         <!-- Sidebar content here -->
         <template v-for="link in navLinks" :key="link.path">
           <RouterLink class="no-underline" :to="link.path">
