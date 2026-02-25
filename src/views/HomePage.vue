@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col items-center gap-8">
+  <div class="flex flex-col justify-center items-center gap-8 py-8">
     <TopSection />
-    <MiddleSection />
-    <UpdatesSection />
+    <!-- <MiddleSection /> -->
+    <!-- <UpdatesSection /> -->
   </div>
 </template>
 

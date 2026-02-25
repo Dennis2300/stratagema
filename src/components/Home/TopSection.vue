@@ -1,57 +1,69 @@
 <template>
-  <section class="w-full lg:w-3/4 bg-secondary p-4 sm:p-6 lg:p-8 rounded-2xl">
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6 p-2">
-      <router-link
-        v-for="link in navLinks"
-        :key="link.name"
-        :to="link.path"
-        class="group no-underline block perspective-1000"
-      >
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <template v-for="link in navLinks" :key="link.path">
+      <RouterLink :to="link.path" class="no-underline text-text group">
         <div
-          class="overflow-hidden rounded-xl relative transform transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:-translate-y-2 shadow-lg group-hover:shadow-2xl"
+          class="relative space-y-3 bg-primary p-6 rounded-xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
         >
-          <img
-            :src="link.image"
-            :alt="link.name"
-            class="w-full h-[250px] sm:h-[300px] lg:h-[400px] object-cover object-top rounded-xl transform transition-all duration-700 ease-out group-hover:scale-105"
-            loading="lazy"
-          />
+          <!-- Image -->
+          <div class="w-[300px] h-[300px] overflow-hidden rounded-lg">
+            <img
+              class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+              :src="link.img"
+              alt=""
+            />
+          </div>
+
+          <!-- Title -->
+          <h2 class="text-center text-lg font-semibold">
+            {{ link.name }}
+          </h2>
+
+          <!-- Hidden Text Overlay -->
           <div
-            class="absolute inset-0 bg-gradient-to-br from-tertiary/30 via-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
-          ></div>
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out rounded-xl"
-          ></div>
+            class="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col justify-center items-center text-center p-6 space-y-4 opacity-0 translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 cursor-pointer"
+          >
+            <h2 class="text-white text-xl font-semibold cursor-pointer">
+              {{ link.alt_name }}
+            </h2>
+
+            <p
+              class="text-white/90 text-sm leading-relaxed max-w-xs cursor-pointer"
+            >
+              {{ link.text }}
+            </p>
+            <p class="badge badge-success cursor-pointer">Click here!</p>
+          </div>
         </div>
-        <h2
-          class="text-center mt-2 sm:mt-3 text-text group-hover:text-tertiary transition-all duration-300 transform group-hover:scale-110"
-        >
-          {{ link.name }}
-        </h2>
-      </router-link>
-    </div>
+      </RouterLink>
+    </template>
   </section>
 </template>
 
 <script setup>
+import { RouterLink } from "vue-router";
+
 const navLinks = [
   {
     name: "Characters",
+    alt_name: "Characters Archive",
     path: "/characters",
-    image:
-      "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/twins.webp",
+    img: "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/twins.webp",
+    text: "Explore all playable characters, check out their builds, and find the perfect team setup for your playstyle.",
   },
   {
     name: "Weapons",
+    alt_name: "Weapons Archive",
     path: "/weapons",
-    image:
-      "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/skirk.webp",
+    img: "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/skirk.webp",
+    text: "Browse every weapon in the game, compare stats, and discover which ones truly power up your characters.",
   },
   {
     name: "Artifacts",
+    alt_name: "Artifacts Archive",
     path: "/artifacts",
-    image:
-      "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/chiori.webp",
+    img: "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/chiori.webp",
+    text: "Dive into artifact sets, explore their bonuses, and optimize your stats to maximize your damage.",
   },
 ];
 </script>

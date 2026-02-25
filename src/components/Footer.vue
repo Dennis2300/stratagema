@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-primary rounded-t-2xl overflow-hidden shadow-2xl">
+  <footer class="bg-primary overflow-hidden shadow-2xl">
     <div class="p-6">
       <div
         class="flex flex-col sm:flex-row justify-between items-start border-b border-white/20 gap-6 sm:gap-0"

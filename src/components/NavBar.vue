@@ -1,167 +1,83 @@
 <template>
-  <nav class="bg-primary p-4 rounded-b-2xl flex">
-    <div class="flex-1">
-      <RouterLink
-        to="/"
-        class="flex items-center gap-2 no-underline text-text w-fit"
-      >
-        <img
-          src="/src/assets/images/icons/webIcon.webp"
-          alt="Logo"
-          class="w-10"
-        />
-        <h2 class="font-bold no-underline cursor-pointer">Stratagema</h2>
-      </RouterLink>
-    </div>
-
-    <!-- Desktop Nav -->
-    <div class="hidden md:flex gap-2 items-center">
-      <RouterLink
-        v-for="link in navLinks"
-        :key="link.path"
-        :to="link.path"
-        class="btn btn-ghost rounded-lg transition-all duration-200 no-underline"
-        :class="
-          isActive(link.path)
-            ? 'bg-primary-content text-primary shadow-md'
-            : 'hover:bg-primary-content/20'
-        "
-      >
-        {{ link.name }}
-      </RouterLink>
-
-      <!-- Dropdown -->
-      <div class="relative" ref="dropdownRef">
-        <button
-          @click="dropdownOpen = !dropdownOpen"
-          class="btn btn-ghost rounded-lg transition-all duration-200"
-          :class="
-            dropdownOpen
-              ? 'bg-primary-content/20'
-              : 'hover:bg-primary-content/20'
-          "
-        >
-          More
-          <span
-            class="ml-1 text-xs transition-transform duration-200"
-            :class="dropdownOpen ? 'rotate-180' : ''"
-            >▼</span
+  <div class="drawer fixed top-0 left-0">
+    <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col">
+      <!-- Navbar -->
+      <div class="navbar bg-base-300 w-full p-0">
+        <div class="flex-none lg:hidden">
+          <label
+            for="my-drawer-2"
+            aria-label="open sidebar"
+            class="btn btn-square btn-ghost"
           >
-        </button>
-        <div
-          v-if="dropdownOpen"
-          class="absolute right-0 mt-2 w-48 bg-base-100 rounded-lg shadow-lg z-50 flex flex-col p-2"
-        >
-          <RouterLink
-            v-for="link in dropdownLinks"
-            :key="link.path"
-            :to="link.path"
-            @click="dropdownOpen = false"
-            class="px-4 py-2 text-sm no-underline hover:bg-base-200 transition-colors text-text"
-            :class="isActive(link.path) ? 'font-bold text-primary' : ''"
-          >
-            {{ link.name }}
-          </RouterLink>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="inline-block h-6 w-6 stroke-current"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </label>
+        </div>
+        <div class="mx-2 flex-1 px-2 flex gap-2">
+          <img
+            class="w-12"
+            src="/src/assets/images/icons/webIcon.webp"
+            alt=""
+          />
+          <h1>Stratagema</h1>
+        </div>
+        <div class="hidden flex-none lg:block px-6">
+          <ul class="menu menu-horizontal flex gap-10">
+            <!-- Navbar menu content here -->
+            <template v-for="link in navLinks" :key="link.path">
+              <RouterLink class="relative no-underline group" :to="link.path">
+                <h2
+                  class="cursor-pointer text-text transition-colors duration-300 group-hover:text-tertiary"
+                >
+                  {{ link.name }}
+                </h2>
+
+                <span
+                  class="absolute left-0 -bottom-1 h-[2px] w-0 bg-tertiary transition-all duration-300 group-hover:w-full"
+                ></span>
+              </RouterLink>
+            </template>
+          </ul>
         </div>
       </div>
     </div>
-
-    <!-- Mobile Menu Button -->
-    <div class="md:hidden">
-      <button
-        @click="open = true"
-        class="btn btn-ghost text-xl"
-        aria-label="Open menu"
-      >
-        ☰
-      </button>
+    <div class="drawer-side">
+      <label
+        for="my-drawer-2"
+        aria-label="close sidebar"
+        class="drawer-overlay"
+      ></label>
+      <ul class="menu bg-base-200 min-h-full w-48 p-4 gap-4">
+        <!-- Sidebar content here -->
+        <template v-for="link in navLinks" :key="link.path">
+          <RouterLink class="no-underline" :to="link.path">
+            <h2 class="cursor-pointer text-text">
+              {{ link.name }}
+            </h2>
+          </RouterLink>
+        </template>
+      </ul>
     </div>
-
-    <!-- Backdrop -->
-    <div
-      v-if="open"
-      class="fixed inset-0 bg-black/40 z-40"
-      @click="open = false"
-    ></div>
-
-    <!-- Mobile Drawer -->
-    <div
-      class="fixed top-0 right-0 h-full w-fit bg-base-100 z-50 transform transition-transform duration-300 ease-in-out"
-      :class="open ? 'translate-x-0' : 'translate-x-full'"
-    >
-      <div class="flex items-center justify-between p-4 border-b">
-        <span class="font-bold text-lg">Menu</span>
-        <button @click="open = false" class="btn btn-sm btn-ghost text-xl">
-          ✕
-        </button>
-      </div>
-      <nav class="flex flex-col p-4 gap-2">
-        <RouterLink
-          v-for="link in navLinks"
-          :key="link.path"
-          :to="link.path"
-          @click="open = false"
-          class="px-4 py-3 rounded-lg text-base no-underline transition-colors"
-          :class="
-            isActive(link.path)
-              ? 'bg-primary text-primary-content font-bold'
-              : 'hover:bg-base-200'
-          "
-        >
-          {{ link.name }}
-        </RouterLink>
-
-        <!-- Dropdown links flat in mobile -->
-        <div class="border-t my-1"></div>
-        <h5>More</h5>
-        <RouterLink
-          v-for="link in dropdownLinks"
-          :key="link.path"
-          :to="link.path"
-          @click="open = false"
-          class="px-4 py-3 rounded-lg text-base no-underline transition-colors"
-          :class="
-            isActive(link.path)
-              ? 'bg-primary text-primary-content font-bold'
-              : 'hover:bg-base-200'
-          "
-        >
-          {{ link.name }}
-        </RouterLink>
-      </nav>
-    </div>
-  </nav>
+  </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import { useRoute } from "vue-router";
-
-const route = useRoute();
-const open = ref(false);
-const dropdownOpen = ref(false);
-const dropdownRef = ref(null);
-
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Characters", path: "/characters" },
   { name: "Weapons", path: "/weapons" },
   { name: "Artifacts", path: "/artifacts" },
 ];
-
-const dropdownLinks = [{ name: "Codes", path: "/codes" }];
-
-const isActive = (path) => route.path === path;
-
-// Close dropdown when clicking outside
-const handleClickOutside = (e) => {
-  if (dropdownRef.value && !dropdownRef.value.contains(e.target)) {
-    dropdownOpen.value = false;
-  }
-};
-
-onMounted(() => document.addEventListener("click", handleClickOutside));
-onBeforeUnmount(() =>
-  document.removeEventListener("click", handleClickOutside),
-);
 </script>

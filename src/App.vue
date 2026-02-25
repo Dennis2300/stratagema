@@ -1,9 +1,7 @@
 <template>
-  <div class="max-w-[1400px] mx-auto px-4 sm:px-6 space-y-8">
-    <NavBar />
-    <router-view />
-    <Footer />
-  </div>
+  <NavBar />
+  <router-view class="mt-20" />
+  <Footer />
   <Cookies />
   <SpeedInsights />
 </template>
