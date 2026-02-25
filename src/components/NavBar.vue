@@ -1,7 +1,7 @@
 <template>
-  <div class="drawer fixed top-0 left-0 z-50">
+  <div class="drawer fixed top-0 left-0 z-50 h-screen">
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content flex flex-col">
+    <div class="drawer-content flex flex-col m-0 p-0">
       <!-- Navbar -->
       <div class="navbar bg-base-300 w-full p-0">
         <div class="flex-none lg:hidden">
@@ -53,13 +53,13 @@
         </div>
       </div>
     </div>
-    <div class="drawer-side">
+    <div class="drawer-side top-0 left-0 h-screen">
       <label
         for="my-drawer-2"
         aria-label="close sidebar"
         class="drawer-overlay"
       ></label>
-      <ul class="menu bg-base-200 min-h-full w-48 p-4 gap-4">
+      <ul class="menu bg-base-200 min-h-full w-48 p-4 m-0 gap-4">
         <!-- Sidebar content here -->
         <template v-for="link in navLinks" :key="link.path">
           <RouterLink class="no-underline" :to="link.path">
