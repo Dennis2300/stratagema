@@ -25,7 +25,7 @@
         </div>
         <CharacterBuild :character="character" />
         <CharacterMaterials :character="character" />
-        <CharacterTeams :character="character" />
+        <CharacterTeams :teams="teams" />
       </div>
     </div>
   </template>
@@ -55,7 +55,9 @@ import CharacterNotFound from "@/components/CharacterDetail/CharacterNotFound.vu
 const route = useRoute();
 const loading = ref(null);
 const error = ref(null);
+
 const character = ref(null);
+const teams = ref(null);
 
 const CHARACTER_SELECT = `
   *,
@@ -73,6 +75,17 @@ const CHARACTER_SELECT = `
   talents:character_talent(material_talents(*), amount),
   local_specialty:character_local_specialty(local_specialty(*)),
   level_up_material:character_level_up_material(level_up_material(*), amount)
+`;
+
+const CHARACTER_TEAM_SELECT = `
+  slot,
+  team(
+    id, name, detail,
+    members:character_team(
+      slot,
+      character:characters(id, name, img_url, rarity)
+    )
+  )
 `;
 
 // To Use Later in Production
@@ -131,13 +144,27 @@ async function fetchCharacterById(characterId) {
     error.value = err.message || "Failed to load character";
   } finally {
     loading.value = false;
-    console.log(character.value);
+    // console.log(character.value);
   }
+}
+
+async function fetchCharacterTeams(characterId) {
+  const { data, error } = await supabase
+    .from("character_team")
+    .select(CHARACTER_TEAM_SELECT)
+    .eq("character", characterId);
+
+  if (error) throw error;
+  console.log(data);
+  teams.value = data.map((row) => row.team);
 }
 
 onMounted(async () => {
   const characterId = getCharacterIdFromRoute();
   if (!characterId) return;
-  await fetchCharacterById(characterId);
+  await Promise.all([
+    fetchCharacterById(characterId),
+    fetchCharacterTeams(characterId),
+  ]);
 });
 </script>
