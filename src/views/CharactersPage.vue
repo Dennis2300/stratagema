@@ -167,8 +167,8 @@
 import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import { supabase } from "./../supabaseClient.js";
 import LoadingMoreSpinner from "../components/Loadings/LoadingMoreSpinner.vue";
-import CharacterFilter from "@/components/CharacterFilter.vue";
-import CharacterNotFound from "@/components/CharacterNotFound.vue";
+import CharacterFilter from "@/components/CharacterPage/CharacterFilter.vue";
+import CharacterNotFound from "@/components/CharacterDetail/CharacterNotFound.vue";
 
 const filtering = ref(false);
 // state variables

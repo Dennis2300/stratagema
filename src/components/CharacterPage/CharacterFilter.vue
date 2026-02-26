@@ -158,7 +158,7 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref } from "vue";
-import { supabase } from "./../supabaseClient.js";
+import { supabase } from "@/supabaseClient.js";
 
 defineProps({
   characters: Object,
