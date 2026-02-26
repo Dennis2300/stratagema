@@ -1,7 +1,7 @@
 <template>
   <LoadingSpinner v-if="loading" />
   <template v-else-if="character">
-    <div class="w-[1400px] mx-auto rounded-2xl p-8 relative overflow-hidden">
+    <div class="max-w-[1400px] mx-auto rounded-2xl p-8 relative overflow-hidden">
       <CharacterSplashArt :character="character" />
       <div class="relative z-10 space-y-10">
         <CharacterBasicInfo :character="character" />
