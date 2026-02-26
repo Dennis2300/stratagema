@@ -31,7 +31,9 @@
       <div class="bg-secondary p-4 rounded-lg space-y-2">
         <h2 class="text-tertiary">Build Details</h2>
         <MarkdownRender v-if="build.details" :content="build.details" />
-        <p v-else class="text-red-500 text-center">Come back later for the build details.</p>
+        <p v-else class="text-red-500 text-center">
+          Come back later for the build details.
+        </p>
       </div>
     </template>
   </section>
@@ -50,6 +52,8 @@ function getMainStats(stats) {
 }
 
 function joinMainStats(mainStats) {
+  const slotOrder = ["sands", "goblet", "circlet"];
+
   const grouped = mainStats.reduce((acc, stat) => {
     if (!acc[stat.slot]) {
       acc[stat.slot] = [];
@@ -57,13 +61,16 @@ function joinMainStats(mainStats) {
     acc[stat.slot].push(stat.stat);
     return acc;
   }, {});
-  return Object.entries(grouped).map(([slot, statValues]) => ({
-    slot,
-    stat:
-      statValues.length >= 2
-        ? statValues.join(' <span class="text-text">or</span> ')
-        : statValues[0],
-  }));
+
+  return Object.entries(grouped)
+    .sort(([a], [b]) => slotOrder.indexOf(a) - slotOrder.indexOf(b))
+    .map(([slot, statValues]) => ({
+      slot,
+      stat:
+        statValues.length >= 2
+          ? statValues.join(' <span class="text-text">or</span> ')
+          : statValues[0],
+    }));
 }
 
 function getSubstats(stats) {
