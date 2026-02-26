@@ -57,6 +57,24 @@ const loading = ref(null);
 const error = ref(null);
 const character = ref(null);
 
+const CHARACTER_SELECT = `
+  *,
+  vision(name, img_url),
+  weapon_type(name, img_url),
+  regions:character_region(region(name)),
+  affiliations:character_affiliation(affiliation(name)),
+  voices:voice_actors(language, name, link),
+  signature_dish:signature_dish(*),
+  artifacts:character_artifact(artifact(*, two_piece_effect(name)), rank),
+  weapons:character_weapon(weapon(name, rarity, base_attack, bonus_effect_type, bonus_effect_value, img_url), rank),
+  builds:builds(character, details, title, stat:build_stat(build, slot, stat, rank)),
+  ascensions:character_ascension(material_ascension(*), amount),
+  enhancements:character_enhancement(material_enhancements(*), amount),
+  talents:character_talent(material_talents(*), amount),
+  local_specialty:character_local_specialty(local_specialty(*)),
+  level_up_material:character_level_up_material(level_up_material(*), amount)
+`;
+
 // To Use Later in Production
 function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   const now = new Date().getTime();
@@ -80,23 +98,20 @@ function cache(key, data = null, ttl = 24 * 60 * 60 * 1000) {
   }
 }
 
-const CHARACTER_SELECT = `
-  *,
-  vision(name, img_url),
-  weapon_type(name, img_url),
-  regions:character_region(region(name)),
-  affiliations:character_affiliation(affiliation(name)),
-  voices:voice_actors(language, name, link),
-  signature_dish:signature_dish(*),
-  artifacts:character_artifact(artifact(*, two_piece_effect(name)), rank),
-  weapons:character_weapon(weapon(name, rarity, base_attack, bonus_effect_type, bonus_effect_value, img_url), rank),
-  builds:builds(character, details, title, stat:build_stat(build, slot, stat, rank)),
-  ascensions:character_ascension(material_ascension(*), amount),
-  enhancements:character_enhancement(material_enhancements(*), amount),
-  talents:character_talent(material_talents(*), amount),
-  local_specialty:character_local_specialty(local_specialty(*)),
-  level_up_material:character_level_up_material(level_up_material(*), amount)
-`;
+function sortByRank(data) {
+  const byRank = (a, b) => (a.rank ?? 0) - (b.rank ?? 0);
+  if (data.artifacts) data.artifacts.sort(byRank);
+  if (data.weapons) data.weapons.sort(byRank);
+}
+
+function getCharacterIdFromRoute() {
+  const id = route.params.id;
+  if (!id) {
+    error.value = "No character ID found in route.";
+    return null;
+  }
+  return id;
+}
 
 async function fetchCharacterById(characterId) {
   loading.value = true;
@@ -118,21 +133,6 @@ async function fetchCharacterById(characterId) {
     loading.value = false;
     console.log(character.value);
   }
-}
-
-function sortByRank(data) {
-  const byRank = (a, b) => (a.rank ?? 0) - (b.rank ?? 0);
-  if (data.artifacts) data.artifacts.sort(byRank);
-  if (data.weapons) data.weapons.sort(byRank);
-}
-
-function getCharacterIdFromRoute() {
-  const id = route.params.id;
-  if (!id) {
-    error.value = "No character ID found in route.";
-    return null;
-  }
-  return id;
 }
 
 onMounted(async () => {
