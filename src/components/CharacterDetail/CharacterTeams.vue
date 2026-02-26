@@ -3,10 +3,9 @@
     <h1>Teams</h1>
     <template v-for="team in teams" :key="team.id">
       <h3>{{ team.name }}</h3>
-      <p>{{ team.detail }}</p>
       <div class="flex gap-6 items-center">
         <template v-for="member in team.members" :key="member.id">
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center gap-2">
             <div
               class="w-20 h-20 rounded-2xl overflow-hidden"
               :class="{
@@ -24,6 +23,7 @@
           </div>
         </template>
       </div>
+      <p>{{ team.detail }}</p>
     </template>
   </section>
   <section v-else>
