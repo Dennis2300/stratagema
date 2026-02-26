@@ -27,7 +27,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { supabase } from "./../supabaseClient.js";
+import { supabase } from "@/supabaseClient.js";
 
 const updates = ref([]);
 

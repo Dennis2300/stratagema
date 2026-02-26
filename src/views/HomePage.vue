@@ -9,5 +9,5 @@
 <script setup>
 import TopSection from "@/components/Home/TopSection.vue";
 import CurrentBanner from "@/components/Home/CurrentBanner.vue";
-import UpdatesSection from "@/components/UpdatesSection.vue";
+import UpdatesSection from "@/components/Home/UpdatesSection.vue";
 </script>
