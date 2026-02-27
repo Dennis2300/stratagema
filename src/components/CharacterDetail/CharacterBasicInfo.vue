@@ -43,7 +43,7 @@
       </div>
     </section>
     <section class="space-y-2">
-      <h2>Regions</h2>
+      <h2>Region(s)</h2>
       <div class="flex flex-wrap gap-2">
         <template v-for="a in character.regions" :key="a.region.name">
           <p class="badge badge-primary">{{ a.region.name }}</p>
