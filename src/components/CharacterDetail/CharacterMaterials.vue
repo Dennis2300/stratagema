@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2 class="divider text-quaternary">Materials</h2>
+    <h1 class="divider text-quaternary text-2xl">Materials</h1>
     <p class="my-4 text-center text-gray-500">
       This is all the materials needed for Character level 90 and max out all
       Talents to level 10
