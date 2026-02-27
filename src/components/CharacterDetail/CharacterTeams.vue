@@ -1,15 +1,22 @@
 <template>
-  <section v-if="teams.length > 0">
-    <h2 class="divider text-quaternary pb-4">Teams</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <section v-if="teams?.length > 0">
+    <h1 class="divider text-quaternary text-2xl">{{ character.name }} Teams</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 text-center gap-8 mt-6">
       <template v-for="team in teams">
-        <div>
-          <h3 class="text-center mb-2">{{ team.name }}</h3>
-          <div class="flex gap-10 justify-center items-center">
-            <template v-for="member in team.members" :key="member.id">
-              <div class="flex flex-col justify-center items-center">
+        <div class="bg-secondary pb-4 rounded-xl">
+          <h2 class="my-3 text-tertiary">{{ team.name }}</h2>
+          <div class="flex justify-center gap-8">
+            <template v-for="member in team.members">
+              <RouterLink
+                class="no-underline text-text space-y-1 hover:text-tertiary transition"
+                :class="{
+                  'pointer-events-none': member.character.id === character.id,
+                }"
+                :to="`/characters/${member.character.id}`"
+                target="_blank"
+              >
                 <div
-                  class="w-20 h-20 rounded-2xl overflow-hidden"
+                  class="w-24 h-24 rounded-xl overflow-hidden"
                   :class="{
                     'rarity-5': member.character.rarity === 5,
                     'rarity-4': member.character.rarity === 4,
@@ -21,18 +28,13 @@
                     :alt="member.character.name"
                   />
                 </div>
-                <p>{{ member.character.name }}</p>
-              </div>
+                <h4 class="w-24 truncate">{{ member.character.name }}</h4>
+              </RouterLink>
             </template>
           </div>
         </div>
       </template>
     </div>
-  </section>
-
-  <section v-else>
-    <h1>Teams</h1>
-    <p>No teams found.</p>
   </section>
 </template>
 
@@ -44,5 +46,6 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  character: Object,
 });
 </script>
