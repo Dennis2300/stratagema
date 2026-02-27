@@ -24,8 +24,8 @@
           />
         </div>
         <CharacterBuild :character="character" />
+        <CharacterTeams :teams="teams" :character="character" />
         <CharacterMaterials :character="character" />
-        <CharacterTeams :teams="teams" />
       </div>
     </div>
   </template>
@@ -117,6 +117,13 @@ function sortByRank(data) {
   if (data.weapons) data.weapons.sort(byRank);
 }
 
+function sortTeamMembers(data) {
+  return data.map((row) => {
+    row.team.members.sort((a, b) => a.slot - b.slot);
+    return row.team;
+  });
+}
+
 function getCharacterIdFromRoute() {
   const id = route.params.id;
   if (!id) {
@@ -149,14 +156,20 @@ async function fetchCharacterById(characterId) {
 }
 
 async function fetchCharacterTeams(characterId) {
-  const { data, error } = await supabase
-    .from("character_team")
-    .select(CHARACTER_TEAM_SELECT)
-    .eq("character", characterId);
-
-  if (error) throw error;
-  console.log(data);
-  teams.value = data.map((row) => row.team);
+  loading.value = true;
+  try {
+    const { data, error } = await supabase
+      .from("character_team")
+      .select(CHARACTER_TEAM_SELECT)
+      .eq("character", characterId)
+      .eq("is_primary", true);
+    if (error) throw error;
+    teams.value = sortTeamMembers(data);
+  } catch (err) {
+    error.value = err.message || "Failed to load character teams";
+  } finally {
+    loading.value = false;
+  }
 }
 
 onMounted(async () => {
