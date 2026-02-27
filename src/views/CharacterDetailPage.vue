@@ -156,20 +156,13 @@ async function fetchCharacterById(characterId) {
 }
 
 async function fetchCharacterTeams(characterId) {
-  loading.value = true;
-  try {
-    const { data, error } = await supabase
-      .from("character_team")
-      .select(CHARACTER_TEAM_SELECT)
-      .eq("character", characterId)
-      .eq("is_primary", true);
-    if (error) throw error;
-    teams.value = sortTeamMembers(data);
-  } catch (err) {
-    error.value = err.message || "Failed to load character teams";
-  } finally {
-    loading.value = false;
-  }
+  const { data, error } = await supabase
+    .from("character_team")
+    .select(CHARACTER_TEAM_SELECT)
+    .eq("character", characterId)
+    .eq("is_primary", true);
+  if (error) throw error;
+  teams.value = sortTeamMembers(data);
 }
 
 onMounted(async () => {
