@@ -5,7 +5,7 @@
       <template v-for="team in teams">
         <div class="bg-secondary pb-4 rounded-xl">
           <h2 class="my-3 text-tertiary">{{ team.name }}</h2>
-          <div class="flex justify-center gap-8">
+          <div class="grid grid-cols-2 md:grid-cols-4 justify-items-center">
             <template v-for="member in team.members">
               <RouterLink
                 class="no-underline text-text space-y-1 hover:text-tertiary transition"
