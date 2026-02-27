@@ -32,7 +32,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { supabase } from "../supabaseClient";
+import { supabase } from "@/supabaseClient.js";
 import { useRouter } from "vue-router";
 import LoadingSpinner from "@/components/Loadings/LoadingSpinner.vue";
 

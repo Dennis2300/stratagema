@@ -20,7 +20,9 @@
         <div class="bg-primary p-4 rounded-xl">
           <div class="flex flex-row justify-between">
             <h3>Give Update Message</h3>
-            <button class="btn btn-primary px-4 tracking-wider">View current messages</button>
+            <button class="btn btn-primary px-4 tracking-wider">
+              View current messages
+            </button>
           </div>
           <textarea class="textarea w-full h-[200px] mt-4"></textarea>
         </div>
@@ -37,7 +39,7 @@
 <script setup>
 import { supabase } from "./../supabaseClient";
 import { onMounted, ref } from "vue";
-import CreateAccount from "@/components/CreateAccount.vue";
+import CreateAccount from "@/components/Login/CreateAccount.vue";
 
 const account = ref();
 
