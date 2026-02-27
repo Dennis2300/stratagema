@@ -49,7 +49,7 @@
               loading="lazy"
             />
             <h1
-              class="relative text-xl sm:text-3xl lg:text-4xl font-acme tracking-wide after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0 after:bg-current after:transition-all after:duration-300 group-hover:after:w-full"
+              class="relative z-40 text-xl md:text-4xl font-acme tracking-wide after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-0 after:bg-current after:transition-all after:duration-300 group-hover:after:w-full"
             >
               {{ character.name }}
             </h1>
