@@ -3,31 +3,28 @@
     <template v-for="link in navLinks" :key="link.path">
       <RouterLink :to="link.path" class="no-underline text-text group">
         <div
-          class="relative space-y-3 bg-secondary p-6 rounded-xl overflow-hidden transition-all duration-500 hover:shadow-2xl"
+          class="bg-secondary p-6 flex flex-col items-center space-y-3 rounded-xl"
         >
-          <div class="w-[300px] h-[300px] overflow-hidden rounded-lg">
+          <div class="relative w-[300px] h-[300px] rounded-xl overflow-hidden">
             <img
-              class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+              class="w-full h-full object-cover object-center rounded-xl transition-transform duration-500 group-hover:scale-105"
               :src="link.img"
               alt=""
             />
+            <div
+              class="absolute inset-0 bg-black/80 flex flex-col justify-center items-center text-center px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            >
+              <h3 class="text-white text-xl font-semibold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                {{ link.alt_name }}
+              </h3>
+              <p class="text-white text-sm opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700">
+                {{ link.text }}
+              </p>
+            </div>
           </div>
-          <h2 class="text-center">
+          <h2 class="group-hover:text-tertiary transition-colors duration-300">
             {{ link.name }}
           </h2>
-          <div
-            class="absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col justify-center items-center text-center p-6 space-y-4 opacity-0 translate-y-4 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0 cursor-pointer"
-          >
-            <h2 class="text-white text-xl font-semibold cursor-pointer">
-              {{ link.alt_name }}
-            </h2>
-            <p
-              class="text-white/90 text-sm leading-relaxed max-w-xs cursor-pointer"
-            >
-              {{ link.text }}
-            </p>
-            <p class="badge badge-success cursor-pointer">Click here!</p>
-          </div>
         </div>
       </RouterLink>
     </template>
