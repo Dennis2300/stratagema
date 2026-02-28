@@ -14,15 +14,15 @@
             <div
               class="absolute inset-0 bg-black/80 flex flex-col justify-center items-center text-center px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             >
-              <h3 class="text-white text-xl font-semibold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+              <h3 class="text-white text-xl font-semibold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 cursor-pointer">
                 {{ link.alt_name }}
               </h3>
-              <p class="text-white text-sm opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700">
+              <p class="text-white text-sm opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700 cursor-pointer">
                 {{ link.text }}
               </p>
             </div>
           </div>
-          <h2 class="group-hover:text-tertiary transition-colors duration-300">
+          <h2 class="group-hover:text-tertiary transition-colors duration-300 cursor-pointer">
             {{ link.name }}
           </h2>
         </div>
