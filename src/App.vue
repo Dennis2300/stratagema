@@ -1,6 +1,8 @@
 <template>
   <NavBar />
-  <router-view class="mt-20" />
+  <main class="pt-28">
+    <router-view />
+  </main>
   <Footer />
   <Cookies />
   <SpeedInsights />

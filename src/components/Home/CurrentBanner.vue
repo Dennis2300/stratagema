@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full md:w-2/3 p-4 sm:p-6 lg:p-8 rounded-2xl">
+  <section class="w-full md:w-2/3 rounded-2xl">
     <h1 class="divider w-full pb-6 text-quaternary">Current Banner</h1>
     <div class="text-center" v-if="loading">
       <span class="loading loading-spinner loading-xl"></span>

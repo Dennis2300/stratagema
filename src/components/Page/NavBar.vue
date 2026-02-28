@@ -1,8 +1,7 @@
 <template>
-  <div class="drawer fixed top-0 left-0 z-50">
+  <nav class="drawer fixed top-0 left-0 z-50">
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
-      <!-- Navbar -->
       <div class="navbar bg-base-300 w-full p-0">
         <div class="flex-none lg:hidden">
           <label
@@ -35,7 +34,6 @@
         </div>
         <div class="hidden flex-none lg:block px-6">
           <ul class="menu menu-horizontal flex gap-10">
-            <!-- Navbar menu content here -->
             <template v-for="link in navLinks" :key="link.path">
               <RouterLink class="relative no-underline group" :to="link.path">
                 <h2
@@ -60,7 +58,6 @@
         class="drawer-overlay"
       ></label>
       <ul class="menu bg-base-200 min-h-full w-48 p-4 m-0 gap-4">
-        <!-- Sidebar content here -->
         <template v-for="link in navLinks" :key="link.path">
           <RouterLink class="no-underline" :to="link.path">
             <h2 class="cursor-pointer text-text">
@@ -70,7 +67,7 @@
         </template>
       </ul>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script setup>

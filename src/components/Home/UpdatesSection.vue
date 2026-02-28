@@ -1,5 +1,5 @@
 <template>
-  <section class="md:w-2/3 p-4 sm:p-6 lg:p-8 rounded-2xl">
+  <section class="md:w-2/3 rounded-2xl">
     <h2 class="divider w-full pb-6 text-quaternary">Notice Board</h2>
     <div class="flex flex-col gap-3">
       <template v-for="update in updates">
