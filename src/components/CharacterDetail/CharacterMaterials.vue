@@ -91,7 +91,7 @@
                 alt=""
               />
               <div class="flex flex-col gap-2">
-                <p>
+                <p class="w-56 truncate">
                   {{ a.level_up_material.name }}
                   <span v-if="a.level_up_material.is_new" class="text-warning"
                     >(NEW)</span
