@@ -3,7 +3,7 @@
     <template v-for="link in navLinks" :key="link.path">
       <RouterLink :to="link.path" class="no-underline text-text group">
         <div
-          class="relative space-y-3 bg-primary p-6 rounded-xl overflow-hidden transition-all duration-500 hover:shadow-2xl"
+          class="relative space-y-3 bg-secondary p-6 rounded-xl overflow-hidden transition-all duration-500 hover:shadow-2xl"
         >
           <div class="w-[300px] h-[300px] overflow-hidden rounded-lg">
             <img
