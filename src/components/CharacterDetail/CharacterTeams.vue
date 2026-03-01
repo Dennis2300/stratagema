@@ -4,7 +4,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 text-center gap-8 mt-6">
       <template v-for="team in teams">
         <div class="bg-secondary pb-4 rounded-xl">
-          <h2 class="my-3 text-tertiary">{{ team.name }}</h2>
+          <h2 class="my-3">{{ team.name }}</h2>
           <div class="grid grid-cols-2 md:grid-cols-4 justify-items-center">
             <template v-for="member in team.members">
               <RouterLink

@@ -2,7 +2,7 @@
   <nav class="drawer fixed top-0 left-0 z-50">
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
-      <div class="navbar bg-base-300 w-full p-0">
+      <div class="navbar bg-primary w-full p-0">
         <div class="flex-none lg:hidden">
           <label
             for="my-drawer-2"
@@ -24,15 +24,17 @@
             </svg>
           </label>
         </div>
-        <div class="mx-2 flex-1 px-2 flex gap-2">
-          <img
-            class="w-12"
-            src="/src/assets/images/icons/webIcon.webp"
-            alt=""
-          />
-          <h1>Stratagema</h1>
+        <div class="flex-1">
+          <RouterLink to="/" class="flex gap-2 no-underline text-text pl-4 cursor-pointer w-fit">
+            <img
+              class="w-12"
+              src="/src/assets/images/icons/webIcon.webp"
+              alt=""
+            />
+            <h1 class="cursor-pointer">Stratagema</h1>
+          </RouterLink>
         </div>
-        <div class="hidden flex-none lg:block px-6">
+        <div class="hidden flex-none lg:block pr-4">
           <ul class="menu menu-horizontal flex gap-10">
             <template v-for="link in navLinks" :key="link.path">
               <RouterLink class="relative no-underline group" :to="link.path">
