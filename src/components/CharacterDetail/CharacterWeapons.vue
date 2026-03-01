@@ -34,7 +34,7 @@
               <span
                 class="badge badge-secondary badge-outline text-xs flex items-center gap-1"
               >
-                ⚔ Base ATK: {{ a.weapon.base_attack }}
+                Base ATK: {{ a.weapon.base_attack }}
               </span>
               <span class="badge badge-info badge-outline text-xs">
                 {{ a.weapon.bonus_effect_type }}
