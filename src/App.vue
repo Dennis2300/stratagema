@@ -1,6 +1,6 @@
 <template>
   <NavBar />
-  <main class="pt-28 md:pt-20">
+  <main class="pt-28 md:pt-20 min-h-screen">
     <router-view />
   </main>
   <Footer />
