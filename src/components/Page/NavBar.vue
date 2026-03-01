@@ -25,13 +25,13 @@
           </label>
         </div>
         <div class="flex-1">
-          <RouterLink to="/" class="flex gap-2 no-underline text-text pl-4 cursor-pointer w-fit">
+          <RouterLink to="/" class="flex gap-2 no-underline text-text pl-4 cursor-pointer w-fit items-center">
             <img
               class="w-12"
               src="/src/assets/images/icons/webIcon.webp"
               alt=""
             />
-            <h1 class="cursor-pointer">Stratagema</h1>
+            <h1 class="cursor-pointer font-acme">Stratagema</h1>
           </RouterLink>
         </div>
         <div class="hidden flex-none lg:block pr-4">

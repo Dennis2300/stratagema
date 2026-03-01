@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        acme: ["var(--font-acme)", "sans-serif"],
+        acme: ["Acme", "sans-serif"],
       },
       colors: {
         primary: "var(--primary)",

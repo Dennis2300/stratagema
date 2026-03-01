@@ -1,9 +1,9 @@
 <template>
   <section class="md:w-2/3 rounded-2xl">
-    <h2 class="divider w-full pb-6 text-quaternary">Notice Board</h2>
+    <h1 class="divider w-full pb-6 text-quaternary">Notice Board</h1>
     <div class="flex flex-col gap-3">
       <template v-for="update in updates">
-        <div class="bg-white/5 rounded-xl p-5">
+        <div class="bg-white/5 rounded-xl p-4">
           <div
             class="flex flex-col md:flex-row items-start justify-between gap-4 mb-2"
           >
