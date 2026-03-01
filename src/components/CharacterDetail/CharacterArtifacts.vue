@@ -40,7 +40,7 @@
                 {{ a.first.artifact.name }}
               </p>
               <div class="flex items-center gap-2 flex-wrap">
-                <span class="badge badge-warning badge-outline text-xs">
+                <span class="badge badge-warning badge-soft text-xs">
                   {{ a.first.artifact.two_piece_effect.name }}
                 </span>
                 <button

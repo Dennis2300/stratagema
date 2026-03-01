@@ -32,11 +32,11 @@
             </p>
             <div class="flex flex-wrap gap-2">
               <span
-                class="badge badge-secondary badge-outline text-xs flex items-center gap-1"
+                class="badge badge-secondary badge-soft text-xs flex items-center gap-1"
               >
                 Base ATK: {{ a.weapon.base_attack }}
               </span>
-              <span class="badge badge-info badge-outline text-xs">
+              <span class="badge badge-info badge-soft text-xs">
                 {{ a.weapon.bonus_effect_type }}
                 {{ a.weapon.bonus_effect_value }}
               </span>
