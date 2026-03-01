@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center items-center gap-16 pb-20">
+  <div class="flex flex-col justify-center items-center gap-16 py-12">
     <TopSection />
     <CurrentBanner />
     <UpdatesSection />
