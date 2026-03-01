@@ -1,16 +1,23 @@
 <template>
-  <section class="md:w-1/2">
-    <h2 class="text-xl md:text-2xl font-semibold text-quaternary">
+  <section class="md:w-1/2 space-y-6">
+    <h2 class="text-2xl md:text-3xl font-bold text-quaternary tracking-tight">
       Best Weapons
     </h2>
-    <div class="grid grid-cols-1 md:gap-4">
+    <div class="space-y-8">
       <template v-for="a in character.weapons" :key="a.weapon.name">
-        <div class="flex items-center gap-3 md:backdrop-blur-xl p-4 rounded-xl">
+        <div
+          class="relative flex gap-4 p-5 rounded-2xl bg-base-200/70 backdrop-blur-xl border border-base-300/50 shadow-md hover:shadow-xl hover:scale-[1.01] transition-all duration-300"
+        >
           <div
-            class="w-16 h-16 rarity-5 rounded-xl overflow-hidden flex-shrink-0"
+            class="absolute -top-3 -right-3 badge badge-primary badge-lg shadow-lg"
+          >
+            #{{ a.rank }}
+          </div>
+          <div
+            class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 ring-2"
             :class="{
-              'rarity-5': a.weapon.rarity === 5,
-              'rarity-4': a.weapon.rarity === 4,
+              'rarity-5 ring-warning/50': a.weapon.rarity === 5,
+              'rarity-4 ring-secondary/50': a.weapon.rarity === 4,
             }"
           >
             <img
@@ -19,36 +26,22 @@
               :alt="a.weapon.name"
             />
           </div>
-          <div class="flex flex-col h-full justify-around flex-1 min-w-0">
-            <p class="font-medium text-sm md:text-base truncate">
+          <div class="flex flex-col justify-center flex-1 min-w-0 space-y-2">
+            <p class="font-semibold text-base truncate">
               {{ a.weapon.name }}
             </p>
-            <div class="md:flex md:gap-2">
+            <div class="flex flex-wrap gap-2">
               <span
-                class="badge badge-soft badge-secondary hidden md:block md:flex"
+                class="badge badge-secondary badge-outline text-xs flex items-center gap-1"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"
-                  />
-                </svg>
-                Base Attack:
-                {{ a.weapon.base_attack }}
+                ⚔ Base ATK: {{ a.weapon.base_attack }}
               </span>
-              <span class="badge badge-soft badge-info">
+              <span class="badge badge-info badge-outline text-xs">
                 {{ a.weapon.bonus_effect_type }}
                 {{ a.weapon.bonus_effect_value }}
               </span>
             </div>
           </div>
-          <p class="badge badge-primary">
-            {{ a.rank }}
-          </p>
         </div>
       </template>
     </div>
