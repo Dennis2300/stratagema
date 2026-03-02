@@ -14,9 +14,7 @@
             #{{ a.rank }}
           </div>
           <div class="flex flex-col gap-3 flex-shrink-0">
-            <div
-              class="w-16 h-16 rounded-xl overflow-hidden rarity-5"
-            >
+            <div class="w-16 h-16 rounded-xl overflow-hidden rarity-5">
               <img
                 class="w-full h-full object-cover"
                 :src="a.first.artifact.flower_img_url"
@@ -40,8 +38,12 @@
                 {{ a.first.artifact.name }}
               </p>
               <div class="flex items-center gap-2 flex-wrap">
-                <span class="badge badge-warning badge-soft text-xs">
-                  {{ a.first.artifact.two_piece_effect.name }}
+                <span
+                  class="badge badge-warning badge-soft text-xs justify-start max-w-56"
+                >
+                  <span class="truncate">
+                    {{ a.first.artifact.two_piece_effect.name }}
+                  </span>
                 </span>
                 <button
                   v-if="!a.combined"
@@ -56,7 +58,7 @@
               <p class="font-semibold text-base truncate">
                 {{ a.second.artifact.name }}
               </p>
-              <span class="badge badge-warning badge-outline text-xs">
+              <span class="badge badge-warning badge-soft text-xs">
                 {{ a.second.artifact.two_piece_effect.name }}
               </span>
             </div>
@@ -87,9 +89,7 @@
                 :key="piece.key"
                 class="flex justify-center"
               >
-                <div
-                  class="w-16 h-16 rounded-xl overflow-hidden rarity-5"
-                >
+                <div class="w-16 h-16 rounded-xl overflow-hidden rarity-5">
                   <img
                     class="w-full h-full object-cover"
                     :src="selectedArtifact[piece.key]"
