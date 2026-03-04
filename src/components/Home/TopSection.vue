@@ -9,20 +9,30 @@
             <img
               class="w-full h-full object-cover object-center rounded-xl transition-transform duration-500 group-hover:scale-105"
               :src="link.img"
-              alt=""
+              :alt="link.alt_name"
+              width="300"
+              height="300"
+              fetchpriority="high"
+              decoding="async"
             />
             <div
               class="absolute inset-0 bg-black/80 flex flex-col justify-center items-center text-center px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
             >
-              <h3 class="text-white text-xl font-semibold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 cursor-pointer">
+              <h3
+                class="text-white text-xl font-semibold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 cursor-pointer"
+              >
                 {{ link.alt_name }}
               </h3>
-              <p class="text-white text-sm opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700 cursor-pointer">
+              <p
+                class="text-white text-sm opacity-90 transform translate-y-4 group-hover:translate-y-0 transition-all duration-700 cursor-pointer"
+              >
                 {{ link.text }}
               </p>
             </div>
           </div>
-          <h2 class="group-hover:text-tertiary transition-colors duration-300 cursor-pointer">
+          <h2
+            class="group-hover:text-tertiary transition-colors duration-300 cursor-pointer"
+          >
             {{ link.name }}
           </h2>
         </div>
@@ -34,26 +44,33 @@
 <script setup>
 import { RouterLink } from "vue-router";
 
+const SUPABASE_STORAGE =
+  "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage";
+
+function getImage(filename) {
+  return `${SUPABASE_STORAGE}/${filename}`;
+}
+
 const navLinks = [
   {
     name: "Characters",
     alt_name: "Characters Archive",
     path: "/characters",
-    img: "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/twins.webp",
+    img: getImage("twins.webp"),
     text: "Explore all playable characters, check out their builds, and find the perfect team setup for your playstyle.",
   },
   {
     name: "Weapons",
     alt_name: "Weapons Archive",
     path: "/weapons",
-    img: "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/skirk.webp",
+    img: getImage("skirk.webp"),
     text: "Browse every weapon in the game, compare stats, and discover which ones truly power up your characters.",
   },
   {
     name: "Artifacts",
     alt_name: "Artifacts Archive",
     path: "/artifacts",
-    img: "https://wfhyslxivzmdgbnhbnjg.supabase.co/storage/v1/object/public/StratagemaStorage/chiori.webp",
+    img: getImage("chiori.webp"),
     text: "Dive into artifact sets, explore their bonuses, and optimize your stats to maximize your damage.",
   },
 ];
