@@ -10,7 +10,7 @@ const routes = [
     component: () => import("./views/PrivacyPolicy.vue"),
   },
   { path: "/teams", component: () => import("./views/TeamsPage.vue") },
-  { path: "/login", component: () => import("./views/LoginPage.vue") },
+  // { path: "/login", component: () => import("./views/LoginPage.vue") },
   {
     path: "/unauthorized",
     component: () => import("./views/UnauthorizedPage.vue"),
