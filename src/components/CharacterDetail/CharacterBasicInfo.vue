@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="flex flex-col items-center md:items-start">
-          <h1 class="my-2">{{ character.name }}</h1>
+          <h1 class="my-2 font-acme text-5xl">{{ character.name }}</h1>
           <div class="flex flex-wrap justify-center gap-2">
             <p class="badge badge-primary">{{ character.vision.name }}</p>
             <p class="badge badge-primary">{{ character.weapon_type.name }}</p>
