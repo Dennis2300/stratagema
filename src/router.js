@@ -31,11 +31,13 @@ const routes = [
     component: () => import("./views/WeaponDetailPage.vue"),
   },
   { path: "/artifacts", component: () => import("./views/ArtifactsPage.vue") },
-  {
-    path: "/contribute",
-    name: "ContributePage",
-    component: () => import("./views/ContributePage.vue"),
-  },
+  { path: "/promo-codes", component: () => import("./views/PromoCodesPage.vue") },
+
+  // {
+  //   path: "/contribute",
+  //   name: "ContributePage",
+  //   component: () => import("./views/ContributePage.vue"),
+  // },
   {
     path: "/admin",
     component: () => import("./views/AdminPage.vue"),
