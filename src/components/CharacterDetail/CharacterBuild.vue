@@ -6,7 +6,7 @@
         <div class="md:w-1/2 space-y-4">
           <h2 class="text-tertiary">Main Stats</h2>
           <div
-            class="flex justify-between items-center bg-secondary py-3 px-4 rounded-lg"
+            class="flex justify-between items-center bg-secondary p-4 rounded-lg"
             v-for="stat in getMainStats(build.stat)"
             :key="stat.slot"
           >
@@ -17,13 +17,13 @@
         <div class="md:w-1/2 space-y-4">
           <h2 class="text-tertiary">Substats</h2>
           <div
-            class="flex justify-between items-center bg-secondary py-2 px-4 rounded-lg"
+            class="flex justify-between items-center bg-secondary p-4 rounded-lg"
             v-for="stat in getSubstats(build.stat)"
             :key="stat.slot"
           >
             <span class="text-warning">{{ stat.stat }}</span>
-            <p class="badge badge-primary">
-              {{ stat.rank }}
+            <p>
+              #{{ stat.rank }}
             </p>
           </div>
         </div>
