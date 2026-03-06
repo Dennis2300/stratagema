@@ -1,5 +1,8 @@
 <template>
-  <nav class="drawer fixed top-0 left-0 z-50">
+  <nav
+    class="drawer fixed top-0 left-0 z-50 w-full transition-transform duration-300"
+    :class="{ '-translate-y-full': isHidden }"
+  >
     <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
       <div class="navbar bg-primary w-full p-0">
@@ -116,6 +119,8 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from "vue";
+
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Characters", path: "/characters" },
@@ -127,4 +132,18 @@ const moreNavLinks = [
   { name: "Codes", path: "/promo-codes" },
   { name: "Patreon", path: "/patreon" },
 ];
+
+const isHidden = ref(false);
+let lastScrollY = 0;
+
+function handleScroll() {
+  const currentScrollY = window.scrollY;
+  isHidden.value = currentScrollY > lastScrollY && currentScrollY > 80;
+  lastScrollY = currentScrollY;
+}
+
+onMounted(() =>
+  window.addEventListener("scroll", handleScroll, { passive: true }),
+);
+onUnmounted(() => window.removeEventListener("scroll", handleScroll));
 </script>
